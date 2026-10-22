@@ -27,7 +27,9 @@ import { join, resolve } from 'node:path';
 const root = resolve(import.meta.dirname, '..');
 const args = process.argv.slice(2);
 const flag = (f) => args.includes(f);
-const url = flag('--url') ? String(args[args.indexOf('--url') + 1]).replace(/\/?$/, '/') : null;
+// Pages hands the workflow an http:// address until "Enforce HTTPS" is ticked, though it serves the page over
+// https: the canonical, link-preview and sitemap addresses always say https (a local address keeps http)
+const url = flag('--url') ? String(args[args.indexOf('--url') + 1]).replace(/\/?$/, '/').replace(/^http:\/\/(?!(localhost|127\.0\.0\.1|\[::1\])[:/])/, 'https://') : null;
 if (url !== null && !/^https?:\/\/[^/]+\//.test(url)) { console.error('--url needs a full address: --url https://owner.github.io/repo/'); process.exit(2); }
 const outArg = args.find((a, i) => !a.startsWith('--') && args[i - 1] !== '--url');
 if (!outArg && !flag('--page')) { console.error('node docs/build.mjs <out folder> [--url https://…/] [--no-sites]   or   node docs/build.mjs --page'); process.exit(2); }
