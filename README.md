@@ -19,42 +19,47 @@
   <sub>How it works, six examples, the film and the install</sub>
 </p>
 
-**Answer a few multiple-choice questions. Your agent builds a finished website, checks it in a real browser at
-phone and desktop size, and puts it online.**
+**Answer a few multiple-choice questions and your agent builds the website. It opens the site in a real browser to
+check it at phone and desktop size, and puts it online when you say yes.**
 
-One shot: you answer once, it does the rest.
+You answer once, hence the name.
 
-One skill, start to live site. No hunting for design skills, checkers or deploy tools.
+I wanted one skill that goes all the way from the first question to a live site, without hunting for separate design
+skills, checkers and deploy tools.
 
-1. **Made for people who aren't designers, all the way to a live address.** Multiple-choice questions anyone can
-   answer, three ideas drawn with your own name to pick from (one is always the classic), then it publishes the
-   site and checks it live.
-2. **Ready to launch, not just good-looking.** Before it hands over, it checks what going live needs: link
-   previews, dead links, keyboard and screen-reader basics, speed, motion filmed over time, and the legal pages a
-   German business needs. It fixes things until the audit says "Ready to ship".
-3. **Easy to keep up to date.** Hours, prices and events live in one place; "we're closed on the 24th" is one
-   sentence to your agent, and every change is saved.
+1. **For people who aren't designers, from the first question to the live site.** You don't need design words for
+   the questions. Once you've answered, it draws a few ideas using your own name, so you can point at one instead of
+   describing it, and one of them is always a classic layout. At the end it publishes the site and checks the live
+   copy.
+2. **Checked before it goes live.** There's an audit at the end, and the run doesn't stop until it passes. The audit
+   looks at the link previews, tries every link, runs axe-core's accessibility rules and measures how much a first
+   visit downloads. I also had it film the motion, because something that jumps only shows up over a few seconds. A
+   German business gets an Impressum and a privacy page as well. Whatever fails gets fixed, and the audit runs again
+   until it says "Ready to ship".
+3. **Easy to keep up to date.** Opening hours, prices and events sit in one file. Say you're closing on Christmas
+   Eve: you tell your agent "We're closed on the 24th" and it takes care of it. Each change is saved, so you can
+   undo it later.
 
-An agent skill, built and tested in Claude Code. It uses the open [Agent Skills](https://agentskills.io) format,
-so Codex, Cursor and other agents can load it too.
+It's an agent skill. I build and test it in Claude Code, and since it uses the open
+[Agent Skills](https://agentskills.io) format, Codex, Cursor and other agents can load it too.
 
 ![Three example sites loading, each with the interview answers that made it in its title bar](docs/media/hero.gif)
 
-<sub>Three runs, three sites. The answers that made each one are in its title bar. The businesses are made up.</sub>
+<sub>Each site came from one run, with the answers that made it in its title bar. The businesses are made up.</sub>
 
 ## Try it
 
-1. Install it: `npx skills add Barabosik/one-shot-site -a claude-code` (`-a codex` or `-a cursor` for those;
+1. Install it: `npx skills add Barabosik/one-shot-site -a claude-code` (`-a codex` or `-a cursor` for those, or see
    [other ways](#install))
 2. Open your agent in an empty folder.
 3. Say **"make me a website"**.
 
-It asks six or seven multiple-choice questions, then for any text and photos you have. It shows you three ideas,
-then three first screens, to pick from, builds the whole site, checks it in a browser at phone and desktop size,
-and puts it online where you choose. You never need to know a hex code, a font name or a framework.
+First come six or seven multiple-choice questions, and then it asks for any text and photos you have. You pick from
+three ideas and then from three first screens. After that it builds the whole site, checks it in a browser at phone
+and desktop size, and puts it online wherever you choose. At no point do you need to know a hex code or a font name.
 
-A whole site takes up to two hours of agent time, often under one. After that, say what you want in your own
-words:
+A whole site takes up to two hours of agent time, and often less than one. After that you can ask for changes in
+your own words, for example:
 
 - *"make it calmer"*
 - *"another idea for the menu"*
@@ -64,26 +69,27 @@ words:
 
 ## What you get
 
-- A fast static site that's yours: plain HTML, CSS and JavaScript, no framework, nothing to pay for every month.
-- Calm by default: a light ground, your colour on the buttons rather than everywhere, and no tricks on your name.
-  Bold and dark looks come when you pick them.
-- Real pictures first: your own, free photos you may use (with the credits right), or old pictures of your town.
-  Drawings only when there are none, or when you'd rather have none.
-- Checked before it ships: phone layout, contrast (on photos too), accessibility, link previews, search, speed and
-  dead links.
-- Put online on GitHub Pages, or handed over as a folder: those two are what the tests cover. It also supports
-  Vercel, Netlify, Cloudflare and your own domain.
-- Like another site? Give it the link. It measures the colours, type, spacing and motion, and takes the feel, never
-  the content.
-- Motion that's checked: it films the page loading and scrolling, and catches jumps and endless loops.
-- Change things by pointing: screenshots come numbered, so "make 2a bigger" is enough.
-- Ready for Google Maps. An Impressum and a privacy page to fill in when you say the business is in Germany or
-  Austria.
+- It makes a static site of plain HTML, CSS and JavaScript with no framework. The files are yours, and nothing costs
+  money each month.
+- By default the look is calm. The background stays light, your colour goes on the buttons rather than everywhere,
+  and your name doesn't get effects. If you pick Bold or Night, you get those looks instead.
+- It uses your own photos where it can. Otherwise it looks for free ones you're allowed to use and credits them
+  properly, or finds old pictures of your town. It only draws when nothing usable turns up or you don't want photos.
+- Before anything ships it checks the phone layout, contrast (on photos too), accessibility, link previews, search,
+  speed and dead links.
+- The tests cover two ways to hand the site over, publishing to GitHub Pages or giving you the folder. It can also
+  publish to Vercel, Netlify or Cloudflare, or use your own domain.
+- Give it the link to a site you like and it measures the colours, type, spacing and motion there. It copies how
+  that site feels and none of its content.
+- Motion gets filmed while the page loads and scrolls, which is how jumps and endless loops get caught.
+- The screenshots it shows you are numbered, so "make 2a bigger" is enough to change one part.
+- Search engines and Google Maps get the address and opening hours in a form they can read. If you say the business
+  is in Germany or Austria, you also get an Impressum and a privacy page to fill in.
 
 ## Made with it
 
-Six runs, six made-up clients. Each started from the answers under its picture and a few lines about the business;
-each picture opens the site live.
+These sites came from six runs for made-up clients. A run started from the answers under the picture plus a few
+lines about the business. Click a picture to open that site live.
 
 <!-- The pictures open the examples at https://nikita-andreiev.com/one-shot-site/<name>/, where docs/build.mjs
      puts them. If the project page moves, that address is the one string to replace, here and in examples/. -->
@@ -115,23 +121,23 @@ each picture opens the site live.
   </tr>
 </table>
 
-[examples/](examples) has every answer, the phone views, the brief, the full source, and the small fixes made after
-each run.
+In [examples/](examples) there's every answer, the phone views, the brief and the full source, plus the small fixes
+made after the runs.
 
 ## Already have a site?
 
-Say *"Redesign my site"* and give the link. It reads the old site first: the text of every page, your photos,
-opening hours and contact details, and a picture of each page. It asks only about the look, and sends back the
-facts it found for you to confirm in one go. The new site keeps all of it, or the brief says why something goes,
-and keeps what people know you by: the name, the logo, a colour. At the end you see each old page next to the new
-one, at desktop and phone size. This is for a site that is yours; a site you only like gives its feel, never its
-words or photos.
+Say *"Redesign my site"* and give the link. It reads the old site first, with the text of every page, your photos,
+opening hours and contact details, and takes a picture of each page. It asks only about the look, and sends back the
+facts it found for you to confirm in one go. The new site keeps all of it, or the brief says why something goes, and
+it keeps what people know you by, such as the name, the logo or a colour. At the end you see each old page next to
+the new one, at desktop and phone size. Use this for a site that is yours. A site you only like gives its feel,
+never its words or photos.
 
 | Before | After |
 |---|---|
 | <a href="examples/fahrrad-hollerbach"><img src="examples/fahrrad-hollerbach/before-desktop.jpg" width="400" alt="A made-up bike workshop's site from 2008: a yellow menu column, a Comic Sans banner"></a> | <a href="https://nikita-andreiev.com/one-shot-site/fahrrad-hollerbach/"><img src="examples/fahrrad-hollerbach/desktop.jpg" width="400" alt="The same workshop, redesigned: a stencil headline and a repair tag with the prices"></a><br><a href="https://nikita-andreiev.com/one-shot-site/fahrrad-hollerbach/">Open the live site →</a> · <a href="https://nikita-andreiev.com/one-shot-site/#run-fahrrad-hollerbach">See the run</a> |
 
-*Fahrrad Hollerbach, a made-up workshop: [every page, old and new](examples/fahrrad-hollerbach).*
+*Fahrrad Hollerbach is a made-up workshop. Here is [every page, old and new](examples/fahrrad-hollerbach).*
 
 ## Ask for other versions
 
@@ -143,32 +149,33 @@ a letter or a mix. Any earlier version can come back.
 
 ![How one run goes, in six steps, with the pictures each step makes](docs/media/how-it-works.jpg)
 
-1. You answer two rounds of multiple choice: what the site is for, how it should feel, colours, how much it
-   moves, what a visitor should do. Then you send what you have in one message. "Skip, write it for me" is fine.
-2. It writes a brief: facts only you have, the one job of the site, and the sections. Before any code it asks
-   whether this would look the same for anyone else. If it would, the brief gets rewritten.
-3. It writes three ideas, each from a different fact, and draws them with your own name and words. It says which
-   one it would keep, and you pick. Then it builds the top of the page three ways around that idea; pick one or
-   mix two.
+1. You answer two rounds of multiple choice about what the site is for, how it should feel, colours, how much it
+   moves and what a visitor should do. Then you send what you have in one message. "Skip, write it for me" is fine.
+2. It writes a brief with the facts only you have, the one job of the site and the sections. Before any code it asks
+   whether the site would look the same for anyone else. If it would, the brief gets rewritten.
+3. It writes three ideas, each from a different fact, and draws them with your own name and words. It says which one
+   it would keep, and you pick. Then it builds the top of the page three ways around that idea. Pick one or mix two.
 4. It builds every section of the brief with real content and real images. A lint catches filler words and
    generated-sounding text as it goes.
-5. It takes screenshots at phone, tablet and desktop size, reads them and fixes what's wrong, at most three rounds,
-   then back to the brief. It films the motion, and a reviewer that didn't build it names the three worst problems.
-6. An audit has to say "Ready to ship"; then you see it numbered, so "make 2c bigger" is enough. It publishes
-   where you chose, after you say yes, and hands over the address and a short guide to changing things later.
+5. It takes screenshots at phone, tablet and desktop size, reads them and fixes what's wrong. After three rounds at
+   most it goes back to the brief. It films the motion, and a reviewer that didn't build the site names the three
+   worst problems.
+6. An audit has to say "Ready to ship". Then you see the screenshots numbered, so "make 2c bigger" is enough. It
+   publishes where you chose, after you say yes, and hands over the address and a short guide to changing things
+   later.
 
 <details>
 <summary>What the checks look like</summary>
 
-Numbered screenshots, so you can answer "2a smaller" instead of describing it:
+Screenshots come numbered, so you can answer "2a smaller" instead of describing it.
 
 ![A numbered desktop screenshot of the café site](docs/media/numbers-desktop.jpg)
 
-A filmstrip of the first three seconds, to see what moves, in what order, and when it stops:
+A filmstrip of the first three seconds shows what moves, in what order, and when it stops.
 
 ![Sixteen frames of the event page loading, each labelled with its time](docs/media/filmstrip.jpg)
 
-When words like "warm" or "bold" don't help, the looks drawn with your own name:
+When words like "warm" or "bold" don't help, it draws the looks with your own name.
 
 ![The café's first screen drawn as Warm, Bold and Quiet](docs/media/pick-a-look.jpg)
 </details>
@@ -179,8 +186,8 @@ When words like "warm" or "bold" don't help, the looks drawn with your own name:
 ```
 npx skills add Barabosik/one-shot-site -a claude-code
 ```
-`-a` names your agent: `claude-code`, `codex`, `cursor` and others. Without it, the skill can land in a folder for
-each of about 20 agents. Add `-g` to install it for every project instead of only this one.
+`-a` tells it which agent you use, such as `claude-code`, `codex` or `cursor`. Without it, the skill can end up in a
+folder for each of about 20 agents. Add `-g` to install it for every project instead of only this one.
 
 **Claude Code, as a plugin:**
 ```
@@ -194,19 +201,19 @@ Inside Claude Code the same works as `/plugin marketplace add Barabosik/one-shot
 `.claude/skills/` in a project and `~/.claude/skills/` for every project. Codex, Cursor, Gemini CLI and GitHub
 Copilot all read `.agents/skills/` and `~/.agents/skills/`.
 
-**The reviewer** ([How it works](#how-it-works), step 5) comes with the plugin as `one-shot-site:reviewer`. With
-the skill alone, the same review runs in a fresh context. In Cursor, copy `agents/reviewer.md` into your
-project's `.cursor/agents/` to have it by name (not tested yet).
+**The reviewer** ([How it works](#how-it-works), step 5) comes with the plugin as `one-shot-site:reviewer`. If you
+only installed the skill, the same review still runs in a fresh context. In Cursor you can copy `agents/reviewer.md`
+into your project's `.cursor/agents/` to call it by name, though I haven't tested that yet.
 
 ### Requirements
 
 - Node 22.12 or newer, and git
-- Chrome, Edge, Brave or Chromium. The checks drive the browser you already have; there's no Playwright or
-  Puppeteer to download. Only the optional Safari check (`safari.mjs`) uses Playwright's WebKit, and only if
-  you've installed it.
-- An agent that can run shell commands. Agents other than Claude Code should work but haven't been tested yet.
-  Where the agent has a question picker (Claude Code does), the questions come as one; elsewhere as a numbered
-  list you answer with "2" or "1,3".
+- Chrome, Edge, Brave or Chromium. The checks use the browser you already have, so there's no Playwright or
+  Puppeteer to download. The one exception is the optional Safari check (`safari.mjs`), which uses Playwright's
+  WebKit if you've installed it.
+- An agent that can run shell commands. Agents other than Claude Code should work, but I haven't tested them yet. If
+  your agent has a question picker (Claude Code does), you'll click your answers. Otherwise you get a numbered list
+  and reply with "2" or "1,3".
 
 <details>
 <summary>The tools inside (they work on any site)</summary>
@@ -218,57 +225,58 @@ node skills/one-shot-site/scripts/film.mjs https://example.com     # filmstrips 
 node skills/one-shot-site/scripts/study.mjs https://example.com    # colours, type, spacing and motion, measured
 node skills/one-shot-site/scripts/palette.mjs --brand "#d9480f"     # a full colour set that passes contrast
 ```
-No installs: they use the Chrome you already have. `-h` prints a script's options; a misspelt option or a number
-out of range stops it with a hint instead of running with the defaults.
+They need no installs and use the Chrome you already have. `-h` prints a script's options, and a misspelt option or
+an out-of-range number stops it with a hint instead of quietly running with the defaults.
 </details>
 
 ## Questions
 
 **What does it cost?**
-The skill is free and MIT-licensed. Your agent costs what it always costs; a full run is a long session, because
-the agent looks at many screenshots. GitHub Pages hosts a site like this for free from a public repository
-(Netlify and Cloudflare have free plans; Vercel's free plan is for non-commercial use), so a domain name is the
-only thing you might need to buy.
+The skill is free and MIT-licensed. Your agent costs what it normally costs, and a full run is a long session
+because the agent looks at a lot of screenshots. GitHub Pages hosts a site like this for free from a public
+repository. Netlify and Cloudflare have free plans too, and Vercel's free plan is for non-commercial use, so a
+domain name is probably the only thing you'd pay for.
 
 **What leaves my computer?**
-The skill has no server and sends nothing on its own. The checks run in your own browser against a copy of the site
-on your machine. It goes online only to install packages from npm (Vite, axe-core, the fonts, and GSAP or three.js
-when an add-on needs them), to draw the looks with fonts from Fontsource (through `cdn.jsdelivr.net`), to search
-Openverse (or Wikimedia Commons when Openverse is down or finds nothing) for free photos, unless you said no
-photos, and download the ones picked from the hosts they name, to open sites you name, to test the site's outside
-links, and to publish, which it asks you about first. You log in to your host yourself; it never handles passwords or tokens.
-Your agent talks to its own model provider as usual. On your machine, it keeps a short list of the last 24 sites'
-looks and folders (in `~/.one-shot-site/`) so new ones don't repeat them; `ONE_SHOT_HISTORY=off` turns it off.
+The skill has no server and doesn't report back to anyone. Its checks run in your browser, on a copy of the site on
+your computer. It does need the internet to install Vite, axe-core and the fonts from npm, plus GSAP or three.js
+when an add-on uses them. The looks are drawn with fonts loaded from Fontsource through `cdn.jsdelivr.net`. When you
+have no photos, it searches Openverse (or Wikimedia Commons when Openverse is down or finds nothing) unless you've
+said no, and downloads the chosen ones from wherever they're hosted. It opens any site you name and tests the site's
+outside links. Publishing happens only after you've said yes. You log in to your host yourself, and it never handles
+passwords or tokens. Your agent still sends your messages to its model provider, as it does in any session. On your
+computer it keeps a short list of the last 24 sites' looks and folders (in `~/.one-shot-site/`) so new sites don't
+repeat them, and `ONE_SHOT_HISTORY=off` turns that off.
 
 **Which currency, and which country's legal pages?**
-Prices are in the currency of the business's country. The skill takes the country from what you told it, else the
-phone number's country code, else the legal pages you asked for, and only then the region in the site's language:
-en-GB gives pounds, en-US dollars, de-CH francs, and about fifteen more countries their own (Canada, Australia,
-Japan, Sweden…); any other gets euros. A person, a group or software gets no currency. Say so if it should be
-another. The legal pages, an Impressum and a privacy page in German, come only when you say the business is in
-Germany or Austria; it never guesses from the language, and asks at the end if you didn't say. The Impressum cites
-German law (§ 5 DDG); for an Austrian site, change that to § 5 ECG. Other countries get no legal pages yet, so
-check what yours asks for.
+Prices use the currency of the business's country. To find the country it goes by what you told it, then the phone
+number's country code, then the legal pages you asked for, and only after that the region in the site's language. So
+en-GB gives pounds, en-US dollars and de-CH francs, about fifteen more countries get their own currency (Canada,
+Australia, Japan, Sweden and so on), and everywhere else gets euros. A site for a person, a group or a piece of
+software shows no currency. If it picked the wrong one, just say so. You only get legal pages, an Impressum and a
+privacy page in German, when you say the business is in Germany or Austria. It never guesses from the language, and
+if you didn't say, it asks at the end. The Impressum cites German law (§ 5 DDG). For an Austrian site, change that
+to § 5 ECG. Other countries don't get legal pages yet, so check what yours requires.
 
 **What won't it do?**
-- Make up facts: no invented clients, numbers, awards, quotes or team members. When something is missing, it
+- Make up facts. You won't get invented clients, numbers, awards, quotes or team members. If something's missing, it
   asks once and designs around the gap until you answer.
-- Copy a site you like. It takes the feel, never the words, logo, pictures or layout.
+- Copy a site you like. It takes the feel and leaves the words, logo, pictures and layout alone.
 - Pass off a free photo as your own shop, team or work.
-- Build an app: no user accounts, databases or checkout of its own. It links to your booking page or shop.
+- Build an app with user accounts, a database or a checkout. It links to your booking page or shop instead.
 - Add a framework, a page builder or Tailwind. Every file stays plain and yours.
 - Give legal advice. The German Impressum and privacy page are templates for you to check.
 
 **Can I change the site later?**
-Yes. Open your agent in the site's folder and say what changed: "espresso is 2.60 now", "add the March concert".
-It skips the interview, makes the change, checks the changed pages and publishes again.
+Yes. Open your agent in the site's folder and tell it what changed, like "espresso is 2.60 now" or "add the March
+concert". It skips the interview, makes the change, checks the pages that changed and publishes again.
 
 ## More
 
 [CHANGELOG.md](CHANGELOG.md) · [CONTRIBUTING.md](CONTRIBUTING.md) · [SECURITY.md](SECURITY.md) · Credits and
 third-party licences: [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)
 
-Feedback and ideas: [open an issue](https://github.com/Barabosik/one-shot-site/issues) or write to
+For feedback and ideas, [open an issue](https://github.com/Barabosik/one-shot-site/issues) or write to
 [contact@nikita-andreiev.com](mailto:contact@nikita-andreiev.com).
 
 MIT · made by [Nikita Andreiev](https://nikita-andreiev.com)
