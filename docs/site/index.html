@@ -227,8 +227,8 @@
 
     <section id="examples" class="examples" aria-labelledby="examples-h">
       <div class="section-head">
-        <h2 id="examples-h">Six runs. Six sites that look nothing alike.</h2>
-        <p class="intro">Each one is a single run: the answers in the address bar, plus a few lines about a made-up business. These are the real sites, running. Scroll inside one, or open it on its own.</p>
+        <h2 id="examples-h">No two of these sites look alike.</h2>
+        <p class="intro">Each site came from one run. The address bar shows the answers that run was given, along with a few lines about a made-up business. These are the actual sites running here on the page, so you can scroll inside one or open it in its own tab.</p>
         <div class="view-switch" role="group" aria-label="Show the sites at" hidden>
           <button type="button" data-view="desktop" aria-pressed="true">Desktop</button>
           <button type="button" data-view="phone" aria-pressed="false">Phone</button>
@@ -325,8 +325,8 @@
     <section id="try" class="try" aria-labelledby="try-h">
       <div class="try-text">
         <h2 id="try-h">Try the questions.</h2>
-        <p>These are the first four of the real questions, in the real order. Pick an answer and the next one comes. At the end you see which of the six sites came from answers closest to yours.</p>
-        <p class="muted">The real interview asks two or three more, then for your text and photos. It never asks for a hex code, a font name or a framework.</p>
+        <p>These are the skill’s first four questions, word for word and in the same order. Pick an answer and the next one shows up. At the end you’ll see which of the six sites came from answers closest to yours.</p>
+        <p class="muted">A real run asks two or three more after these, then asks for your text and photos. It won’t ever ask you for hex codes or font names.</p>
       </div>
       <div class="window quiz" data-quiz>
         <div class="bar">
@@ -379,7 +379,7 @@
               <button class="button" type="button" data-result-open>Show it running</button>
               <button class="text-link" type="button" data-restart>Start again</button>
             </div>
-            <p class="muted">With your own name, words and photos, a run makes a new site for you, not a copy of this one.</p>
+            <p class="muted">In a real run your own name, words and photos go in, and you get a new site made from them.</p>
           </div>
         </div>
       </div>
@@ -388,7 +388,7 @@
     <section id="redesign" class="redesign" aria-labelledby="redesign-h">
       <div class="section-head">
         <h2 id="redesign-h">Give it your old site. Your words and facts stay.</h2>
-        <p class="intro">Say “redesign my site” and give the link. It reads every page first: the text, your photos, opening hours and contact details. It asks only about the look, and at the end it shows each old page next to the new one.</p>
+        <p class="intro">Say “redesign my site” and paste the link. It reads every page first and keeps your text, photos, opening hours and contact details. Its questions are only about the look, and when it’s done you can see each old page next to its new version.</p>
       </div>
       <figure class="compare" data-compare style="--cut: 50%">
         <div class="compare-frame">
@@ -402,13 +402,13 @@
           <label class="visually-hidden" for="compare-range">How much of the old site to show</label>
           <input class="compare-range" id="compare-range" type="range" min="0" max="100" value="50" hidden>
         </div>
-        <figcaption>Fahrrad Hollerbach, a made-up bike workshop in Trier. Every old page became a section of the new one, and the old addresses forward to it. <a href="{{site.repo}}/tree/main/examples/fahrrad-hollerbach">Every page, old and new</a></figcaption>
+        <figcaption>Fahrrad Hollerbach is a bike workshop in Trier that I made up. Each old page became a section of the new site, and the old links still lead to the right place. <a href="{{site.repo}}/tree/main/examples/fahrrad-hollerbach">Every page, old and new</a></figcaption>
       </figure>
     </section>
 
     <section id="install" class="install" aria-labelledby="install-h">
       <div class="install-inner">
-        <h2 id="install-h">Install it. Then say “make me a website”.</h2>
+        <h2 id="install-h">Install it, then say “make me a website”.</h2>
         <ol class="install-steps">
           <li>
             <p>Install it with one command:</p>
@@ -426,14 +426,14 @@
       <div class="routes" id="routes" aria-labelledby="routes-h">
         <div class="routes-head">
           <h3 id="routes-h">Install one-shot-site</h3>
-          <p>Three ways in. They all put the same folder where your agent looks for skills.</p>
+          <p>You can install it with npx skills, as a Claude Code plugin, or by copying the folder by hand. Each way puts the same folder where your agent looks for skills.</p>
         </div>
         <div class="routes-body">
           <section class="route" id="route-skills" aria-labelledby="route-skills-h">
             <h4 id="route-skills-h">Any agent <span class="route-note">recommended</span></h4>
             <p class="route-for">With npx skills, for Claude Code, Codex, Cursor and other agents.</p>
             <div class="cmd"><code>{{site.install}}</code><button class="copy" type="button" data-copy hidden><svg class="i" viewBox="0 0 16 16" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M3 10.5v-6A1.5 1.5 0 0 1 4.5 3h6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><span>Copy</span></button></div>
-            <p class="hint"><code>-a claude-code</code> (or <code>codex</code>, <code>cursor</code>) names your agent; without it, the skill can land in a folder for each of about 20 agents. Add <code>-g</code> to install it for every project instead of this one.</p>
+            <p class="hint"><code>-a claude-code</code> (or <code>codex</code>, <code>cursor</code>) names your agent. Without it, the skill can land in a folder for each of about 20 agents. Add <code>-g</code> to install it for every project instead of this one.</p>
           </section>
           <section class="route" id="route-claude" aria-labelledby="route-claude-h">
             <h4 id="route-claude-h">Claude Code plugin</h4>
@@ -452,12 +452,12 @@
         <div class="routes-next">
           <h4>What happens next</h4>
           <ol class="next-steps" data-next>
-            <li><span class="step-title">Open your agent in an empty folder.</span> The site gets built there.</li>
-            <li><span class="step-title">Say “make me a website”.</span> Or “redesign my site” with the link.</li>
-            <li><span class="step-title">Answer six or seven questions.</span> Then send what you have: text, photos, a logo. “Skip, write it for me” works too.</li>
-            <li><span class="step-title">Pick an idea, then a first screen.</span> Three of each, drawn with your own name and words, one of them always the classic.</li>
-            <li><span class="step-title">It builds and checks.</span> Real pictures first: yours, or free photos of your kind of place. Then screenshots, a film of the motion, an audit. You see them numbered.</li>
-            <li><span class="step-title">You say where it goes.</span> It publishes only after your yes, and leaves a short guide to changing things.</li>
+            <li><span class="step-title">Open your agent in an empty folder.</span> The site gets built right there.</li>
+            <li><span class="step-title">Say “make me a website”.</span> If you already have a site, say “redesign my site” and paste the link.</li>
+            <li><span class="step-title">Answer six or seven questions.</span> Then send what you’ve got, and if that’s nothing, “Skip, write it for me” is fine.</li>
+            <li><span class="step-title">Pick an idea, then a first screen.</span> There are three of each, with your own name on them.</li>
+            <li><span class="step-title">Wait while it builds and checks.</span> You’ll get numbered screenshots, a short film of the scrolling and the audit result.</li>
+            <li><span class="step-title">You say where it goes.</span> It won’t publish anything until you say yes.</li>
           </ol>
         </div>
         <div class="routes-needs">
@@ -467,7 +467,7 @@
             <li>Chrome, Edge, Brave or Chromium</li>
             <li>An agent that runs shell commands. Built and tested in Claude Code; others should work but are untested.</li>
           </ul>
-          <p class="routes-foot">Free, MIT licence. The skill has no server and sends nothing on its own. <a href="{{site.repo}}">Source on GitHub</a></p>
+          <p class="routes-foot">It’s free and MIT-licensed. The skill has no server and doesn’t report back to anyone. <a href="{{site.repo}}">Source on GitHub</a></p>
         </div>
       </div>
     </section>
@@ -475,8 +475,8 @@
     <section id="contribute" class="contribute" aria-labelledby="contribute-h">
       <h2 id="contribute-h">Help make it better.</h2>
       <div class="contribute-text">
-        <p>Start with an issue. A site it got wrong, a question that confused you, a check that missed something: open an issue with the answers you gave and, if you can, the brief from <code>.one-shot/brief.md</code>.</p>
-        <p>Pull requests are welcome after an issue, so we agree on the change first. Every pull request has to pass <code>npm test</code> on Linux, macOS and Windows. A change to how sites get built comes with the examples’ scores before and after.</p>
+        <p>If a run went wrong for you, please open an issue and tell me what happened. The answers you gave help a lot, and so does the brief from <code>.one-shot/brief.md</code> if you still have it.</p>
+        <p>Pull requests are welcome once there’s an issue for them, so we can agree on the change first. Each one has to pass <code>npm test</code> on Linux, macOS and Windows. If you change how sites get built, add the examples’ scores from before and after.</p>
         <p class="link-row">
           <a class="button" href="{{site.repo}}/issues">Open an issue</a>
           <a class="text-link" href="{{site.repo}}/blob/main/CONTRIBUTING.md">Read CONTRIBUTING.md</a>
@@ -486,27 +486,27 @@
     </section>
 
     <section id="questions" class="questions" aria-labelledby="questions-h">
-      <h2 id="questions-h">What it needs, sends and costs</h2>
+      <h2 id="questions-h">Questions before you install</h2>
       <div class="faq">
         <details>
           <summary>Does it need a server?</summary>
-          <p>No. It makes plain static files: HTML, CSS, JavaScript, fonts and pictures, in plain Vite with no framework. Every file is yours. GitHub Pages hosts them for free from a public repository, and the tests cover that route. It also supports Vercel, Netlify, Cloudflare and your own domain, or it hands you the folder.</p>
+          <p>No. You get plain static files (HTML, CSS, JavaScript, fonts and pictures) built with Vite and no framework, and every file is yours. GitHub Pages hosts them for free from a public repository, which is the route the tests cover. It can also publish to Vercel, Netlify or Cloudflare, use your own domain, or just hand you the folder.</p>
         </details>
         <details>
           <summary>What leaves my computer?</summary>
-          <p>The skill has no server and sends nothing on its own. The checks run in your own browser against a copy of the site on your machine. It goes online only to install packages from npm (Vite, axe-core, the fonts, and GSAP or three.js when an add-on needs them), to draw the looks with fonts from Fontsource (through cdn.jsdelivr.net), to search Openverse or Wikimedia Commons for free photos when you have none of your own (unless you say no) and download the ones you pick from the hosts they name, to open sites you name, to test the site’s outside links, and to publish, which it asks you about first. You log in to your host yourself; it never handles passwords or tokens. Your agent talks to its own model provider as usual.</p>
+          <p>The skill has no server and doesn’t report back to anyone. Its checks run in your browser, on a copy of the site on your computer. It does need the internet to install Vite, axe-core and the fonts from npm, plus GSAP or three.js when an add-on uses them. The looks are drawn with fonts loaded from Fontsource through cdn.jsdelivr.net. When you have no photos, it searches Openverse or Wikimedia Commons unless you’ve said no, and downloads the ones you pick from wherever they’re hosted. It opens any site you name and tests the site’s outside links. Publishing happens only after you’ve said yes. You log in to your host yourself, and it never handles passwords or tokens. Your agent still sends your messages to its model provider, as it does in any session.</p>
         </details>
         <details>
           <summary>How do I change it later?</summary>
-          <p>Hours, prices and events live in one file, <code>site.json</code>. Tell your agent “we’re closed on the 24th”: it changes that one place, checks the changed screens, and publishes again. Every change is saved as its own commit, so you can take one back.</p>
+          <p>Hours, prices and events live in one file, <code>site.json</code>. Tell your agent “we’re closed on the 24th” and it edits that file and checks the screens that changed before it publishes again. Every change is saved in git, so you can undo any one of them.</p>
         </details>
         <details>
           <summary>What does it cost?</summary>
-          <p>The skill is free, under the MIT licence. Your agent costs what it always costs; a full run is a long session, because the agent looks at many screenshots. GitHub Pages hosts a site like this for free from a public repository (Netlify and Cloudflare have free plans; Vercel’s free plan is for non-commercial use), so a domain name is the only thing you might need to buy.</p>
+          <p>The skill is free and MIT-licensed. Your agent costs what it normally costs, and a full run is a long session because the agent looks at a lot of screenshots. GitHub Pages hosts a site like this for free from a public repository. Netlify and Cloudflare have free plans too, and Vercel’s free plan is for non-commercial use, so a domain name is probably the only thing you’d pay for.</p>
         </details>
         <details>
           <summary>Which agents does it work with?</summary>
-          <p>It’s built and tested in Claude Code. It uses the open Agent Skills format, so Codex, Cursor and other agents that can run shell commands can load it, but they haven’t been tested yet. Where the agent has a question picker, the questions come as one; elsewhere as a numbered list you answer with “2” or “1,3”.</p>
+          <p>I build and test it in Claude Code. It uses the open Agent Skills format, so Codex, Cursor and other agents that run shell commands can load it, but I haven’t tested those yet. If your agent has a question picker you’ll get clickable choices. Otherwise it’s a numbered list and you reply with “2” or “1,3”.</p>
         </details>
       </div>
     </section>
@@ -521,7 +521,7 @@
           <p class="address">A product or app · Not sure, show me · The number tags’ pink · Lively motion · Goal: install it · Light and dark</p>
         </div>
       </div>
-      <p>The maintainer answered the skill’s questions. It drew three first screens, A was picked, and the rest was refined by hand. It passed the same look and audit as the examples.</p>
+      <p>I answered the skill’s questions for this page too. Of the three first screens it drew I picked A, then finished the rest by hand. The page passes the same screenshot checks and audit as the examples.</p>
       <div class="end-then-now">
       <ol class="end-ideas" aria-label="The three first screens it drew for this page">
         <li class="is-picked"><img src="media/page-idea-a.jpg" width="800" height="500" loading="lazy" alt="Idea A: the headline beside a round window onto the café site."><p>A · Answers in the address bar <span class="route-note">picked</span></p></li>
@@ -532,7 +532,7 @@
       <figure class="end-now">
         <img class="now-light" src="media/page-now-light.jpg" width="800" height="500" loading="lazy" alt="Now: the page’s first screen today, with the headline, the Install button and the film under them.">
         <img class="now-dark" src="media/page-now-dark.jpg" width="800" height="500" loading="lazy" alt="Now: the page’s first screen today in its dark scheme, with the headline, the Install button and the film under them.">
-        <figcaption><b>Now</b> · A was the starting point. Since then the headline got new words, the round window became the film under it, and the page got a dark scheme.</figcaption>
+        <figcaption><b>Now</b> · The page started from A. Later I rewrote the headline and added a dark mode, and the film under the headline took the place of A’s round window.</figcaption>
       </figure>
       </div>
       <p class="link-row">
@@ -543,7 +543,7 @@
     </div>
     <div class="end-small">
       <p>MIT licence · Made by <a href="https://nikita-andreiev.com">Nikita Andreiev</a> · <a href="mailto:contact@nikita-andreiev.com">contact@nikita-andreiev.com</a> · <a href="{{site.repo}}">Source</a> · <a href="{{site.repo}}/blob/main/CHANGELOG.md">Changelog</a></p>
-      <p>The six example sites are made-up businesses, kept here so you can click through them.</p>
+      <p>The example sites belong to made-up businesses. They’re here so you can click through them.</p>
     </div>
   </footer>
 </body>

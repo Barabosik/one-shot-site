@@ -355,9 +355,9 @@ function initQuiz(q) {
     const best = ranked[0];
     const list = (xs) => (xs.length < 2 ? xs.join('') : `${xs.slice(0, -1).join(', ')} and ${xs.at(-1)}`);
     $('[data-result-name]', q).textContent = best.e.title;
-    $('[data-result-why]', q).textContent = (mine.purpose === 'product' ? 'None of the six is a product page yet. Nearest by the rest of your answers. ' : '')
+    $('[data-result-why]', q).textContent = (mine.purpose === 'product' ? 'None of the six is a product page yet. This one comes nearest on your other answers. ' : '')
       + `Its answers: ${best.e.answers}. `
-      + (best.shared.length === 4 ? 'All four match yours.' : best.shared.length ? `It shares ${list(best.shared)} with yours.` : 'It shares no answer with yours; it’s the nearest of the six.');
+      + (best.shared.length === 4 ? 'All four match yours.' : best.shared.length ? `It shares ${list(best.shared)} with yours.` : 'It shares no answer with yours, but it’s still the nearest of the six.');
     const img = $('[data-result-shot]', q);
     if (best.e.shot) { img.src = best.e.shot; img.alt = `${best.e.title} at desktop width`; img.hidden = false; }
     $('[data-result-open]', q).onclick = () => showRun(best.e.name);
