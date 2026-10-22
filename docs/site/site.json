@@ -6,7 +6,7 @@
   "email": "",
   "phone": "",
   "repo": "https://github.com/Barabosik/one-shot-site",
-  "install": "npx skills add Barabosik/one-shot-site -a claude-code",
+  "install": "npx skills add Barabosik/one-shot-site -g -a claude-code",
   "author": { "name": "Nikita Andreiev", "url": "https://nikita-andreiev.com" },
   "currency": "EUR",
   "events": [],

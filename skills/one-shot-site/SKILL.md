@@ -395,8 +395,10 @@ After publishing, run `look.mjs` on the live URL and check that the link preview
 
 Then hand over, in plain words: the URL, where the code is, and how to change things later. Write `EDITING.md`
 in the project root for the owner (it's committed; `.one-shot/` isn't): which facts live in `site.json` and what
-each field means, that they can ask any coding agent "use one-shot-site to change …", and how to publish again:
-the URL, the host, and the exact command or workflow. Put the same in a "## Published" section of the brief.
+each field means, that they can open this folder in any coding agent and say "use one-shot-site to change …" (if
+the agent doesn't know it here, install it for every folder:
+`npx skills add Barabosik/one-shot-site -g -a <their agent>`), and how to publish again: the URL, the host, and
+the exact command or workflow. Put the same in a "## Published" section of the brief.
 With legal pages, a form or a counter, say once that they are not legal advice. A site that collects emails or
 messages (a waitlist, a form) needs a privacy notice wherever it is: the handover's list names it as needed until
 the site has one. If the site is on GitHub, offer

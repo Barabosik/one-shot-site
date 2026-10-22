@@ -49,9 +49,9 @@ It's an agent skill. I build and test it in Claude Code, and since it uses the o
 
 ## Try it
 
-1. Install it: `npx skills add Barabosik/one-shot-site -a claude-code` (`-a codex` or `-a cursor` for those, or see
-   [other ways](#install))
-2. Open your agent in an empty folder.
+1. Install it: `npx skills add Barabosik/one-shot-site -g -a claude-code` (`-a codex` or `-a cursor` for those, or
+   see [other ways](#install))
+2. Open your agent in an empty folder (restart it if it was already open).
 3. Say **"make me a website"**.
 
 First come six or seven multiple-choice questions, and then it asks for any text and photos you have. You pick from
@@ -184,10 +184,12 @@ When words like "warm" or "bold" don't help, it draws the looks with your own na
 
 **With [skills](https://github.com/vercel-labs/skills)** (Claude Code, Codex, Cursor and other agents):
 ```
-npx skills add Barabosik/one-shot-site -a claude-code
+npx skills add Barabosik/one-shot-site -g -a claude-code
 ```
-`-a` tells it which agent you use, such as `claude-code`, `codex` or `cursor`. Without it, the skill can end up in a
-folder for each of about 20 agents. Add `-g` to install it for every project instead of only this one.
+`-a` tells it which agent you use, such as `claude-code`, `codex` or `cursor`. `-g` installs it once for every
+folder, so it's there again when you come back to change the site. Leave `-g` out to install it only in the folder
+you're in, and then start your agent in that same folder. Without `-a` it asks which agents you use (with `-y` it
+picks the ones it finds).
 
 **Claude Code, as a plugin:**
 ```

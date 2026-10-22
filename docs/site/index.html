@@ -414,7 +414,7 @@
             <p>Install it with one command:</p>
             <div class="cmd"><code>{{site.install}}</code><button class="copy" type="button" data-copy hidden><svg class="i" viewBox="0 0 16 16" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M3 10.5v-6A1.5 1.5 0 0 1 4.5 3h6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><span>Copy</span></button></div>
           </li>
-          <li><p>Open your agent in an empty folder.</p></li>
+          <li><p>Open your agent in an empty folder (restart it if it was open).</p></li>
           <li><p>Say “make me a website”.</p></li>
         </ol>
         <p class="install-more">
@@ -433,7 +433,7 @@
             <h4 id="route-skills-h">Any agent <span class="route-note">recommended</span></h4>
             <p class="route-for">With npx skills, for Claude Code, Codex, Cursor and other agents.</p>
             <div class="cmd"><code>{{site.install}}</code><button class="copy" type="button" data-copy hidden><svg class="i" viewBox="0 0 16 16" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M3 10.5v-6A1.5 1.5 0 0 1 4.5 3h6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><span>Copy</span></button></div>
-            <p class="hint"><code>-a claude-code</code> (or <code>codex</code>, <code>cursor</code>) names your agent. Without it, the skill can land in a folder for each of about 20 agents. Add <code>-g</code> to install it for every project instead of this one.</p>
+            <p class="hint"><code>-a claude-code</code> (or <code>codex</code>, <code>cursor</code>) names your agent. <code>-g</code> installs it once for every folder, so it’s there again when you change the site later; without it, it goes only into the folder you run it in.</p>
           </section>
           <section class="route" id="route-claude" aria-labelledby="route-claude-h">
             <h4 id="route-claude-h">Claude Code plugin</h4>
