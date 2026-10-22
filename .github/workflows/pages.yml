@@ -7,12 +7,10 @@
 # and Actions → Pages → Run workflow does it by hand.
 name: Pages
 
-# While the repository is private it runs only by hand (Actions minutes are limited). On launch day, when the
-# repository goes public, put back under on:
-#   push:
-#     branches: [main]
-#     paths: ['docs/**', 'examples/**', '.github/workflows/pages.yml']
 on:
+  push:
+    branches: [main]
+    paths: ['docs/**', 'examples/**', '.github/workflows/pages.yml']
   workflow_dispatch:
 
 permissions:

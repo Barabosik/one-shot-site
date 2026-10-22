@@ -1,12 +1,9 @@
 name: Tests
 
-# While the repository is private, Actions minutes are limited (and macOS counts ten times, Windows twice), so the
-# tests run only by hand: Actions → Tests → Run workflow. The full suite runs locally before every push.
-# On launch day, when the repository goes public (standard runners are free there), put back:
-#   push:
-#     branches: [main]
-#   pull_request:
 on:
+  push:
+    branches: [main]
+  pull_request:
   workflow_dispatch:
 
 permissions:
