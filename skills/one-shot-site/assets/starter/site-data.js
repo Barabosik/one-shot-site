@@ -306,6 +306,8 @@ export function jsonld(site, today = buildDay()) {
   const real = (a) => (a && (typeof a === 'string' || a.street || a.city || a.postcode) ? a : undefined);
   const place = (a, name) => real(a) && { '@type': 'Place', name, address: typeof a === 'string' ? a : postal(a) };
   const postal = (a) => (typeof a === 'string' ? a : { '@type': 'PostalAddress', streetAddress: a.street, postalCode: a.postcode, addressLocality: a.city, addressRegion: a.region, addressCountry: a.country });
+  // a price as search engines read it: a number with a dot ("12,50" is 12.50); words like "free" are left out
+  const amount = (p) => (p === undefined || p === '' || Number.isNaN(num(p)) ? undefined : String(p).trim().replace(',', '.'));
   const social = Object.entries(site.links || {}).filter(([k, v]) => v && !['booking', 'payment', 'menu', 'tickets', 'join', 'donate', 'order', 'map', 'download', 'docs'].includes(k)).map(([, v]) => v);
   const event = (e) => ({
     '@type': 'Event', name: e.name, description: e.description, startDate: e.start, endDate: e.end,
@@ -313,7 +315,7 @@ export function jsonld(site, today = buildDay()) {
     location: place(real(e.address) || (e.city && { city: e.city, country: site.address?.country }) || site.address, e.place || site.name),
     image: site.url ? site.url + 'og.jpg' : undefined,
     organizer: { '@type': 'Organization', name: site.name, url: site.url },
-    offers: e.price !== undefined ? { '@type': 'Offer', price: String(e.price), priceCurrency: site.currency || 'EUR', url: e.tickets || site.url, availability: `https://schema.org/${e.soldOut ? 'SoldOut' : 'InStock'}` } : undefined,
+    offers: e.price !== undefined ? { '@type': 'Offer', price: amount(e.price), priceCurrency: site.currency || 'EUR', url: e.tickets || site.url, availability: `https://schema.org/${e.soldOut ? 'SoldOut' : 'InStock'}` } : undefined,
   });
 
   if (site.type === 'Event') return clean({ '@context': 'https://schema.org', ...event({ ...(site.events?.[0] || {}), name: site.events?.[0]?.name || site.name }) });
@@ -332,7 +334,7 @@ export function jsonld(site, today = buildDay()) {
       softwareVersion: site.version, downloadUrl: site.download || site.links?.download, license: site.license,
       applicationCategory: site.category, operatingSystem: site.os,
       author: site.owner?.name ? { '@type': 'Person', name: site.owner.name } : undefined,
-      offers: site.price !== undefined && site.price !== '' ? { '@type': 'Offer', price: String(site.price), priceCurrency: site.currency || 'EUR' } : undefined,
+      offers: site.price !== undefined && site.price !== '' ? { '@type': 'Offer', price: amount(site.price), priceCurrency: site.currency || 'EUR' } : undefined,
     } : {}),
     hasMenu: FOOD.test(site.type) && site.menu?.length ?{ '@type': 'Menu', hasMenuSection: site.menu.map((s) => ({ '@type': 'MenuSection', name: s.section, hasMenuItem: (s.items || []).map((it) => ({ '@type': 'MenuItem', name: it.name, description: it.note, offers: it.price !== undefined && !Number.isNaN(Number(String(it.price).replace(',', '.'))) ? { '@type': 'Offer', price: String(it.price).replace(',', '.'), priceCurrency: site.currency || 'EUR' } : undefined })) })) } : undefined,
   };

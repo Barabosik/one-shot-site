@@ -187,6 +187,16 @@ test('an event with an end stays on the page, in the tokens and in the search da
   assert.doesNotMatch(text(render(page, fest, { today: '2026-11-14' })), /One night/);
 });
 
+// "12,50" went into the event's Offer as it was: search engines read a price with a comma as no price, or as 1250
+test('an event or software price in the search data is a number with a dot, and words are left out', () => {
+  const gig = { ...site, events: [{ name: 'Late show', start: '2026-11-20T21:00', price: '12,50' }, { name: 'Open stage', start: '2026-11-21T20:00', price: 'free' }] };
+  const [, late, open] = jsonld(gig, today);
+  assert.equal(late.offers.price, '12.50');
+  assert.equal(open.offers.price, undefined, 'a word is no price');
+  assert.equal(open.offers.availability, 'https://schema.org/InStock', 'the offer itself stays');
+  assert.equal(jsonld({ name: 'Tool', type: 'SoftwareApplication', price: '4,99' }, today).offers.price, '4.99');
+});
+
 test('SITE_TODAY pins the day the build counts from', () => {
   const was = process.env.SITE_TODAY;
   try {
