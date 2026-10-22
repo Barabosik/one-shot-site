@@ -1,0 +1,227 @@
+[
+  {
+    "skills": ["one-shot-site"],
+    "name": "small business, warm, no photos",
+    "query": "Make me a website for my coffee bar.",
+    "answers": {
+      "purpose": "A small business", "feel": "Warm", "colours": "Pick for me", "motion": "Gentle",
+      "goal": "Visit", "extras": "none",
+      "material": "Kleiner Kaffee, 8 seats, Röstergasse 12, Saarbrücken, run by Lena Hoffmann since 2019. Roasts its own beans every Tuesday in a 5 kg drum roaster. Espresso 2.40, flat white 3.60, filter 3.20, cardamom bun 3.00. Tue–Sat 8–17, Sun 10–16. Beans by email: hallo@kleiner-kaffee.example. No photos."
+    },
+    "expected_behavior": [
+      { "text": "Asks the interview as multiple choice, never for hex codes or font names", "auto": ["asked"], "judge": true },
+      { "text": "Writes .one-shot/brief.md with facts only this café has and an idea sentence that fails the competitor-swap test", "auto": ["file:.one-shot/brief.md"], "judge": true },
+      "Designs around the missing photos with a drawn or typographic bold move instead of empty image slots",
+      { "text": "Shows three first-screen variants side by side before building the whole page", "auto": ["ran:node\\s+(\"[^\"]*|[^\\s\"]*)look\\.mjs\"?\\s.*--compare"] },
+      "Uses only the given prices, hours and address; invents no reviews, awards or team members",
+      { "text": "Ends with audit.mjs reporting Ready to ship (with --draft while there is no domain)", "auto": ["ran:node\\s+(\"[^\"]*|[^\\s\"]*)audit\\.mjs", "audit:ready"] },
+      { "text": "On desktop (1440 px) every screen uses its width: no phone-sized drawing in an empty field, no section that is mostly empty space", "judge": true }
+    ]
+  },
+  {
+    "skills": ["one-shot-site"],
+    "name": "portfolio, bold, lively, dark mode",
+    "query": "I need a portfolio site so clients can hire me.",
+    "answers": {
+      "purpose": "Me and my work", "feel": "Bold", "colours": "Pick for me", "motion": "Lively",
+      "goal": "Hire me", "extras": "Light and dark switch",
+      "material": "Jonas Weber, independent app developer in Leipzig, formerly at a large music-streaming app. Apps: Tide (swim lap counter, 41k downloads, design award finalist 2024), Groundwork (plant watering, 4.8 stars), Mono (film camera, featured in 38 countries). Two client projects a year. hello@jonasweber.example. No photos."
+    },
+    "expected_behavior": [
+      "Puts the strongest proof (the three apps and their numbers) on or right after the first screen",
+      { "text": "Adds the theme addon with a second palette made by palette.mjs --mode dark", "auto": ["file:src/addons/theme.js", "ran:node\\s+(\"[^\"]*|[^\\s\"]*)palette\\.mjs\"?\\s.*--mode[ =]dark"] },
+      { "text": "Moves with the effects or motion (GSAP) addon, with a reduced-motion fallback, and look.mjs --reduced shows all content", "auto": ["grep:index.html:data-(hero|stagger|parallax|split|count|draw|mask|marquee)\\b", "film-reduced:clean", "no-finding:reduced-motion-hidden"] },
+      "Does not fake App Store screenshots; draws app shapes or uses type instead",
+      { "text": "Main action names what happens (for example 'Email Jonas'), not 'Get started'", "auto": ["no-finding:vague-action"], "judge": true },
+      { "text": "film.mjs reports the headline readable within about a second after the page appears", "auto": ["headline<=1.2"] },
+      { "text": "On desktop (1440 px) every screen uses its width: no phone-sized drawing in an empty field, no section that is mostly empty space", "judge": true }
+    ]
+  },
+  {
+    "skills": ["one-shot-site"],
+    "name": "event, night, showpiece with sound",
+    "query": "Build a page for our synth night so people buy tickets.",
+    "answers": {
+      "purpose": "An event", "feel": "Night", "colours": "Pick for me", "motion": "Showpiece",
+      "goal": "Get a ticket", "extras": "Sound",
+      "material": "Patch Night, modular synth evening, Sat 14 March 2027, 19:00–01:00, Alte Löschhalle, Saarbrücken. Four sets (Ines Moro, Kofi & the Cables, Dr. Lisa Brandt, Open Patch). Workshop 16:00–18:00, 12 seats. Tickets 18 € / 12 € students, workshop +15 €, tickets@patchnight.example."
+    },
+    "expected_behavior": [
+      "What, when, where and the ticket action are all visible on the first screen at 390px",
+      "Replaces the hero3d placeholder with something from the subject (cables, modules, waveforms)",
+      { "text": "Sound stays off until the visitor presses the toggle, and the choice is remembered", "auto": ["file:src/addons/sound.js", "grep:src/addons/sound.js:localStorage"], "judge": true },
+      { "text": "First visit stays under 300 KB of JavaScript, heavy parts loaded later", "auto": ["js<=300"] },
+      { "text": "axe-core reports no violations", "auto": ["axe:0"] },
+      { "text": "film.mjs --reduced comes back clean: nothing slides or loops with reduced motion on", "auto": ["film-reduced:clean"] },
+      { "text": "On desktop (1440 px) every screen uses its width: no phone-sized drawing in an empty field, no section that is mostly empty space", "judge": true }
+    ]
+  },
+  {
+    "skills": ["one-shot-site"],
+    "name": "yoga studio, likes another site",
+    "query": "Make a website for my yoga studio. I really like how linear.app looks.",
+    "answers": {
+      "purpose": "A small business", "feel": "Not sure", "colours": "Pick for me", "motion": "Gentle",
+      "goal": "Book a class", "extras": "none", "likes": "How calm it is",
+      "material": "Studio Atem, Mattengasse 9, Saarbrücken, run by Mara Klein. Hatha and Yin, 12 mats. Mon–Fri 7:00 and 18:30, Sat 10:00. Drop-in 14 €, 10 classes 120 €. Booking by email: hallo@studio-atem.example. Likes about linear.app: how calm and dark it is, the thin type."
+    },
+    "expected_behavior": [
+      { "text": "Runs study.mjs on linear.app and reads study.md before writing the brief", "auto": ["ran:node\\s+(\"[^\"]*|[^\\s\"]*)study\\.mjs\"?\\s.*linear\\.app", "order:study\\.md then write .*brief\\.md"] },
+      { "text": "Asks one multiple-choice question about what they like in it (colours, type, calm, motion)", "judge": true },
+      { "text": "The brief has one line \"From linear.app: …\" naming the measured feel (dark ground, tight sans, quiet motion)", "auto": ["grep:.one-shot/brief.md:From linear\\.app"], "judge": true },
+      "Uses none of linear.app's words, logo, pictures or layout; the site could not be mistaken for it",
+      { "text": "Colours come from palette.mjs for the studio, not copied hex values", "auto": ["ran:node\\s+(\"[^\"]*|[^\\s\"]*)palette\\.mjs"], "judge": true },
+      { "text": "On desktop (1440 px) every screen uses its width: no phone-sized drawing in an empty field, no section that is mostly empty space", "judge": true }
+    ]
+  },
+  {
+    "skills": ["one-shot-site"],
+    "name": "bakery with no photos, wants some",
+    "query": "Website for my bakery please. I have no photos, can you find some nice ones?",
+    "answers": {
+      "purpose": "A small business", "feel": "Warm", "colours": "Pick for me", "motion": "Gentle",
+      "goal": "Visit", "extras": "none",
+      "material": "Brotzeit, Backhausgasse 3, St. Ingbert. Sourdough rye, spelt, pretzels. Mon–Sat 6:30–13:00. hallo@brotzeit.example."
+    },
+    "expected_behavior": [
+      { "text": "Runs photos.mjs search with plain nouns and shows the numbered sheet before fetching anything", "auto": ["order:node\\s+(\"[^\"]*|[^\\s\"]*)photos\\.mjs\"?\\s+search then node\\s+(\"[^\"]*|[^\\s\"]*)photos\\.mjs\"?\\s+get"], "judge": true },
+      { "text": "Fetches only the chosen numbers with photos.mjs get; public/img/CREDITS.md lists each one", "auto": ["ran:node\\s+(\"[^\"]*|[^\\s\"]*)photos\\.mjs\"?\\s+get", "file:public/img/CREDITS.md"] },
+      { "text": "Every CC BY photo is credited on the page; audit reports no photo-credit fault", "auto": ["audit:ran", "no-finding:photo-credit"] },
+      "Free photos show bread, flour or the town in general and are never presented as Brotzeit's own shop, bakers or loaves",
+      { "text": "On desktop (1440 px) every screen uses its width: no phone-sized drawing in an empty field, no section that is mostly empty space", "judge": true }
+    ]
+  },
+  {
+    "skills": ["one-shot-site"],
+    "name": "band, night, tour dates",
+    "query": "We're a band and we need a site for our spring tour.",
+    "answers": {
+      "purpose": "Other: a band, our music and the tour", "feel": "Night", "colours": "Mostly black and white, plus one colour", "motion": "Lively",
+      "goal": "Get a ticket", "extras": "none",
+      "material": "Kalte Küste, four-piece instrumental band from Saarbrücken: Mara (guitar), Ilyas (guitar), Bent (bass), Jo (drums). Second album Salzwasser out 6 March 2027, eight tracks, 41 minutes. Spring tour 2027: 12 Mar Saarbrücken, Kulturhalle am Wehr; 13 Mar Trier, Kellerbühne Ost; 19 Mar Mannheim, Hafenkantine; 20 Mar Kaiserslautern, Weberei Nord (sold out); 27 Mar Luxembourg, Salle Nord. Tickets 18 euros at the door or by email: tickets@kalte-kueste.example. Listen: https://kalte-kueste.example/salzwasser. No photos."
+    },
+    "expected_behavior": [
+      { "text": "Tour dates as a list or table with date, city, venue and a ticket action on each; the sold-out show is marked and has no ticket action", "auto": ["grep:dist/index.html:Kellerbühne", "grep:dist/index.html:sold out|ausverkauft"], "judge": true },
+      "The band's name, the next date and the ticket action are visible on the first screen at 390 px",
+      "Invents no press quotes, streaming numbers, past shows, label or awards",
+      "Designs around the missing photos with something from the music (the album, the sea, sound) instead of empty photo slots",
+      { "text": "film.mjs --reduced comes back clean: nothing slides or loops with reduced motion on", "auto": ["film-reduced:clean"] },
+      { "text": "Ends with audit.mjs reporting Ready to ship", "auto": ["audit:ready"] },
+      { "text": "On desktop (1440 px) every screen uses its width: no phone-sized drawing in an empty field, no section that is mostly empty space", "judge": true }
+    ]
+  },
+  {
+    "skills": ["one-shot-site"],
+    "name": "charity, warm, two audiences",
+    "query": "We run a food bank and need a website.",
+    "answers": {
+      "purpose": "Other: a charity", "feel": "Warm", "colours": "Pick for me", "motion": "Still",
+      "goal": "Two things: people who need food find out how to get it, and others help (volunteer or give)", "extras": "none", "languages": "One language: German",
+      "material": "Lebensmittelpunkt Burbach e.V., a food bank in Saarbrücken-Burbach since 2011, Kesselhausweg 3. Open Tuesday and Friday 14–17 for anyone with a Saarbrücken pass or a benefits letter; on the first visit bring ID, it takes ten minutes. Each week 380 households, 64 volunteers, food rescued from 14 supermarkets and 3 bakeries. We need drivers with a car licence on Friday mornings and sorters Tuesday and Friday 10–13. Money donations go through https://lebensmittelpunkt.example/spenden. Contact: hallo@lebensmittelpunkt.example. No photos of the people who come to us, ever."
+    },
+    "expected_behavior": [
+      "How to get food (days, times, who can come, what to bring) is as easy to find from the first screen as how to help; neither is buried under the other",
+      "Shows no photos or drawings of the people who come for food, and no stock pictures of hands holding boxes",
+      "Uses only the given numbers (380 households, 64 volunteers, 14 supermarkets, 3 bakeries); invents no testimonials, quotes or donation totals",
+      "Plain, respectful words for the people who come for food: no pity, no 'the needy'",
+      { "text": "axe-core reports no violations", "auto": ["axe:0"] },
+      { "text": "Ends with audit.mjs reporting Ready to ship", "auto": ["audit:ready"] },
+      { "text": "On desktop (1440 px) every screen uses its width: no phone-sized drawing in an empty field, no section that is mostly empty space", "judge": true }
+    ]
+  },
+  {
+    "skills": ["one-shot-site"],
+    "name": "app, quiet, waitlist",
+    "query": "I need a landing page for my app.",
+    "answers": {
+      "purpose": "A product or app", "feel": "Quiet", "colours": "I have a brand colour: #2f6f5e", "motion": "Gentle",
+      "goal": "Join a waitlist", "extras": "none",
+      "material": "Stillzeit, a feeding and sleep log for new parents. iPhone first, Android in 2027. Log a feed with one thumb at 3 a.m.; at night the screen turns dark red so it doesn't wake anyone; everything stays on the phone, no account; export a PDF for the midwife. In beta with 212 families. Free; Stillzeit Plus, 2.99 euros a month, shares the log with a partner. Waitlist by email: warteliste@stillzeit.example. No screenshots yet, no photos."
+    },
+    "expected_behavior": [
+      "Does not fake App Store badges, ratings or phone screenshots; draws the app's idea or uses type",
+      "States the privacy point as given (stays on the phone, no account) and invents no reviews, ratings or user numbers beyond the 212 beta families",
+      { "text": "Main action names what happens ('Join the waitlist'), not 'Get started'", "auto": ["no-finding:vague-action"], "judge": true },
+      { "text": "Colours come from the brand colour through palette.mjs", "auto": ["ran:node\\s+(\"[^\"]*|[^\\s\"]*)palette\\.mjs\"?\\s.*2f6f5e"], "judge": true },
+      { "text": "First visit stays under 150 KB of JavaScript", "auto": ["js<=150"] },
+      { "text": "Ends with audit.mjs reporting Ready to ship", "auto": ["audit:ready"] },
+      { "text": "On desktop (1440 px) every screen uses its width: no phone-sized drawing in an empty field, no section that is mostly empty space", "judge": true }
+    ]
+  },
+  {
+    "skills": ["one-shot-site"],
+    "name": "practice, quiet, four pages",
+    "query": "Make me a website for my physiotherapy practice, with pages for treatments, the team and prices.",
+    "answers": {
+      "purpose": "A small business", "feel": "Quiet", "colours": "Pick for me", "motion": "Gentle",
+      "goal": "Visit or book", "extras": "More than one page", "languages": "One language: German",
+      "material": "Physio am Kanal, physiotherapy practice in Völklingen, Schleusenweg 8, ground floor, step-free. Team: Mira Schäfer (owner, manual therapy, here since 2014), Tobias Klein (sports physiotherapy), Aylin Demir (lymphatic drainage, jaw joint). Treatments: manual therapy, sports physiotherapy, lymphatic drainage, jaw joint (TMJ) therapy, home visits in Völklingen. Statutory insurance with a doctor's prescription; private patients and self-payers: 30 minutes 38 euros, 45 minutes 52 euros, home visits 15 euros extra. Mon–Fri 7–19, Sat 8–12. Appointments by email: termine@physio-am-kanal.example. No photos."
+    },
+    "expected_behavior": [
+      { "text": "Builds at least four pages (home, treatments, team, prices) and the nav marks the page you are on", "auto": ["pages>=4"], "judge": true },
+      { "text": "Prices and hours live once in site.json and every page reads them from there", "auto": ["grep:site.json:52", "grep:site.json:19"], "judge": true },
+      "Each page has its own title and description, and headings that say a claim, not just 'Team' or 'Prices'",
+      "Invents no qualifications, years, certificates or patient reviews beyond the material",
+      "Says the practice is step-free on the ground floor where people decide to come",
+      { "text": "Ends with audit.mjs reporting Ready to ship", "auto": ["audit:ready"] },
+      { "text": "On desktop (1440 px) every screen uses its width: no phone-sized drawing in an empty field, no section that is mostly empty space", "judge": true }
+    ]
+  },
+  {
+    "skills": ["one-shot-site"],
+    "name": "redesign of a dated restaurant site",
+    "query": "Our restaurant's website is from 2009 and it shows. Can you redesign it? It's at http://127.0.0.1:4817/",
+    "serve": { "dir": "evals/fixtures/zur-linde", "port": 4817 },
+    "answers": {
+      "purpose": "A small business", "feel": "Warm", "colours": "Keep our green, the rest is up to you", "motion": "Gentle",
+      "goal": "Visit or book", "extras": "none", "languages": "One language: German",
+      "material": "Everything on the old site is still true, except the opening hours: since September we are closed on Monday and Tuesday, Wednesday to Sunday as before. The guestbook is gone. No new photos."
+    },
+    "facts": ["Zur Linde", "Kelterplatz 3", "1978", "Dibbelabbes", "12[,.]50", "Hoorische", "11[,.]90", "Schwenkbraten", "16[,.]80", "Flammkuchen", "Lindenstube", "info@zur-linde-homburg\\.example"],
+    "expected_behavior": [
+      { "text": "Reads the old site with redesign.mjs before writing the brief", "auto": ["order:node\\s+(\"[^\"]*|[^\\s\"]*)redesign\\.mjs\"?\\s+\"?https?://(127\\.0\\.0\\.1|localhost):4817 then write .*brief\\.md"] },
+      { "text": "Shows the change with redesign.mjs compare (old site against the new build)", "auto": ["ran:node\\s+(\"[^\"]*|[^\\s\"]*)redesign\\.mjs\"?\\s+compare"] },
+      { "text": "Keeps every fact from the old site: the dishes and prices, the address, since 1978, the Lindenstube, the beer garden, the email", "auto": ["facts-kept"], "judge": true },
+      "Opening hours updated: closed Monday and Tuesday, Wednesday to Sunday 11:30–14:00 and 17:30–22:00; the guestbook link and the visitor counter are gone",
+      "Drops what made the old site dated (scrolling text, tiled background, table layout, blinking) and the brief says what was kept and why",
+      "Still recognisably Zur Linde: its green, its name, its Saarland dishes; not a generic restaurant template",
+      { "text": "Ends with audit.mjs reporting Ready to ship", "auto": ["audit:ready"] },
+      { "text": "On desktop (1440 px) every screen uses its width: no phone-sized drawing in an empty field, no section that is mostly empty space", "judge": true }
+    ]
+  },
+  {
+    "skills": ["one-shot-site"],
+    "name": "change request: make it warmer",
+    "query": "The portfolio site you made for me (in jonas-weber/) feels a bit cold. Can you make it warmer?",
+    "start": "examples/jonas-weber/site",
+    "answers": {
+      "feel": "Warmer colours and friendlier type, still bold; keep the layout and every word",
+      "pick": "Take the one you recommend",
+      "material": "Nothing new: keep everything that is on the site."
+    },
+    "expected_behavior": [
+      { "text": "Keeps every fact and every word: site.json and the page text are as before", "auto": ["site-json-kept", "text-kept"] },
+      { "text": "Changes only the look (colours, type, maybe motion): no new pages, sections or copy", "auto": ["only-changed:src/.*|package\\.json|package-lock\\.json|index\\.html|public/.*\\.(svg|png|ico|webmanifest)"] },
+      "The new colours and type read as warmer than before (compare before/src with the site's src and the sheets) and the site is still unmistakably bold",
+      { "text": "Checks still pass: audit Ready to ship, no contrast faults", "auto": ["audit:ready", "no-finding:contrast"] },
+      { "text": "Commits the change with a plain message", "auto": ["ran:git( -C \\S+)? commit"] }
+    ]
+  },
+  {
+    "skills": ["one-shot-site"],
+    "name": "change request: another hero",
+    "query": "For the Kleiner Kaffee site you made (in kleiner-kaffee/): can you show me another hero? The big headline is fine, but I'd like to see something different up top.",
+    "start": "examples/kleiner-kaffee/site",
+    "answers": {
+      "pick": "Take the one you recommend",
+      "material": "Nothing new: keep everything else as it is."
+    },
+    "expected_behavior": [
+      { "text": "Shows other first screens to choose from, side by side, before changing the page", "auto": ["ran:node\\s+(\"[^\"]*|[^\\s\"]*)look\\.mjs\"?\\s.*--compare"], "judge": true },
+      { "text": "Only the first screen changes: every other section keeps its words, and site.json is as before", "auto": ["text-kept:after-first-screen", "site-json-kept"] },
+      "The new first screen uses a different pattern from layout.md (not the same big headline at another size) and still says what, where and when on a phone",
+      { "text": "Checks still pass: audit Ready to ship", "auto": ["audit:ready"] },
+      { "text": "Commits the change with a plain message", "auto": ["ran:git( -C \\S+)? commit"] }
+    ]
+  }
+]

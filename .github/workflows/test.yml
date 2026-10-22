@@ -1,0 +1,33 @@
+name: Tests
+
+# While the repository is private, Actions minutes are limited (and macOS counts ten times, Windows twice), so the
+# tests run only by hand: Actions → Tests → Run workflow. The full suite runs locally before every push.
+# On launch day, when the repository goes public (standard runners are free there), put back:
+#   push:
+#     branches: [main]
+#   pull_request:
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        # 22 is the oldest Node the skill supports; the newest runs once on Linux
+        node: [22]
+        include:
+          - os: ubuntu-latest
+            node: 24
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: ${{ matrix.node }}
+      # Chrome comes preinstalled on GitHub's runners; the tests drive it directly
+      - run: npm test

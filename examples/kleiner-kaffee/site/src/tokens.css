@@ -1,0 +1,63 @@
+/* The design in numbers. Every colour, size, gap and timing on the site comes from here, so a change of
+   mood is a change in this file. Colours: run `palette.mjs` and paste its block over the colour section. */
+
+:root {
+  /* colour: one ground, one ink, one accent (contrast-checked by palette.mjs) */
+  --ground: oklch(95.0% 0.019 80.0);       /* page background */
+  --surface: oklch(91.5% 0.025 80.0);      /* a quieter band or card */
+  --ink: oklch(20.0% 0.008 80.0);          /* body text: full strength, never grey */
+  --muted: oklch(47.0% 0.011 80.0);        /* captions and meta, still 4.5:1 on ground */
+  --line: oklch(20.0% 0.008 80.0 / 0.14);
+  --accent: oklch(41.2% 0.084 48.1);       /* the one colour, used in few places */
+  --accent-ink: oklch(99.0% 0.005 48.1);   /* text on the accent */
+  --accent-text: oklch(41.2% 0.084 48.1);  /* the accent as text/links on the ground, 4.5:1 */
+  color-scheme: light;
+
+  /* the drawings: roast browns, copper, iron and tin, in two or three tones each */
+  --roast: var(--accent);
+  --roast-deep: #4f2813;
+  --roast-light: #8c5232;
+  --copper: #c07a45;
+  --copper-light: #d9a274;
+  --iron: #2e231d;
+  --iron-mid: #5a4a40;
+  --iron-light: #7a6a5e;
+  --tin: #dccfbc;
+  --tin-shade: #c3b29b;
+  --bean: #3d1f0f;
+  --glass: #efe3cf;
+  --porcelain: #fbf6ee;
+  --shadow-ink: rgb(79 40 19 / 0.14);
+
+  /* type: two families at most */
+  --font-display: 'Brygada 1918 Variable', Georgia, serif;
+  --font-text: 'Karla Variable', system-ui, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* a fluid scale: small → huge, each step grows with the screen */
+  --step--1: clamp(0.875rem, 0.84rem + 0.2vw, 0.95rem);
+  --step-0: clamp(1.05rem, 1rem + 0.25vw, 1.2rem);
+  --step-1: clamp(1.3rem, 1.18rem + 0.6vw, 1.65rem);
+  --step-2: clamp(1.7rem, 1.4rem + 1.4vw, 2.6rem);
+  --step-3: clamp(2.3rem, 1.6rem + 3.2vw, 4.4rem);
+  --step-hero: clamp(2.5rem, 1.35rem + 4.3vw, 5.25rem);   /* the h1: about 4x body on a desktop */
+  --step-4: clamp(3rem, 1.6rem + 6.6vw, 7.5rem);
+  --leading-tight: 1.02;
+  --leading-body: 1.55;
+  --measure: 66ch;
+
+  /* space: one rhythm; the gap between sections beats any gap inside one */
+  --margin: clamp(1rem, 0.6rem + 2vw, 2.5rem);
+  --gap: clamp(1rem, 0.8rem + 1vw, 1.75rem);
+  --section: clamp(5.5rem, 3rem + 10vw, 13rem);
+  --radius: 14px;
+  --radius-big: 24px;
+  --bar: 4.75rem;              /* the phone bar's height */
+
+  /* motion: one ease for things arriving, short presses, slower reveals */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --t-press: 120ms;
+  --t-hover: 180ms;
+  --t-reveal: 700ms;
+}

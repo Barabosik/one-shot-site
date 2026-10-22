@@ -1,0 +1,64 @@
+name: Bug
+description: A script fails, a check is wrong, or a run went somewhere it shouldn't.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting it. A security problem goes through **Security → Report a vulnerability** instead
+        (see SECURITY.md), not here.
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you saw, and what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: How to get there
+      description: The command you ran, or what you asked the agent, step by step.
+      placeholder: |
+        1. node tools/one-shot/look.mjs dist --numbers
+        2. …
+    validations:
+      required: true
+  - type: textarea
+    id: output
+    attributes:
+      label: Output
+      description: The script's output or the agent's last messages. Take out anything private first.
+      render: shell
+  - type: input
+    id: version
+    attributes:
+      label: Skill version
+      description: "`version` in SKILL.md or .claude-plugin/plugin.json, or the commit."
+      placeholder: 0.5.0
+    validations:
+      required: true
+  - type: dropdown
+    id: agent
+    attributes:
+      label: Agent
+      options:
+        - Claude Code
+        - Codex
+        - Cursor
+        - Other (say which below)
+    validations:
+      required: true
+  - type: input
+    id: system
+    attributes:
+      label: System
+      description: Operating system, Node version, and the browser the scripts used.
+      placeholder: Windows 11, Node 24.1, Chrome 141
+  - type: checkboxes
+    id: private
+    attributes:
+      label: Before you send it
+      options:
+        - label: The logs and screenshots hold no passwords, tokens or someone else's personal details.
+          required: true

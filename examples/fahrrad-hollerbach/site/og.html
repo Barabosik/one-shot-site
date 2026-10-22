@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="de-DE">
+<head>
+  <meta charset="utf-8">
+  <meta name="robots" content="noindex">
+  <title>Fahrrad Hollerbach · Vorschaubild</title>
+  <script type="module" src="/src/main.js"></script>
+  <style>
+    html, body { width: 1200px; height: 630px; overflow: hidden; }
+    .og { display: grid; grid-template-columns: 1fr 380px; gap: 56px; align-items: center; height: 630px; padding: 0 72px; box-sizing: border-box; }
+    .og p.name { font-family: var(--font-display); font-size: 34px; color: var(--accent-text); margin-bottom: 18px; }
+    .og h1 { font-size: 104px; line-height: 0.92; max-width: 9ch; }
+    .og .tag-wrap { margin: 0; rotate: var(--tilt); max-width: none; }
+  </style>
+</head>
+<body>
+  <main class="og">
+    <div>
+      <p class="name">{{site.name}} · Trier · seit 1958</p>
+      <h1>Ihr Rad, repariert. Ohne Termin.</h1>
+    </div>
+    <div class="tag-wrap">
+      <svg class="string" viewBox="0 0 120 90" aria-hidden="true"><path d="M60 88 C 30 60, 90 40, 58 2" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+      <div class="tag">
+        <p class="tag-label">Reparaturzettel</p>
+        <dl class="tag-list">
+          <div><dt>{{site.menu.0.items.0.name}}</dt><dd>{{site.menu.0.items.0.price|price}}</dd></div>
+          <div><dt>Inspektion</dt><dd>{{site.menu.1.items.0.price|price}}</dd></div>
+          <div><dt>{{site.menu.1.items.1.name}}</dt><dd>{{site.menu.1.items.1.price|price}}</dd></div>
+        </dl>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

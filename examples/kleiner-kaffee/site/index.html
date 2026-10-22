@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Kleiner Kaffee: coffee bar and roaster in Saarbrücken</title>
+  <meta name="description" content="{{site.description}}">
+  <meta name="theme-color" content="#f5ede0">
+  <link rel="canonical" href="{{URL}}">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{URL}}">
+  <meta property="og:title" content="Kleiner Kaffee, Röstergasse 12, Saarbrücken">
+  <meta property="og:description" content="Eight seats and our own beans, roasted every Tuesday. Espresso, flat white, filter and cardamom buns.">
+  <meta property="og:image" content="{{URL}}og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <!-- From site.json: structured data for search engines, verification tags, cookieless analytics -->
+  <!-- site:head -->
+
+  <!-- Before first paint: mark that scripts run, so content hidden for an entrance never stays hidden
+       when they don't. -->
+  <!-- .js arms the scroll reveals; if main.js hasn't run after 3 s (blocked, failed), show everything -->
+  <script>document.documentElement.classList.add('js');setTimeout(function(){var d=document.documentElement;if(!d.hasAttribute('data-ready'))d.classList.remove('js')},3000);</script>
+  <script type="module" src="/src/main.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <a translate="no" class="wordmark" href="%BASE_URL%">{{site.name}}</a>
+    <nav aria-label="Main">
+      <a href="#menu">Menu</a>
+      <a href="#roasting">Roasting</a>
+      <a href="#visit">Visit</a>
+    </nav>
+    <a class="button header-action" href="{{site.address|maps}}">Get directions</a>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <section class="hero">
+      <div class="hero-words">
+        <h1>A coffee bar that roasts its own beans</h1>
+        <p class="lead">{{site.seats}} seats at {{site.address.street}}, {{site.address.city}}. We roast our own beans every {{site.roast.day}}, in a {{site.roast.batch}} drum roaster.</p>
+<!-- site:open-now -->
+        <p class="hero-actions"><a class="button" href="{{site.address|maps}}">Get directions</a> <a class="text-link" href="#menu">See the menu</a></p>
+      </div>
+      <figure class="hero-picture">
+        <svg class="drawing roaster" viewBox="40 30 520 580" width="520" height="580" role="img" aria-labelledby="roaster-title">
+          <title id="roaster-title">Drawing of our {{site.roast.batch}} drum roaster, its cooling tray full of beans</title>
+          <ellipse class="shadow" cx="300" cy="594" rx="250" ry="12"/>
+          <path class="s-iron-mid" d="M404 200 V84 a36 36 0 0 1 36 -36 H556" stroke-width="28"/>
+          <path class="s-iron-light" d="M398 200 V84 a42 42 0 0 1 42 -42 H556" stroke-width="5"/>
+          <rect class="iron" x="386" y="120" width="36" height="12" rx="3"/>
+          <rect class="iron" x="128" y="480" width="26" height="104" rx="5"/>
+          <rect class="iron" x="406" y="480" width="26" height="104" rx="5"/>
+          <rect class="roast" x="110" y="196" width="340" height="300" rx="22"/>
+          <path class="roast-deep" d="M408 196 h20 a22 22 0 0 1 22 22 v256 a22 22 0 0 1 -22 22 h-20z"/>
+          <rect class="roast-light" x="122" y="212" width="10" height="268" rx="5"/>
+          <rect class="roast-deep" x="102" y="184" width="356" height="24" rx="9"/>
+          <rect class="iron-mid" x="226" y="164" width="48" height="26"/>
+          <path class="tin" d="M170 92 H330 L282 168 H218 Z"/>
+          <path class="tin-shade" d="M250 92 H330 L282 168 H250 Z"/>
+          <rect class="iron-mid" x="162" y="82" width="176" height="16" rx="6"/>
+          <rect class="copper" x="274" y="172" width="40" height="9" rx="4.5"/>
+          <rect class="iron" x="368" y="222" width="68" height="84" rx="9"/>
+          <rect class="copper-light" x="378" y="234" width="48" height="18" rx="3"/>
+          <circle class="tin" cx="390" cy="276" r="9"/>
+          <path class="s-iron" d="M390 276 l5 -6" stroke-width="2.5"/>
+          <circle class="tin" cx="414" cy="276" r="9"/>
+          <path class="s-iron" d="M414 276 l-6 -4" stroke-width="2.5"/>
+          <circle class="copper" cx="402" cy="296" r="4"/>
+          <circle class="roast-deep" cx="250" cy="330" r="104"/>
+          <circle class="copper" cx="250" cy="330" r="90"/>
+          <path class="s-copper-light" d="M172 285 A90 90 0 0 1 250 240" stroke-width="5"/>
+          <g class="roast-light">
+            <circle cx="250" cy="233" r="4.5"/><circle cx="298.5" cy="246" r="4.5"/><circle cx="334" cy="281.5" r="4.5"/>
+            <circle cx="347" cy="330" r="4.5"/><circle cx="334" cy="378.5" r="4.5"/><circle cx="298.5" cy="414" r="4.5"/>
+            <circle cx="250" cy="427" r="4.5"/><circle cx="201.5" cy="414" r="4.5"/><circle cx="166" cy="378.5" r="4.5"/>
+            <circle cx="153" cy="330" r="4.5"/><circle cx="166" cy="281.5" r="4.5"/><circle cx="201.5" cy="246" r="4.5"/>
+          </g>
+          <rect class="iron" x="196" y="260" width="108" height="44" rx="12"/>
+          <rect class="glass" x="204" y="268" width="92" height="28" rx="7"/>
+          <g class="drum-beans roast">
+            <ellipse cx="216" cy="289" rx="7" ry="4.2" transform="rotate(-18 216 289)"/>
+            <ellipse cx="232" cy="291" rx="7" ry="4.2" transform="rotate(12 232 291)"/>
+            <ellipse cx="248" cy="288" rx="6.5" ry="4" transform="rotate(-30 248 288)"/>
+            <ellipse cx="264" cy="291" rx="7" ry="4.2" transform="rotate(20 264 291)"/>
+            <ellipse cx="280" cy="289" rx="6.5" ry="4" transform="rotate(-10 280 289)"/>
+            <ellipse cx="240" cy="281" rx="6" ry="3.6" transform="rotate(35 240 281)"/>
+          </g>
+          <rect class="iron-mid" x="250" y="323" width="132" height="13" rx="6.5"/>
+          <circle class="iron" cx="386" cy="329.5" r="12"/>
+          <circle class="roast-deep" cx="250" cy="329.5" r="15"/>
+          <rect class="roast-light" x="204" y="364" width="92" height="36" rx="10"/>
+          <rect class="roast-deep" x="212" y="372" width="76" height="4" rx="2"/>
+          <rect class="iron" x="182" y="376" width="30" height="10" rx="5"/>
+          <path class="iron-mid" d="M222 412 H278 L258 462 H196 Z"/>
+          <rect class="iron" x="210" y="500" width="40" height="84"/>
+          <rect class="iron" x="176" y="580" width="108" height="12" rx="5"/>
+          <path class="iron-mid" d="M60 472 V508 A170 28 0 0 0 400 508 V472 Z"/>
+          <path class="s-iron-light" d="M60 490 A170 28 0 0 0 400 490" stroke-width="4"/>
+          <ellipse class="tin" cx="230" cy="472" rx="170" ry="28"/>
+          <ellipse class="roast" cx="230" cy="473" rx="152" ry="21"/>
+          <g class="bean">
+            <ellipse cx="130" cy="472" rx="7" ry="3.5"/><ellipse cx="160" cy="480" rx="7" ry="3.5"/><ellipse cx="190" cy="466" rx="7" ry="3.5"/>
+            <ellipse cx="270" cy="482" rx="7" ry="3.5"/><ellipse cx="300" cy="468" rx="7" ry="3.5"/><ellipse cx="330" cy="478" rx="7" ry="3.5"/>
+            <ellipse cx="350" cy="466" rx="6" ry="3"/><ellipse cx="105" cy="478" rx="6" ry="3"/><ellipse cx="240" cy="486" rx="7" ry="3.5"/>
+          </g>
+          <g class="roast-light">
+            <ellipse cx="145" cy="465" rx="6" ry="3"/><ellipse cx="210" cy="480" rx="6" ry="3"/><ellipse cx="285" cy="460" rx="6" ry="3"/>
+            <ellipse cx="318" cy="486" rx="6" ry="3"/><ellipse cx="365" cy="474" rx="5" ry="2.6"/>
+          </g>
+          <rect class="iron" x="226" y="440" width="8" height="34"/>
+          <rect class="iron tray-arm" x="150" y="468" width="160" height="6" rx="3"/>
+        </svg>
+      </figure>
+    </section>
+
+    <section id="menu" class="menu" aria-labelledby="menu-title">
+      <div class="menu-head" data-reveal>
+        <h2 id="menu-title">Menu</h2>
+        <p class="first-line">Three coffees and a bun, each with its price.</p>
+        <p>Beans to take home are under <a class="text-link" href="#roasting">Roasting</a>.</p>
+      </div>
+
+      <div class="menu-board">
+        <h3>{{site.menu.0.section}}</h3>
+        <ul class="menu-rows">
+          <li data-reveal style="--i: 0">
+            <svg class="drawing good" viewBox="0 0 160 120" width="160" height="120" aria-hidden="true">
+              <ellipse class="shadow" cx="80" cy="110" rx="56" ry="6"/>
+              <ellipse class="tin-shade" cx="80" cy="101" rx="54" ry="10"/>
+              <ellipse class="porcelain" cx="80" cy="97" rx="54" ry="10"/>
+              <ellipse class="tin" cx="80" cy="96" rx="30" ry="5"/>
+              <path class="s-porcelain" d="M106 62 c16 0 16 22 -2 22" stroke-width="6"/>
+              <path class="porcelain" d="M52 52 H108 V66 C108 86 96 96 80 96 C64 96 52 86 52 66 Z"/>
+              <path class="tin" d="M94 52 H108 V66 C108 84 99 93 88 95.5 C95 87 94 70 94 52 Z"/>
+              <ellipse class="tin" cx="80" cy="52" rx="28" ry="7"/>
+              <ellipse class="copper" cx="80" cy="52.5" rx="24" ry="5"/>
+              <ellipse class="copper-light" cx="74" cy="51.5" rx="9" ry="2.2"/>
+            </svg>
+            <span class="item-name">{{site.menu.0.items.0.name}}</span>
+            <span class="item-note">{{site.menu.0.items.0.note}}</span>
+            <span class="item-price">€{{site.menu.0.items.0.price}}</span>
+          </li>
+          <li data-reveal style="--i: 1">
+            <svg class="drawing good" viewBox="0 0 160 120" width="160" height="120" aria-hidden="true">
+              <ellipse class="shadow" cx="80" cy="111" rx="64" ry="6"/>
+              <ellipse class="tin-shade" cx="80" cy="103" rx="62" ry="10"/>
+              <ellipse class="porcelain" cx="80" cy="99" rx="62" ry="10"/>
+              <ellipse class="tin" cx="80" cy="98" rx="36" ry="5.5"/>
+              <path class="s-porcelain" d="M118 54 c18 0 18 26 -4 26" stroke-width="7"/>
+              <path class="porcelain" d="M40 42 H120 V56 C120 86 104 98 80 98 C56 98 40 86 40 56 Z"/>
+              <path class="tin" d="M100 42 H120 V56 C120 82 108 94 92 97 C102 86 100 62 100 42 Z"/>
+              <ellipse class="tin" cx="80" cy="42" rx="40" ry="9"/>
+              <ellipse class="copper-light" cx="80" cy="42.5" rx="35" ry="7"/>
+              <g class="porcelain">
+                <ellipse cx="80" cy="45.5" rx="13" ry="3.4"/>
+                <ellipse cx="80" cy="41.5" rx="9" ry="2.5"/>
+                <ellipse cx="80" cy="38.6" rx="5" ry="1.6"/>
+              </g>
+            </svg>
+            <span class="item-name">{{site.menu.0.items.1.name}}</span>
+            <span class="item-note">{{site.menu.0.items.1.note}}</span>
+            <span class="item-price">€{{site.menu.0.items.1.price}}</span>
+          </li>
+          <li data-reveal style="--i: 2">
+            <svg class="drawing good" viewBox="0 0 160 120" width="160" height="120" aria-hidden="true">
+              <ellipse class="shadow" cx="80" cy="111" rx="50" ry="6"/>
+              <path class="s-porcelain" d="M106 74 c16 0 16 22 -2 22" stroke-width="6"/>
+              <path class="porcelain" d="M52 64 H108 V98 a10 10 0 0 1 -10 10 H62 a10 10 0 0 1 -10 -10 Z"/>
+              <path class="tin" d="M94 64 H108 V98 a10 10 0 0 1 -10 10 H92 C95 96 94 80 94 64 Z"/>
+              <rect class="copper" x="46" y="58" width="68" height="8" rx="4"/>
+              <path class="copper-light" d="M38 24 H122 L104 60 H56 Z"/>
+              <path class="copper" d="M98 24 H122 L104 60 H92 Z"/>
+              <path class="porcelain" d="M44 24 L52 14 H108 L116 24 Z"/>
+              <rect class="roast-light" x="38" y="22" width="84" height="5" rx="2.5"/>
+            </svg>
+            <span class="item-name">{{site.menu.0.items.2.name}}</span>
+            <span class="item-note">{{site.menu.0.items.2.note}}</span>
+            <span class="item-price">€{{site.menu.0.items.2.price}}</span>
+          </li>
+        </ul>
+
+        <h3>{{site.menu.1.section}}</h3>
+        <ul class="menu-rows">
+          <li data-reveal style="--i: 3">
+            <svg class="drawing good" viewBox="0 0 160 120" width="160" height="120" aria-hidden="true">
+              <ellipse class="shadow" cx="80" cy="111" rx="62" ry="6"/>
+              <ellipse class="tin-shade" cx="80" cy="99" rx="62" ry="12"/>
+              <ellipse class="porcelain" cx="80" cy="95" rx="62" ry="12"/>
+              <path class="copper" d="M34 92 C34 60 56 44 80 44 C104 44 126 60 126 92 Z"/>
+              <path class="roast-light" d="M98 47 C114 54 126 70 126 92 H104 C110 76 106 58 98 47 Z"/>
+              <path class="s-copper-light" d="M48 82 C54 62 72 56 82 68 C92 80 106 72 104 58" stroke-width="5"/>
+              <path class="s-roast-light" d="M58 90 C62 78 78 74 88 84" stroke-width="5"/>
+              <g class="porcelain">
+                <circle cx="60" cy="62" r="2"/><circle cx="72" cy="54" r="1.8"/><circle cx="90" cy="56" r="2"/>
+                <circle cx="66" cy="74" r="1.6"/><circle cx="100" cy="66" r="1.8"/><circle cx="84" cy="74" r="1.6"/>
+              </g>
+              <g class="bean">
+                <circle cx="78" cy="62" r="1.6"/><circle cx="56" cy="72" r="1.4"/><circle cx="94" cy="80" r="1.5"/>
+              </g>
+            </svg>
+            <span class="item-name">{{site.menu.1.items.0.name}}</span>
+            <span class="item-note">{{site.menu.1.items.0.note}}</span>
+            <span class="item-price">€{{site.menu.1.items.0.price}}</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="roasting" class="roasting" aria-labelledby="roasting-title">
+      <div class="roasting-words" data-reveal>
+        <h2 id="roasting-title">Roasting</h2>
+        <p class="first-line">Every {{site.roast.day}}, {{site.roast.batch}} at a time.</p>
+        <p>Green beans go into the drum. It turns until they’re brown, and then they cool in the tray.</p>
+
+        <h3>Beans to take home</h3>
+        <p>You can buy them by the bag. Write to us and ask what’s been roasted this week.</p>
+        <p class="beans-email"><a href="mailto:{{site.email}}?subject=Beans">{{site.email}}</a></p>
+        <p><a class="button button-light" href="mailto:{{site.email}}?subject=Beans">Email for beans</a></p>
+      </div>
+      <figure class="roasting-picture" data-reveal style="--i: 2">
+        <svg class="drawing bag" viewBox="0 0 300 400" width="300" height="400" role="img" aria-labelledby="bag-title">
+          <title id="bag-title">Drawing of a paper bag of our roasted beans, with a few beans spilled beside it</title>
+          <ellipse class="shadow" cx="150" cy="384" rx="130" ry="10"/>
+          <path class="copper-light" d="M58 92 H242 L258 366 Q258 378 246 378 H54 Q42 378 42 366 Z"/>
+          <path class="copper" d="M212 92 H242 L258 366 Q258 378 246 378 H222 Z"/>
+          <path class="s-copper" d="M78 120 L66 360" stroke-width="3"/>
+          <rect class="copper" x="56" y="52" width="188" height="44" rx="5"/>
+          <path class="roast-light" d="M56 84 H244 V96 H56 Z"/>
+          <rect class="iron-mid" x="48" y="72" width="204" height="10" rx="5"/>
+          <circle class="copper" cx="150" cy="128" r="10"/>
+          <circle class="roast-light" cx="150" cy="128" r="4.5"/>
+          <rect class="porcelain" x="86" y="166" width="128" height="150" rx="12"/>
+          <ellipse class="roast" cx="150" cy="232" rx="30" ry="40" transform="rotate(-20 150 232)"/>
+          <path class="s-roast-deep" d="M140 196 C162 214 136 244 160 268" stroke-width="5"/>
+          <rect class="roast" x="86" y="290" width="128" height="26" rx="0"/>
+          <path class="roast" d="M86 290 H214 V304 a12 12 0 0 1 -12 12 H98 a12 12 0 0 1 -12 -12 Z"/>
+          <g class="roast">
+            <ellipse cx="34" cy="378" rx="10" ry="6" transform="rotate(-20 34 378)"/>
+            <ellipse cx="270" cy="380" rx="10" ry="6" transform="rotate(25 270 380)"/>
+            <ellipse cx="286" cy="370" rx="9" ry="5.5" transform="rotate(-40 286 370)"/>
+          </g>
+          <g class="s-roast-deep" stroke-width="2.5">
+            <path d="M28 376 q6 -2 12 3"/><path d="M265 377 q6 2 10 7"/><path d="M282 373 q5 -5 9 -4"/>
+          </g>
+        </svg>
+      </figure>
+    </section>
+
+    <section id="bar" class="bar" aria-labelledby="bar-title">
+      <div class="bar-words" data-reveal>
+        <h2 id="bar-title">The bar</h2>
+        <p class="first-line">{{site.seats}} seats, run by {{site.owner.name}} since {{site.since}}.</p>
+      </div>
+      <div class="bar-picture" data-reveal style="--i: 1">
+        <svg class="drawing room" viewBox="0 60 1200 360" width="1200" height="360" role="img" aria-labelledby="room-title">
+          <title id="room-title">Drawing of the bar: {{site.seats}} stools along the counter, cups on top</title>
+          <rect class="floor" x="0" y="398" width="1200" height="4"/>
+          <rect class="roast" x="50" y="154" width="1100" height="246"/>
+          <path class="s-roast-deep" stroke-width="3" d="M140 160 V400M230 160 V400M320 160 V400M410 160 V400M500 160 V400M590 160 V400M680 160 V400M770 160 V400M860 160 V400M950 160 V400M1040 160 V400"/>
+          <rect class="roast-light" x="30" y="120" width="1140" height="28" rx="8"/>
+          <rect class="roast-deep" x="50" y="148" width="1100" height="10"/>
+          <rect class="copper" x="50" y="340" width="1100" height="10" rx="5"/>
+          <ellipse class="tin" cx="248" cy="120" rx="26" ry="5"/>
+          <path class="porcelain" d="M232 92 h32 v18 a16 12 0 0 1 -32 0z"/>
+          <path class="s-porcelain" d="M264 98 a8 8 0 0 1 0 14" stroke-width="4"/>
+          <ellipse class="tin" cx="672" cy="120" rx="34" ry="6"/>
+          <path class="porcelain" d="M648 80 h48 v26 a24 16 0 0 1 -48 0z"/>
+          <path class="s-porcelain" d="M696 88 a10 10 0 0 1 0 18" stroke-width="5"/>
+          <ellipse class="copper-light" cx="672" cy="80" rx="24" ry="4"/>
+          <path class="porcelain" d="M940 84 h30 l-4 36 h-22z"/>
+          <g class="stools">
+            <g class="stool"><ellipse class="shadow" cx="105" cy="402" rx="52" ry="6"/><path class="s-roast-deep" d="M105 246 V396" stroke-width="7"/><path class="s-iron" d="M75 246 L63 398 M135 246 L147 398" stroke-width="7"/><ellipse class="s-iron" cx="105" cy="330" rx="38" ry="8" stroke-width="5"/><path class="copper" d="M61 226 v16 a44 10 0 0 0 88 0 v-16z"/><ellipse class="copper-light" cx="105" cy="226" rx="44" ry="10"/></g>
+            <g class="stool" transform="translate(141.4 0)"><ellipse class="shadow" cx="105" cy="402" rx="52" ry="6"/><path class="s-roast-deep" d="M105 246 V396" stroke-width="7"/><path class="s-iron" d="M75 246 L63 398 M135 246 L147 398" stroke-width="7"/><ellipse class="s-iron" cx="105" cy="330" rx="38" ry="8" stroke-width="5"/><path class="copper" d="M61 226 v16 a44 10 0 0 0 88 0 v-16z"/><ellipse class="copper-light" cx="105" cy="226" rx="44" ry="10"/></g>
+            <g class="stool" transform="translate(282.8 0)"><ellipse class="shadow" cx="105" cy="402" rx="52" ry="6"/><path class="s-roast-deep" d="M105 246 V396" stroke-width="7"/><path class="s-iron" d="M75 246 L63 398 M135 246 L147 398" stroke-width="7"/><ellipse class="s-iron" cx="105" cy="330" rx="38" ry="8" stroke-width="5"/><path class="copper" d="M61 226 v16 a44 10 0 0 0 88 0 v-16z"/><ellipse class="copper-light" cx="105" cy="226" rx="44" ry="10"/></g>
+            <g class="stool" transform="translate(424.2 0)"><ellipse class="shadow" cx="105" cy="402" rx="52" ry="6"/><path class="s-roast-deep" d="M105 246 V396" stroke-width="7"/><path class="s-iron" d="M75 246 L63 398 M135 246 L147 398" stroke-width="7"/><ellipse class="s-iron" cx="105" cy="330" rx="38" ry="8" stroke-width="5"/><path class="copper" d="M61 226 v16 a44 10 0 0 0 88 0 v-16z"/><ellipse class="copper-light" cx="105" cy="226" rx="44" ry="10"/></g>
+            <g class="stool" transform="translate(565.6 0)"><ellipse class="shadow" cx="105" cy="402" rx="52" ry="6"/><path class="s-roast-deep" d="M105 246 V396" stroke-width="7"/><path class="s-iron" d="M75 246 L63 398 M135 246 L147 398" stroke-width="7"/><ellipse class="s-iron" cx="105" cy="330" rx="38" ry="8" stroke-width="5"/><path class="copper" d="M61 226 v16 a44 10 0 0 0 88 0 v-16z"/><ellipse class="copper-light" cx="105" cy="226" rx="44" ry="10"/></g>
+            <g class="stool" transform="translate(707 0)"><ellipse class="shadow" cx="105" cy="402" rx="52" ry="6"/><path class="s-roast-deep" d="M105 246 V396" stroke-width="7"/><path class="s-iron" d="M75 246 L63 398 M135 246 L147 398" stroke-width="7"/><ellipse class="s-iron" cx="105" cy="330" rx="38" ry="8" stroke-width="5"/><path class="copper" d="M61 226 v16 a44 10 0 0 0 88 0 v-16z"/><ellipse class="copper-light" cx="105" cy="226" rx="44" ry="10"/></g>
+            <g class="stool" transform="translate(848.4 0)"><ellipse class="shadow" cx="105" cy="402" rx="52" ry="6"/><path class="s-roast-deep" d="M105 246 V396" stroke-width="7"/><path class="s-iron" d="M75 246 L63 398 M135 246 L147 398" stroke-width="7"/><ellipse class="s-iron" cx="105" cy="330" rx="38" ry="8" stroke-width="5"/><path class="copper" d="M61 226 v16 a44 10 0 0 0 88 0 v-16z"/><ellipse class="copper-light" cx="105" cy="226" rx="44" ry="10"/></g>
+            <g class="stool" transform="translate(989.8 0)"><ellipse class="shadow" cx="105" cy="402" rx="52" ry="6"/><path class="s-roast-deep" d="M105 246 V396" stroke-width="7"/><path class="s-iron" d="M75 246 L63 398 M135 246 L147 398" stroke-width="7"/><ellipse class="s-iron" cx="105" cy="330" rx="38" ry="8" stroke-width="5"/><path class="copper" d="M61 226 v16 a44 10 0 0 0 88 0 v-16z"/><ellipse class="copper-light" cx="105" cy="226" rx="44" ry="10"/></g>
+          </g>
+        </svg>
+      </div>
+    </section>
+
+    <section id="visit" class="visit" aria-labelledby="visit-title">
+      <h2 id="visit-title" data-reveal>Visit</h2>
+      <div class="visit-time" data-reveal>
+<!-- site:open-now -->
+        <h3>Opening hours</h3>
+<!-- site:hours -->
+      </div>
+      <div class="visit-place" data-reveal style="--i: 1">
+        <h3 class="visually-hidden">Where</h3>
+<!-- site:address -->
+        <p><a class="button" href="{{site.address|maps}}">Get directions</a></p>
+        <h3>Questions</h3>
+        <p>Write to <a class="text-link" href="mailto:{{site.email}}">{{site.email}}</a>.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p class="footer-name"><span translate="no">{{site.name}}</span> · {{site.address.street}}, {{site.address.city}}</p>
+<!-- site:open-now -->
+    <p>© <span data-year></span> <span translate="no">{{site.name}}</span> · <a href="%BASE_URL%impressum.html">Impressum</a> · <a href="%BASE_URL%datenschutz.html">Datenschutz</a></p>
+  </footer>
+
+  <nav class="action-bar" aria-label="Visit">
+<!-- site:open-now -->
+    <a class="button" href="{{site.address|maps}}">Get directions</a>
+  </nav>
+</body>
+</html>

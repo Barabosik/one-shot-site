@@ -1,0 +1,78 @@
+{
+  "name": "Klempnerei Brandt",
+  "type": "Plumber",
+  "description": "Klempnerei Brandt, Meisterbetrieb in Leipzig-Gohlis: Rohrbruch, verstopfter Abfluss, Badsanierung, Thermenwartung. Notdienst und Preise auf der Seite.",
+  "url": "",
+  "email": "info@klempnerei-brandt.example",
+  "phone": "0341 1234 567",
+  "currency": "EUR",
+  "address": {
+    "street": "Lötgasse 41",
+    "postcode": "04155",
+    "city": "Leipzig",
+    "country": "DE"
+  },
+  "district": "Leipzig-Gohlis",
+  "hours": [
+    {
+      "days": "Mon-Fri",
+      "opens": "07:00",
+      "closes": "16:00"
+    }
+  ],
+  "emergency": {
+    "days": "Mo–Fr",
+    "opens": "07:00",
+    "closes": "20:00",
+    "weekendDays": "Sa–So",
+    "weekend": "kein Notdienst"
+  },
+  "closed": [],
+  "menu": [
+    {
+      "section": "",
+      "items": [
+        {
+          "name": "Anfahrt in Leipzig",
+          "price": "39",
+          "note": "mit den ersten 15 Minuten Arbeit"
+        },
+        {
+          "name": "Arbeitsstunde Geselle",
+          "price": "68",
+          "note": ""
+        },
+        {
+          "name": "Arbeitsstunde Meister",
+          "price": "84",
+          "note": ""
+        }
+      ]
+    }
+  ],
+  "area": {
+    "km": "15",
+    "towns": [
+      "Schkeuditz",
+      "Taucha",
+      "Markkleeberg"
+    ]
+  },
+  "events": [],
+  "links": {
+    "booking": "",
+    "payment": ""
+  },
+  "owner": {
+    "name": "Torsten Brandt",
+    "title": "Installateur- und Heizungsbauermeister"
+  },
+  "chamber": "Handwerkskammer zu Leipzig",
+  "vatId": "DE123456789",
+  "host": "GitHub Pages (GitHub, Inc., USA)",
+  "verify": {
+    "google": "",
+    "bing": ""
+  },
+  "analytics": {}
+}

@@ -1,0 +1,325 @@
+/* Patch Night. The first screen is the house rack; everything below is set in type around it. */
+
+/* ---------- header ---------- */
+.site-header {
+  display: flex; align-items: center; gap: clamp(0.75rem, 2vw, 2rem);
+  padding: 0.75rem var(--margin);
+  font-family: var(--font-display);
+}
+.wordmark {
+  margin-right: auto; padding-block: 0.6rem;
+  font-weight: 700; letter-spacing: 0.01em; text-decoration: none;
+}
+.site-header nav { display: flex; gap: clamp(0.75rem, 2vw, 2rem); }
+.site-header nav a { text-decoration: none; padding-block: 0.6rem; color: var(--muted); transition: color var(--t-hover) ease; }
+@media (max-width: 47.99rem) { .site-header nav a:not(.nav-tickets) { display: none; } }
+
+/* the Sound switch: a small lit LED says it's on */
+.sound-toggle {
+  display: inline-flex; align-items: center; gap: 0.55em; min-height: 2.75rem; padding: 0 0.95em;
+  border: 1px solid var(--line); border-radius: 99px; background: transparent; color: var(--ink);
+  font-family: var(--font-display); font-size: var(--step--1); font-weight: 600; letter-spacing: 0.04em;
+  transition: border-color var(--t-hover) ease, background-color var(--t-hover) ease;
+}
+.sound-toggle::before {
+  content: ''; width: 0.6em; height: 0.6em; border-radius: 50%; background: var(--led-off);
+  transition: background-color var(--t-hover) ease, box-shadow var(--t-hover) ease;
+}
+.sound-toggle[aria-pressed="true"] { border-color: var(--accent); }
+.sound-toggle[aria-pressed="true"]::before { background: var(--accent); box-shadow: 0 0 0.6em var(--accent); }
+.sound-toggle .state { color: var(--muted); font-weight: 400; }
+.sound-toggle:active { transform: scale(0.97); }
+
+/* ---------- buttons and links ---------- */
+.button {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.6em; min-height: 3.4rem; padding: 0 1.6rem;
+  background: var(--accent); color: var(--accent-ink); border-radius: var(--radius);
+  font-family: var(--font-display); font-weight: 700; font-size: var(--step-0); letter-spacing: 0.01em; text-decoration: none;
+  transition: transform var(--t-press) var(--ease-out), background-color var(--t-hover) ease, box-shadow var(--t-hover) ease;
+}
+.button:active { transform: scale(0.97); }
+a.text-link { color: var(--accent-text); }
+@media (hover: hover) and (pointer: fine) {
+  .button:hover { background: color-mix(in oklch, var(--accent), var(--ink) 18%); box-shadow: 0 0 1.6rem color-mix(in oklch, var(--accent) 45%, transparent); }
+  .site-header nav a:hover { color: var(--ink); }
+  .sound-toggle:hover { border-color: var(--muted); }
+  a.text-link:hover { text-decoration-thickness: 2px; }
+}
+
+/* ---------- first screen ---------- */
+.hero {
+  display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap); row-gap: clamp(1.25rem, 2.5vw, 2rem);
+  padding: clamp(0.5rem, 2vw, 1.5rem) var(--margin) var(--section);
+}
+.hero-head { grid-column: 1 / 8; align-self: end; }
+.hero h1 {
+  font-size: var(--step-4); font-weight: 600; letter-spacing: -0.035em; line-height: 0.9;
+  white-space: nowrap;
+}
+.lead { margin-top: 0.9rem; font-size: var(--step-1); line-height: 1.35; max-width: 30ch; }
+.hero-when {
+  grid-column: 8 / 13; align-self: end; display: grid; gap: 1rem; justify-items: start;
+}
+.hero-when .when { font-family: var(--font-display); font-size: var(--step-1); line-height: 1.3; font-weight: 500; }
+.hero-when .when span { display: block; }
+.price { color: var(--muted); font-size: 1rem; }
+.price strong { color: var(--ink); font-weight: 600; }
+.rack-wrap { grid-column: 1 / -1; }
+.rack-hint { margin-top: 0.9rem; color: var(--muted); font-size: 1rem; }
+
+@media (max-width: 59.99rem) {
+  .hero-head, .hero-when { grid-column: 1 / -1; }
+  .hero-when { gap: 0.9rem; }
+}
+
+/* ---------- the rack ---------- */
+.rack {
+  --rail-h: clamp(0.9rem, 1.4vw, 1.4rem);
+  position: relative;
+  --rack-h: clamp(17.5rem, min(calc(100svh - 21rem), 62vw), 34rem);
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)) minmax(0, 1.08fr); gap: 3px;
+  height: var(--rack-h);
+  padding: var(--rail-h) 3px;
+  background: var(--rail);
+  border-radius: var(--radius);
+  user-select: none; -webkit-user-select: none;
+}
+/* the two rails, with their row of mounting holes */
+.rack::before, .rack::after {
+  content: ''; position: absolute; left: 0; right: 0; height: var(--rail-h);
+  background: radial-gradient(circle, var(--hole) 0 2px, transparent 2.6px) 0 50% / 1.4rem 100% repeat-x;
+  opacity: 0.9;
+}
+.rack::before { top: 0; }
+.rack::after { bottom: 0; }
+
+.module {
+  position: relative; min-width: 0;
+  display: flex; flex-direction: column; align-items: center;
+  /* the lower part of the panel stays clear, for the cables to hang in */
+  padding: clamp(1rem, 1.6vw, 1.4rem) 0.25rem calc(var(--rack-h) * 0.24);
+  background-color: var(--panel);
+  background-image: linear-gradient(180deg, var(--panel-lit), var(--panel) 55%);
+  color: var(--panel-ink);
+  border-radius: 2px;
+  font-family: var(--font-display); text-align: center;
+}
+/* two screws, top left and bottom right */
+.module::before, .module::after {
+  content: ''; position: absolute; width: 0.55rem; height: 0.55rem; border-radius: 50%;
+  background: radial-gradient(circle, var(--nut) 0 40%, var(--knob-cap) 45% 55%, var(--nut) 60%);
+}
+.module::before { top: 0.35rem; left: 0.4rem; }
+.module::after { bottom: 0.35rem; right: 0.4rem; }
+
+.m-name { font-size: clamp(var(--label), 0.62rem + 0.55vw, 1.1rem); font-weight: 750; text-transform: uppercase; letter-spacing: 0.05em; line-height: 1.12; }
+.m-kind { margin-top: 0.3rem; font-size: var(--label); font-weight: 450; letter-spacing: 0.04em; line-height: 1.2; }
+.m-label { font-size: var(--label); font-weight: 650; text-transform: uppercase; letter-spacing: 0.08em; line-height: 1; margin-bottom: 0.4rem; }
+
+.knob {
+  --k: clamp(1.1rem, 2.2vw, 2rem);
+  position: relative; display: block; width: var(--k); aspect-ratio: 1; border-radius: 50%;
+  background: radial-gradient(circle at 40% 32%, var(--knob-cap), var(--knob) 68%);
+  box-shadow: 0 0.18rem 0.35rem var(--cable-shade);
+}
+.knob::after {
+  content: ''; position: absolute; left: calc(50% - 1px); top: 12%; width: 2px; height: 38%;
+  background: var(--cable-light); border-radius: 1px; transform-origin: 50% 100%; rotate: var(--turn, 0deg);
+}
+.knob-big { --k: clamp(2.3rem, 5.2vw, 4.6rem); margin: auto 0 0.2rem; }
+.knob-big::before {
+  content: ''; position: absolute; inset: -20%; border-radius: 50%;
+  background: repeating-conic-gradient(from -135deg, var(--panel-ink) 0 2deg, transparent 2deg 27deg);
+  mask: radial-gradient(circle, transparent 0 66%, var(--panel-ink) 67%);
+  -webkit-mask: radial-gradient(circle, transparent 0 66%, var(--panel-ink) 67%);
+  clip-path: polygon(50% 50%, 0 100%, 0 0, 100% 0, 100% 100%);
+  opacity: 0.75;
+}
+.knobs { display: flex; gap: clamp(0.3rem, 1vw, 1rem); margin-block: 0.3rem 0.5rem; }
+
+.led {
+  display: block; width: 0.5rem; height: 0.5rem; border-radius: 50%; margin: auto 0 0.55rem;
+  background: var(--led-off); box-shadow: inset 0 1px 1px var(--cable-shade);
+  transition: background-color 80ms ease, box-shadow 80ms ease;
+}
+.module.is-patched .led { background: var(--accent); box-shadow: 0 0 0.45rem var(--accent); }
+.module.is-hit .led { background: var(--panel-lit); box-shadow: 0 0 0.3rem var(--panel-lit), 0 0 1rem var(--accent); }
+
+.jack {
+  --j: clamp(1.15rem, 1.9vw, 1.7rem);
+  display: block; width: var(--j); aspect-ratio: 1; border-radius: 50%;
+  background: radial-gradient(circle, var(--hole) 0 34%, var(--knob-cap) 36% 44%, var(--nut) 47% 100%);
+  box-shadow: 0 0 0 2px var(--panel), 0 0 0 3px color-mix(in oklch, var(--panel-ink) 35%, transparent);
+}
+
+/* the mixer: four inputs and a little screen */
+.module-mix { padding-bottom: calc(var(--rack-h) * 0.05); }
+.scope {
+  display: block; width: 82%; height: clamp(2.6rem, 5vw, 4.4rem); margin-top: 0.5rem;
+  background: var(--hole); border-radius: 3px; color: var(--accent);
+  box-shadow: inset 0 0 0 2px var(--knob-cap);
+}
+.mix-ins { flex: 1; display: grid; align-content: space-evenly; justify-items: center; padding-top: 0.4rem; }
+.mix-in { display: grid; justify-items: center; }
+.mix-in .m-label { margin-bottom: 0.3rem; }
+
+/* the cables, drawn by rack.js over the panels */
+.cables { position: absolute; inset: 0; overflow: visible; pointer-events: none; z-index: 2; touch-action: none; }
+.cable-wire, .cable-shade { fill: none; stroke-linecap: round; }
+.cable-wire { stroke-width: clamp(5px, 0.55vw, 8px); }
+.cable-shade { stroke: var(--cable-shade); stroke-width: clamp(6px, 0.7vw, 10px); }
+.cable-hot .cable-wire, .cable-hot .plug-cap { stroke: var(--accent); fill: var(--accent); }
+.cable-light .cable-wire, .cable-light .plug-cap { stroke: var(--cable-light); fill: var(--cable-light); }
+.cable-wire { fill: none !important; }
+.plug-tip { fill: var(--hole); }
+.plug { pointer-events: auto; cursor: grab; touch-action: none; }
+.rack.is-dragging, .rack.is-dragging .plug { cursor: grabbing; }
+@media (hover: hover) and (pointer: fine) {
+  .plug:hover .plug-cap { stroke-width: 4px; stroke: var(--panel-lit); }
+}
+
+/* phones: five narrow modules, legends kept at 13px */
+@media (max-width: 47.99rem) {
+  .rack { --rack-h: 18rem; gap: 2px; padding-inline: 2px; }
+  .module { padding-inline: 0.1rem; padding-top: 1.05rem; }
+  .hero h1 { font-size: max(var(--step-4), 15.6vw); }
+  .m-name { letter-spacing: 0.02em; }
+  .m-kind, .m-first { display: none; }
+  .knobs .knob:nth-child(2) { display: none; }
+}
+
+/* ---------- sections ---------- */
+main h2 { font-size: var(--step-3); font-weight: 600; letter-spacing: -0.028em; line-height: 1.02; }
+main section p { max-width: var(--measure); }
+
+/* programme: three rows, names set big; a row's LED is lit while its module is patched in the rack */
+.programme { padding: 0 var(--margin) var(--section); }
+.programme-head { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap); align-items: end; row-gap: 1rem; }
+.programme-head h2 { grid-column: 1 / 8; }
+.programme-head p { grid-column: 9 / 13; color: var(--muted); }
+.acts { list-style: none; padding: 0; margin: clamp(2rem, 4vw, 3.5rem) 0 0; border-top: 1px solid var(--line); }
+.act {
+  display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap); row-gap: 0.4rem; align-items: baseline;
+  padding-block: clamp(1.4rem, 3vw, 2.6rem); border-bottom: 1px solid var(--line);
+}
+.act h3 { grid-column: 1 / 7; display: flex; align-items: center; font-size: var(--step-3); font-weight: 500; letter-spacing: -0.025em; }
+.act p { grid-column: 7 / 11; }
+.act .act-kind { grid-column: 11 / 13; justify-self: end; color: var(--muted); font-family: var(--font-display); }
+.act-led {
+  flex: none; width: 0.22em; height: 0.22em; margin-right: 0.4em; border-radius: 50%;
+  background: var(--led-off); transition: background-color var(--t-hover) ease, box-shadow var(--t-hover) ease;
+}
+.act.is-live .act-led { background: var(--accent); box-shadow: 0 0 0.35em var(--accent); }
+@media (max-width: 59.99rem) {
+  .programme-head h2, .programme-head p { grid-column: 1 / -1; }
+  .act h3, .act p { grid-column: 1 / -1; }
+  .act .act-kind { grid-column: 1 / -1; justify-self: start; }
+}
+
+/* Open Patch: the one band of signal orange */
+.open-patch {
+  background: var(--accent); color: var(--accent-ink);
+  padding: clamp(4rem, 9vw, 8rem) var(--margin) 0; margin-bottom: var(--section); overflow: clip;
+}
+.open-inner { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap); row-gap: 1.5rem; align-items: end; }
+.open-time {
+  grid-column: 1 / 8; font-family: var(--font-display); font-size: var(--step-5); font-weight: 700;
+  letter-spacing: -0.045em; line-height: 0.78; font-variant-numeric: tabular-nums; margin-left: -0.04em;
+}
+.open-text { grid-column: 8 / 13; display: grid; gap: 1rem; }
+.open-text h2 { font-size: var(--step-2); font-weight: 650; }
+.open-text p { font-size: var(--step-1); line-height: 1.4; }
+.open-cable { display: block; width: calc(100% + var(--margin) * 2); max-width: none; height: auto; margin: clamp(1.5rem, 4vw, 3rem) calc(var(--margin) * -1) 0; }
+.open-cable path { fill: none; stroke: var(--accent-ink); stroke-width: 12; stroke-linecap: round; }
+@media (max-width: 59.99rem) {
+  .open-time, .open-text { grid-column: 1 / -1; }
+  .open-time { font-size: clamp(5rem, 27vw, 13rem); }
+}
+
+/* workshop: the words beside a drawing of the simplest patch */
+.workshop {
+  display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap); row-gap: 2.5rem; align-items: center;
+  padding: 0 var(--margin) var(--section);
+}
+.workshop h2 { grid-column: 1 / 11; }
+.workshop-text { grid-column: 1 / 6; display: grid; gap: 1.25rem; align-self: start; }
+.workshop-text > p:first-of-type { font-size: var(--step-1); line-height: 1.4; }
+.facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 var(--gap); margin: 0.5rem 0; }
+.facts > div { padding-block: 0.8rem; border-top: 1px solid var(--line); }
+.facts dt { color: var(--muted); font-size: 1rem; }
+.facts dd { margin: 0.15rem 0 0; font-family: var(--font-display); font-size: var(--step-1); font-weight: 500; font-variant-numeric: tabular-nums; }
+.first-patch { grid-column: 7 / 13; margin: 0; }
+.first-patch svg { width: 100%; height: auto; }
+.first-patch figcaption { margin-top: 1rem; color: var(--muted); font-size: 1rem; }
+.fp-module rect { fill: var(--panel); }
+.fp-text text { fill: var(--panel-ink); font-family: var(--font-display); font-size: 20px; font-weight: 700; text-anchor: middle; letter-spacing: 0.04em; text-transform: uppercase; }
+.fp-knob circle { fill: var(--knob); }
+.fp-knob path { fill: none; stroke: var(--cable-light); stroke-width: 4; stroke-linecap: round; }
+.fp-jack circle { fill: var(--hole); stroke: var(--nut); stroke-width: 5; }
+.fp-cable path { fill: none; stroke: var(--accent); stroke-width: 9; stroke-linecap: round; }
+.fp-phones path { fill: none; stroke: var(--cable-light); stroke-width: 8; stroke-linecap: round; }
+.fp-phones rect { fill: var(--cable-light); }
+@media (max-width: 59.99rem) {
+  .workshop h2, .workshop-text, .first-patch { grid-column: 1 / -1; }
+}
+
+/* the place: the street at poster size */
+.place { padding: 0 var(--margin) var(--section); }
+.place h2 { font-size: var(--step-2); font-weight: 500; color: var(--muted); }
+.place .street {
+  margin-block: 0.15em 0.35em; max-width: none;
+  font-family: var(--font-display); font-size: clamp(2.3rem, 8.4vw, 10rem); font-weight: 600; letter-spacing: -0.04em; line-height: 0.92;
+  text-wrap: balance;
+}
+.place-detail { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap); row-gap: 1rem; }
+.place-detail p:first-child { grid-column: 1 / 6; font-size: var(--step-1); line-height: 1.4; }
+.place-detail p:last-child { grid-column: 7 / 12; align-self: end; }
+.gloss { display: block; margin-top: 0.5rem; color: var(--muted); font-size: var(--step-0); }
+@media (max-width: 59.99rem) {
+  .place-detail p:first-child, .place-detail p:last-child { grid-column: 1 / -1; }
+}
+
+/* tickets: the prices on a ticket, the email on its stub */
+.tickets { padding: 0 var(--margin) var(--section); display: grid; gap: clamp(2rem, 4vw, 3.5rem); }
+.tickets-head { display: grid; gap: 1rem; max-width: 52rem; }
+.ticket {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(17rem, 26rem);
+  background: var(--surface); border-radius: 6px;
+}
+.ticket-main { padding: clamp(0.5rem, 2vw, 1.5rem) clamp(1.25rem, 3vw, 2.75rem); }
+.prices { width: 100%; border-collapse: collapse; }
+.prices th, .prices td { padding: clamp(1rem, 1.8vw, 1.4rem) 0; border-bottom: 1px solid var(--line); vertical-align: baseline; }
+.prices tr:last-child th, .prices tr:last-child td { border-bottom: 0; }
+.prices th { text-align: left; font-weight: 400; font-size: var(--step-1); padding-right: var(--gap); }
+.prices td { text-align: right; font-family: var(--font-display); font-size: var(--step-3); font-weight: 600; letter-spacing: -0.02em; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.stub {
+  position: relative; display: grid; gap: 1.1rem; align-content: center; justify-items: start;
+  padding: clamp(1.5rem, 3vw, 2.75rem); border-left: 2px dashed var(--line);
+}
+/* the two half-moon notches of a tear-off stub */
+.stub::before, .stub::after {
+  content: ''; position: absolute; left: -1rem; width: 2rem; height: 2rem; border-radius: 50%; background: var(--ground);
+}
+.stub::before { top: -1rem; }
+.stub::after { bottom: -1rem; }
+.stub-when { font-family: var(--font-display); font-size: var(--step-0); line-height: 1.45; }
+.stub-when strong { font-size: var(--step-1); font-weight: 700; }
+.address-line { font-size: 1rem; overflow-wrap: anywhere; }
+.address-line a, .footer-small a { display: inline-block; padding-block: 0.6rem; }
+@media (max-width: 59.99rem) {
+  .ticket { grid-template-columns: minmax(0, 1fr); }
+  .stub { border-left: 0; border-top: 2px dashed var(--line); }
+  .stub::before { top: -1rem; left: -1rem; }
+  .stub::after { top: -1rem; bottom: auto; left: auto; right: -1rem; }
+}
+
+/* ---------- footer: the cable pulled out, the night over ---------- */
+.site-footer { padding: clamp(3rem, 6vw, 5rem) var(--margin) 2rem; border-top: 1px solid var(--line); display: grid; gap: 1rem; }
+.unplugged { width: min(30rem, 80%); height: auto; margin-bottom: 0.5rem; }
+.unplugged-cable { fill: none; stroke: var(--accent); stroke-width: 9; stroke-linecap: round; }
+.unplugged-plug { fill: var(--accent); }
+.unplugged-tip { fill: var(--nut); }
+.last-cable { font-family: var(--font-display); font-size: var(--step-3); font-weight: 600; letter-spacing: -0.028em; line-height: 1; }
+.footer-note { max-width: 52ch; }
+.footer-small { margin-top: 2rem; color: var(--muted); font-size: 1rem; }
+.footer-small a { color: inherit; }

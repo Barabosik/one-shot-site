@@ -1,0 +1,44 @@
+{
+  "name": "Moth Orchestra",
+  "type": "MusicGroup",
+  "description": "Moth Orchestra, a five-piece indie folk band from Norwich (cello, banjo, two voices, drums), on a winter tour of eight UK nights for their second album, Lamp Hours.",
+  "url": "",
+  "email": "booking@mothorchestra.example",
+  "currency": "GBP",
+  "album": {
+    "title": "Lamp Hours",
+    "out": "6 November 2027",
+    "link": "https://music.mothorchestra.example"
+  },
+  "tour": {
+    "nights": "eight",
+    "doors": "19:30",
+    "from": "12 November",
+    "to": "4 December 2027"
+  },
+  "events": [
+    { "name": "Moth Orchestra in Norwich", "city": "Norwich", "place": "The Lantern Rooms", "address": { "city": "Norwich", "country": "GB" }, "start": "2027-11-12T19:30", "price": "14", "tickets": "https://tickets.example/moth-orchestra/norwich", "description": "Lamp Hours tour. Doors 19:30." },
+    { "name": "Moth Orchestra in Leeds", "city": "Leeds", "place": "Holloway Social Club", "address": { "city": "Leeds", "country": "GB" }, "start": "2027-11-14T19:30", "price": "14", "tickets": "https://tickets.example/moth-orchestra/leeds", "description": "Lamp Hours tour. Doors 19:30." },
+    { "name": "Moth Orchestra in Glasgow", "city": "Glasgow", "place": "The Wee Hall", "address": { "city": "Glasgow", "country": "GB" }, "start": "2027-11-15T19:30", "price": "14", "tickets": "https://tickets.example/moth-orchestra/glasgow", "description": "Lamp Hours tour. Doors 19:30." },
+    { "name": "Moth Orchestra in Manchester", "city": "Manchester", "place": "Copperworks", "address": { "city": "Manchester", "country": "GB" }, "start": "2027-11-18T19:30", "price": "14", "tickets": "https://tickets.example/moth-orchestra/manchester", "description": "Lamp Hours tour. Doors 19:30." },
+    { "name": "Moth Orchestra in Bristol", "city": "Bristol", "place": "The Ferry Boat", "address": { "city": "Bristol", "country": "GB" }, "start": "2027-11-20T19:30", "price": "14", "tickets": "https://tickets.example/moth-orchestra/bristol", "description": "Lamp Hours tour. Doors 19:30." },
+    { "name": "Moth Orchestra in London", "city": "London", "place": "Bramble Room", "address": { "city": "London", "country": "GB" }, "start": "2027-11-21T19:30", "price": "16", "tickets": "https://tickets.example/moth-orchestra/london", "description": "Lamp Hours tour. Doors 19:30." },
+    { "name": "Moth Orchestra in Brighton", "city": "Brighton", "place": "Pier Street Theatre", "address": { "city": "Brighton", "country": "GB" }, "start": "2027-11-27T19:30", "price": "14", "tickets": "https://tickets.example/moth-orchestra/brighton", "description": "Lamp Hours tour. Doors 19:30." },
+    { "name": "Moth Orchestra in Cambridge", "city": "Cambridge", "place": "The Malt House", "address": { "city": "Cambridge", "country": "GB" }, "start": "2027-12-04T19:30", "price": "14", "tickets": "https://tickets.example/moth-orchestra/cambridge", "description": "Lamp Hours tour. Doors 19:30." }
+  ],
+  "links": {
+    "music": "https://music.mothorchestra.example"
+  },
+  "labels": {
+    "tickets": "Tickets"
+  },
+  "owner": {
+    "name": ""
+  },
+  "host": "",
+  "verify": {
+    "google": "",
+    "bing": ""
+  },
+  "analytics": {}
+}

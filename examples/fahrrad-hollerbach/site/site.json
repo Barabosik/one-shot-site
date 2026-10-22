@@ -1,0 +1,112 @@
+{
+  "name": "Fahrrad Hollerbach",
+  "type": "BicycleStore",
+  "description": "Fahrradwerkstatt in der Speichengasse in Trier, seit 1958 in der Familie. Reparaturen ohne Termin, Inspektion 49 €, E-Bike-Service, gebrauchte Räder und Leihräder.",
+  "url": "",
+  "email": "werkstatt@fahrrad-hollerbach.example",
+  "phone": "000 / 12 34 56",
+  "currency": "EUR",
+  "priceRange": "€",
+  "address": {
+    "street": "Speichengasse 7",
+    "postcode": "54290",
+    "city": "Trier",
+    "country": "DE"
+  },
+  "hours": [
+    {
+      "days": "Mon-Tue, Thu-Fri",
+      "opens": "09:00",
+      "closes": "12:30"
+    },
+    {
+      "days": "Mon-Tue, Thu-Fri",
+      "opens": "14:00",
+      "closes": "18:30"
+    },
+    {
+      "days": "Wed",
+      "opens": "09:00",
+      "closes": "12:30"
+    },
+    {
+      "days": "Sat",
+      "opens": "09:00",
+      "closes": "13:00"
+    }
+  ],
+  "closed": [],
+  "menu": [
+    {
+      "section": "Reparaturen",
+      "items": [
+        {
+          "name": "Schlauch wechseln",
+          "price": "12.50",
+          "note": "mit neuem Schlauch"
+        },
+        {
+          "name": "Reifen montieren",
+          "price": "8",
+          "note": "plus Reifen"
+        },
+        {
+          "name": "Bremsen einstellen",
+          "price": "15",
+          "note": ""
+        },
+        {
+          "name": "Schaltung einstellen",
+          "price": "15",
+          "note": ""
+        },
+        {
+          "name": "Kette wechseln",
+          "price": "10",
+          "note": "plus Kette"
+        },
+        {
+          "name": "Laufrad zentrieren",
+          "price": "12",
+          "note": "ab, von Hand"
+        }
+      ]
+    },
+    {
+      "section": "Inspektion",
+      "items": [
+        {
+          "name": "Inspektion komplett",
+          "price": "49",
+          "note": ""
+        },
+        {
+          "name": "E-Bike-Inspektion",
+          "price": "69",
+          "note": ""
+        }
+      ]
+    }
+  ],
+  "events": [],
+  "links": {
+    "booking": "",
+    "payment": "",
+    "social": "https://social.example/fahrradhollerbach"
+  },
+  "owner": {
+    "name": "Markus Hollerbach",
+    "business": "Fahrrad Hollerbach",
+    "chamber": "Berufsbezeichnung: Zweiradmechanikermeister, verliehen in Deutschland. Zuständige Kammer: Handwerkskammer Trier."
+  },
+  "host": "GitHub Pages (GitHub, Inc., USA)",
+  "verify": {
+    "google": "",
+    "bing": ""
+  },
+  "analytics": {},
+  "rental": {
+    "day": "10",
+    "week": "45"
+  }
+}

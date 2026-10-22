@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Jonas Weber: independent app developer in Leipzig</title>
+  <meta name="description" content="Jonas Weber builds small phone apps that each do one job: Tide, Groundwork and Mono. He takes two client projects a year and is booking spring 2027.">
+  <meta name="theme-color" content="#fbfaf9" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#100f0f" media="(prefers-color-scheme: dark)">
+  <link rel="canonical" href="{{URL}}">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{URL}}">
+  <meta property="og:title" content="Jonas Weber builds phone apps that do one job each">
+  <meta property="og:description" content="Tide, Groundwork and Mono are his. Two client projects a year; booking now for spring 2027.">
+  <meta property="og:image" content="{{URL}}og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <!-- From site.json: structured data for search engines, verification tags, cookieless analytics -->
+  <!-- site:head -->
+
+  <!-- the visitor's light/dark pick, before the first paint, so the page never flashes the other theme -->
+  <script>try{var t=localStorage.getItem('site-theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+  <!-- .js arms the scroll reveals; if main.js hasn't run after 3 s (blocked, failed), show everything -->
+  <script>document.documentElement.classList.add('js');setTimeout(function(){var d=document.documentElement;if(!d.hasAttribute('data-ready'))d.classList.remove('js')},3000);</script>
+  <script type="module" src="/src/main.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <a class="wordmark" href="/"><span translate="no">Jonas Weber</span> <small>App developer, Leipzig</small></a>
+    <nav aria-label="Main">
+      <a href="#apps">Apps</a>
+      <a href="#offline">Offline</a>
+      <a href="#hire">Hire me</a>
+      <button class="theme-toggle" type="button" aria-pressed="false">Dark</button>
+    </nav>
+  </header>
+
+  <main id="main" tabindex="-1">
+
+    <!-- 1 · rows: the three app names are the first screen -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-top">
+        <h1 id="hero-title" data-split>I build phone apps that do one job each.</h1>
+        <div class="hero-act">
+          <p>Two client projects a year. Booking now for {{site.clients.next}}.</p>
+          <a class="button" href="mailto:{{site.email}}" data-magnetic>Email Jonas</a>
+        </div>
+      </div>
+      <ul class="rows" aria-label="My apps">
+        <li style="--fit: 36; --row: 0">
+          <a class="name" href="#tide">{{site.apps.0.name}}</a>
+          <p class="meta"><span>{{site.apps.0.job}}</span> <strong class="proof" data-count>{{site.apps.0.proof}}</strong></p>
+        </li>
+        <li style="--fit: 13.4; --row: 1">
+          <a class="name" href="#groundwork">{{site.apps.1.name}}</a>
+          <p class="meta"><span>{{site.apps.1.job}}</span> <strong class="proof" data-count>{{site.apps.1.proof}} {{site.apps.1.detail}}</strong></p>
+        </li>
+        <li style="--fit: 28; --row: 2">
+          <a class="name" href="#mono">{{site.apps.2.name}}</a>
+          <p class="meta"><span>{{site.apps.2.job}}</span> <strong class="proof" data-count>featured in {{site.apps.2.proof}}</strong></p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- 2 · objects: what each app does, drawn -->
+    <section id="apps" class="apps" aria-labelledby="apps-title">
+      <div class="apps-head" data-reveal>
+        <h2 id="apps-title">Laps, plants and film.</h2>
+        <p>Since 2022 I build and sell my own small apps. Each one does a single job. Here are three.</p>
+      </div>
+
+      <article id="tide" class="app app-tide">
+        <svg class="drawing" data-draw viewBox="0 0 640 270" role="img" aria-labelledby="tide-pic">
+          <title id="tide-pic">A swimming lane from above: the swimmer turns at each wall, and a tally mark goes up with every length.</title>
+          <rect class="ln water" x="8" y="22" width="624" height="196"/>
+          <g class="rope">
+            <circle cx="24" cy="40" r="6"/><circle cx="40" cy="40" r="6"/><circle cx="56" cy="40" r="6"/><circle cx="72" cy="40" r="6"/><circle cx="88" cy="40" r="6"/>
+            <circle cx="552" cy="40" r="6"/><circle cx="568" cy="40" r="6"/><circle cx="584" cy="40" r="6"/><circle cx="600" cy="40" r="6"/><circle cx="616" cy="40" r="6"/>
+            <circle cx="24" cy="200" r="6"/><circle cx="40" cy="200" r="6"/><circle cx="56" cy="200" r="6"/><circle cx="72" cy="200" r="6"/><circle cx="88" cy="200" r="6"/>
+            <circle cx="552" cy="200" r="6"/><circle cx="568" cy="200" r="6"/><circle cx="584" cy="200" r="6"/><circle cx="600" cy="200" r="6"/><circle cx="616" cy="200" r="6"/>
+          </g>
+          <g class="rope-mid">
+            <circle cx="104" cy="40" r="6"/><circle cx="120" cy="40" r="6"/><circle cx="136" cy="40" r="6"/><circle cx="152" cy="40" r="6"/><circle cx="168" cy="40" r="6"/><circle cx="184" cy="40" r="6"/><circle cx="200" cy="40" r="6"/><circle cx="216" cy="40" r="6"/><circle cx="232" cy="40" r="6"/><circle cx="248" cy="40" r="6"/><circle cx="264" cy="40" r="6"/><circle cx="280" cy="40" r="6"/><circle cx="296" cy="40" r="6"/><circle cx="312" cy="40" r="6"/><circle cx="328" cy="40" r="6"/><circle cx="344" cy="40" r="6"/><circle cx="360" cy="40" r="6"/><circle cx="376" cy="40" r="6"/><circle cx="392" cy="40" r="6"/><circle cx="408" cy="40" r="6"/><circle cx="424" cy="40" r="6"/><circle cx="440" cy="40" r="6"/><circle cx="456" cy="40" r="6"/><circle cx="472" cy="40" r="6"/><circle cx="488" cy="40" r="6"/><circle cx="504" cy="40" r="6"/><circle cx="520" cy="40" r="6"/><circle cx="536" cy="40" r="6"/>
+            <circle cx="104" cy="200" r="6"/><circle cx="120" cy="200" r="6"/><circle cx="136" cy="200" r="6"/><circle cx="152" cy="200" r="6"/><circle cx="168" cy="200" r="6"/><circle cx="184" cy="200" r="6"/><circle cx="200" cy="200" r="6"/><circle cx="216" cy="200" r="6"/><circle cx="232" cy="200" r="6"/><circle cx="248" cy="200" r="6"/><circle cx="264" cy="200" r="6"/><circle cx="280" cy="200" r="6"/><circle cx="296" cy="200" r="6"/><circle cx="312" cy="200" r="6"/><circle cx="328" cy="200" r="6"/><circle cx="344" cy="200" r="6"/><circle cx="360" cy="200" r="6"/><circle cx="376" cy="200" r="6"/><circle cx="392" cy="200" r="6"/><circle cx="408" cy="200" r="6"/><circle cx="424" cy="200" r="6"/><circle cx="440" cy="200" r="6"/><circle cx="456" cy="200" r="6"/><circle cx="472" cy="200" r="6"/><circle cx="488" cy="200" r="6"/><circle cx="504" cy="200" r="6"/><circle cx="520" cy="200" r="6"/><circle cx="536" cy="200" r="6"/>
+          </g>
+          <g class="floor"><rect x="72" y="116" width="496" height="8"/><rect x="64" y="100" width="8" height="40"/><rect x="568" y="100" width="8" height="40"/></g>
+          <path class="lap" d="M 30 66 Q 42 62 54 66 T 78 66 T 102 66 T 126 66 T 150 66 T 174 66 T 198 66 T 222 66 T 246 66 T 270 66 T 294 66 T 318 66 T 342 66 T 366 66 T 390 66 T 414 66 T 438 66 T 462 66 T 486 66 T 510 66 T 534 66 T 558 66 T 582 66 T 606 66 Q 622 66 622 80 Q 622 94 606 94 Q 594 90 582 94 T 558 94 T 534 94 T 510 94 T 486 94 T 462 94 T 438 94 T 414 94 T 390 94 T 366 94 T 342 94 T 318 94 T 294 94 T 270 94 T 246 94 T 222 94 T 198 94 T 174 94 T 150 94 T 126 94 T 102 94 T 78 94 T 54 94 T 30 94 Q 16 94 16 120 Q 16 146 30 146 Q 42 142 54 146 T 78 146 T 102 146 T 126 146 T 150 146 T 174 146 T 198 146 T 222 146 T 246 146 T 270 146 T 294 146 T 318 146 T 342 146 T 366 146 T 390 146 T 414 146 T 438 146 T 462 146 T 486 146 T 510 146 T 534 146 T 558 146 T 582 146 T 606 146 Q 622 146 622 160 Q 622 174 606 174 Q 594 170 582 174 T 558 174 T 534 174 T 510 174 T 486 174 T 462 174 T 438 174 T 414 174 T 390 174 T 366 174 T 342 174 T 318 174 T 294 174 T 270 174 T 246 174 T 222 174 T 198 174 T 174 174 T 150 174 T 126 174 T 102 174 T 78 174 T 54 174 T 30 174"/>
+          <g class="tally">
+            <line style="--n: 1" x1="560" y1="238" x2="560" y2="266"/>
+            <line style="--n: 2" x1="576" y1="238" x2="576" y2="266"/>
+            <line style="--n: 3" x1="592" y1="238" x2="592" y2="266"/>
+            <line style="--n: 4" x1="608" y1="238" x2="608" y2="266"/>
+          </g>
+        </svg>
+        <div class="app-text">
+          <h3>{{site.apps.0.name}}</h3>
+          <p>A minimal swim-lap counter for your watch. You swim, it counts the lengths.</p>
+          <p class="app-proof"><strong>{{site.apps.0.proof}}</strong> <span>{{site.apps.0.detail}}</span></p>
+        </div>
+      </article>
+
+      <article id="groundwork" class="app app-groundwork">
+        <svg class="drawing" data-draw viewBox="0 0 420 300" role="img" aria-labelledby="groundwork-pic">
+          <title id="groundwork-pic">A week of watering for three plants: the leafy one twice, the cactus once, the fern every other day.</title>
+          <g class="days">
+            <text x="122" y="30">M</text><text x="166" y="30">T</text><text x="210" y="30">W</text><text x="254" y="30">T</text><text x="298" y="30">F</text><text x="342" y="30">S</text><text x="386" y="30">S</text>
+          </g>
+          <line class="ln thin" x1="96" y1="46" x2="408" y2="46"/>
+          <!-- three plants, each in its pot -->
+          <g class="plant">
+            <path class="ln" d="M 26 104 L 66 104 L 60 128 L 32 128 Z"/>
+            <path class="ln" d="M 46 104 V 70 M 46 86 Q 26 82 22 64 Q 42 64 46 86 M 46 78 Q 66 72 70 56 Q 50 56 46 78"/>
+          </g>
+          <g class="plant">
+            <path class="ln" d="M 26 186 L 66 186 L 60 210 L 32 210 Z"/>
+            <path class="ln" d="M 38 186 V 150 Q 38 140 46 140 Q 54 140 54 150 V 186 M 54 166 H 62 V 156 M 38 172 H 30 V 162"/>
+          </g>
+          <g class="plant">
+            <path class="ln" d="M 26 268 L 66 268 L 60 292 L 32 292 Z"/>
+            <path class="ln" d="M 46 268 V 222 M 46 230 L 38 224 M 46 230 L 54 224 M 46 241 L 36 234 M 46 241 L 56 234 M 46 252 L 34 245 M 46 252 L 58 245 M 46 268 Q 34 258 22 256 M 46 268 Q 58 258 70 256"/>
+          </g>
+          <!-- the plan: a drop where a plant gets water, a dot where it doesn't -->
+          <g class="rest">
+            <circle cx="166" cy="104" r="4"/><circle cx="210" cy="104" r="4"/><circle cx="298" cy="104" r="4"/><circle cx="342" cy="104" r="4"/><circle cx="386" cy="104" r="4"/>
+            <circle cx="122" cy="186" r="4"/><circle cx="166" cy="186" r="4"/><circle cx="210" cy="186" r="4"/><circle cx="254" cy="186" r="4"/><circle cx="298" cy="186" r="4"/><circle cx="386" cy="186" r="4"/>
+            <circle cx="166" cy="268" r="4"/><circle cx="254" cy="268" r="4"/><circle cx="342" cy="268" r="4"/>
+          </g>
+          <g class="drops">
+            <path transform="translate(122 104)" d="M0 -16 C 7 -7 11 -2 11 4 A 11 11 0 0 1 -11 4 C -11 -2 -7 -7 0 -16 Z"/>
+            <path transform="translate(254 104)" d="M0 -16 C 7 -7 11 -2 11 4 A 11 11 0 0 1 -11 4 C -11 -2 -7 -7 0 -16 Z"/>
+            <path transform="translate(342 186)" d="M0 -16 C 7 -7 11 -2 11 4 A 11 11 0 0 1 -11 4 C -11 -2 -7 -7 0 -16 Z"/>
+            <path transform="translate(122 268)" d="M0 -16 C 7 -7 11 -2 11 4 A 11 11 0 0 1 -11 4 C -11 -2 -7 -7 0 -16 Z"/>
+            <path transform="translate(210 268)" d="M0 -16 C 7 -7 11 -2 11 4 A 11 11 0 0 1 -11 4 C -11 -2 -7 -7 0 -16 Z"/>
+            <path transform="translate(298 268)" d="M0 -16 C 7 -7 11 -2 11 4 A 11 11 0 0 1 -11 4 C -11 -2 -7 -7 0 -16 Z"/>
+            <path transform="translate(386 268)" d="M0 -16 C 7 -7 11 -2 11 4 A 11 11 0 0 1 -11 4 C -11 -2 -7 -7 0 -16 Z"/>
+          </g>
+        </svg>
+        <div class="app-text">
+          <h3>{{site.apps.1.name}}</h3>
+          <p>A plant-watering planner: which plant needs water, and on which day.</p>
+          <p class="app-proof"><strong>{{site.apps.1.proof}}</strong> <span>{{site.apps.1.detail}}</span></p>
+        </div>
+      </article>
+
+      <article id="mono" class="app app-mono">
+        <div class="film" data-mask="right">
+          <svg class="drawing" viewBox="0 0 1200 220" role="img" aria-labelledby="mono-pic">
+            <title id="mono-pic">A strip of black-and-white film: the same hill and sun six times, from too light to too dark.</title>
+            <rect class="base" x="0" y="0" width="1200" height="220"/>
+            <g class="holes">
+              <rect x="14" y="12" width="14" height="18"/><rect x="58" y="12" width="14" height="18"/><rect x="102" y="12" width="14" height="18"/><rect x="146" y="12" width="14" height="18"/><rect x="190" y="12" width="14" height="18"/><rect x="234" y="12" width="14" height="18"/><rect x="278" y="12" width="14" height="18"/><rect x="322" y="12" width="14" height="18"/><rect x="366" y="12" width="14" height="18"/><rect x="410" y="12" width="14" height="18"/><rect x="454" y="12" width="14" height="18"/><rect x="498" y="12" width="14" height="18"/><rect x="542" y="12" width="14" height="18"/><rect x="586" y="12" width="14" height="18"/><rect x="630" y="12" width="14" height="18"/><rect x="674" y="12" width="14" height="18"/><rect x="718" y="12" width="14" height="18"/><rect x="762" y="12" width="14" height="18"/><rect x="806" y="12" width="14" height="18"/><rect x="850" y="12" width="14" height="18"/><rect x="894" y="12" width="14" height="18"/><rect x="938" y="12" width="14" height="18"/><rect x="982" y="12" width="14" height="18"/><rect x="1026" y="12" width="14" height="18"/><rect x="1070" y="12" width="14" height="18"/><rect x="1114" y="12" width="14" height="18"/><rect x="1158" y="12" width="14" height="18"/>
+              <rect x="14" y="190" width="14" height="18"/><rect x="58" y="190" width="14" height="18"/><rect x="102" y="190" width="14" height="18"/><rect x="146" y="190" width="14" height="18"/><rect x="190" y="190" width="14" height="18"/><rect x="234" y="190" width="14" height="18"/><rect x="278" y="190" width="14" height="18"/><rect x="322" y="190" width="14" height="18"/><rect x="366" y="190" width="14" height="18"/><rect x="410" y="190" width="14" height="18"/><rect x="454" y="190" width="14" height="18"/><rect x="498" y="190" width="14" height="18"/><rect x="542" y="190" width="14" height="18"/><rect x="586" y="190" width="14" height="18"/><rect x="630" y="190" width="14" height="18"/><rect x="674" y="190" width="14" height="18"/><rect x="718" y="190" width="14" height="18"/><rect x="762" y="190" width="14" height="18"/><rect x="806" y="190" width="14" height="18"/><rect x="850" y="190" width="14" height="18"/><rect x="894" y="190" width="14" height="18"/><rect x="938" y="190" width="14" height="18"/><rect x="982" y="190" width="14" height="18"/><rect x="1026" y="190" width="14" height="18"/><rect x="1070" y="190" width="14" height="18"/><rect x="1114" y="190" width="14" height="18"/><rect x="1158" y="190" width="14" height="18"/>
+            </g>
+            <g class="f f0"><rect class="sky" x="16" y="42" width="180" height="136"/><circle class="sun" cx="144" cy="84" r="17"/><path class="hill" d="M 16 178 V 138 Q 62 112 112 134 T 196 126 V 178 Z"/></g>
+            <g class="f f1"><rect class="sky" x="214" y="42" width="180" height="136"/><circle class="sun" cx="342" cy="84" r="17"/><path class="hill" d="M 214 178 V 138 Q 260 112 310 134 T 394 126 V 178 Z"/></g>
+            <g class="f f2"><rect class="sky" x="412" y="42" width="180" height="136"/><circle class="sun" cx="540" cy="84" r="17"/><path class="hill" d="M 412 178 V 138 Q 458 112 508 134 T 592 126 V 178 Z"/></g>
+            <g class="f f3"><rect class="sky" x="610" y="42" width="180" height="136"/><circle class="sun" cx="738" cy="84" r="17"/><path class="hill" d="M 610 178 V 138 Q 656 112 706 134 T 790 126 V 178 Z"/></g>
+            <g class="f f4"><rect class="sky" x="808" y="42" width="180" height="136"/><circle class="sun" cx="936" cy="84" r="17"/><path class="hill" d="M 808 178 V 138 Q 854 112 904 134 T 988 126 V 178 Z"/></g>
+            <g class="f f5"><rect class="sky" x="1006" y="42" width="180" height="136"/><circle class="sun" cx="1134" cy="84" r="17"/><path class="hill" d="M 1006 178 V 138 Q 1052 112 1102 134 T 1186 126 V 178 Z"/></g>
+          </svg>
+        </div>
+        <div class="app-text">
+          <h3>{{site.apps.2.name}}</h3>
+          <p>A black-and-white film camera for your phone.</p>
+          <p class="app-proof"><strong>{{site.apps.2.proof}}</strong> <span>{{site.apps.2.detail}}</span></p>
+        </div>
+      </article>
+    </section>
+
+    <!-- 3 · band: the offline years, on the orange -->
+    <section id="offline" class="band" aria-labelledby="offline-title" data-mask="right">
+      <div class="band-inner">
+        <h2 id="offline-title">Five years of music with no signal.</h2>
+        <svg class="bars" data-draw style="--fx-t: 0.8s" viewBox="0 0 230 200" role="img" aria-labelledby="bars-pic">
+          <title id="bars-pic">Four signal bars, all empty: no signal.</title>
+          <rect x="6" y="140" width="38" height="54"/>
+          <rect x="66" y="104" width="38" height="90"/>
+          <rect x="126" y="62" width="38" height="132"/>
+          <rect x="186" y="16" width="38" height="178"/>
+        </svg>
+        <p>From {{site.streaming.from}} to {{site.streaming.to}} I was on the offline downloads team of a large music-streaming app: the songs people save so they still play on a plane or underground. Since 2022 I build my own apps, and two a year for clients.</p>
+      </div>
+    </section>
+
+    <!-- 4 · one big thing: two a year -->
+    <section id="hire" class="hire" aria-labelledby="hire-title">
+      <p class="two" data-reveal><span class="two-n" aria-hidden="true">2</span><span class="two-cap">Two client projects a year</span></p>
+      <div class="hire-text" data-reveal style="--i: 1">
+        <h2 id="hire-title">Tell me the one job your app should do.</h2>
+        <p>I’m booking {{site.clients.next}} now. A few lines about the app are enough to start.</p>
+        <a class="mail" href="mailto:{{site.email}}" data-magnetic>{{site.email}}</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p class="foot-next">Next opening: <strong>{{site.clients.next}}</strong>. <a href="mailto:{{site.email}}">{{site.email}}</a></p>
+    <p>© <span data-year></span> <span translate="no">{{site.name}}</span>, {{site.address.city}} · <a href="/impressum.html">Impressum</a> · <a href="/datenschutz.html">Datenschutz</a></p>
+  </footer>
+</body>
+</html>

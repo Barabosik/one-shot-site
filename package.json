@@ -1,0 +1,19 @@
+{
+  "name": "one-shot-site",
+  "private": true,
+  "type": "module",
+  "description": "Tests for the one-shot-site skill. The skill itself needs no install.",
+  "license": "MIT",
+  "author": "Nikita Andreiev",
+  "repository": "github:Barabosik/one-shot-site",
+  "homepage": "https://github.com/Barabosik/one-shot-site#readme",
+  "bugs": "https://github.com/Barabosik/one-shot-site/issues",
+  "scripts": {
+    "test": "node --test --test-concurrency=1",
+    "bench": "node evals/run.mjs",
+    "bench:examples": "node evals/examples.mjs",
+    "bench:score": "node evals/score.mjs",
+    "bench:triggers": "node evals/trigger.mjs"
+  },
+  "engines": { "node": ">=22.12" }
+}

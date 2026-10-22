@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Klempnerei Brandt: Klempner und Heizung in Leipzig</title>
+  <meta name="description" content="{{site.description}}">
+  <meta name="theme-color" content="#13244c">
+  <link rel="canonical" href="{{URL}}">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{URL}}">
+  <meta property="og:title" content="{{site.name}}, Leipzig: {{site.phone}}">
+  <meta property="og:description" content="Rohrbruch, Abfluss, Bad, Gastherme. Meisterbetrieb aus Gohlis, Notdienst {{site.emergency.days}} {{site.emergency.opens}}–{{site.emergency.closes}}, die Preise stehen auf der Seite.">
+  <meta property="og:image" content="{{URL}}og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <!-- From site.json: structured data for search engines, verification tags, cookieless analytics -->
+  <!-- site:head -->
+
+  <script>document.documentElement.classList.add('js');setTimeout(function(){var d=document.documentElement;if(!d.hasAttribute('data-ready'))d.classList.remove('js')},3000);</script>
+  <script type="module" src="/src/main.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Zum Inhalt</a>
+
+  <header class="site-header">
+    <a class="tag" href="/">Meisterbetrieb in <span class="nowrap">{{site.district}}</span></a>
+    <nav aria-label="Bereiche der Seite">
+      <a href="#leistungen">Leistungen</a>
+      <a href="#preise">Preise</a>
+      <a href="#zeiten">Zeiten</a>
+      <a href="#team">Team</a>
+      <a href="#gebiet">Gebiet</a>
+    </nav>
+    <a class="button header-call" href="tel:{{site.phone|tel}}">Anrufen</a>
+  </header>
+
+  <main id="main" tabindex="-1">
+
+    <!-- The first screen is the side of the van: navy paint, lettering, the number. -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="van">
+        <h1 translate="no" id="hero-title">Klempnerei Brandt</h1>
+        <p class="trade">Sanitär und Heizung. Rohrbruch, verstopfter Abfluss, neues Bad, Gastherme, Wasserzähler.</p>
+        <a class="number" href="tel:{{site.phone|tel}}" aria-label="Anrufen: {{site.phone}}">{{site.phone}}</a>
+        <p class="van-call">Notdienst {{site.emergency.days}} <span class="nowrap">{{site.emergency.opens}}–{{site.emergency.closes}}</span></p>
+        <span class="van-window" aria-hidden="true"></span>
+        <span class="van-stripe" aria-hidden="true"></span>
+        <span class="wheel back" aria-hidden="true"></span>
+        <span class="wheel front" aria-hidden="true"></span>
+      </div>
+      <div class="kerb">
+        <p>Notdienst und Büro auf derselben Nummer. Am Wochenende {{site.emergency.weekend}}.</p>
+        <p>Kein Notfall? Schreiben Sie an <a href="mailto:{{site.email}}">{{site.email}}</a>.</p>
+      </div>
+    </section>
+
+    <section id="leistungen" class="section jobs" aria-labelledby="jobs-title">
+      <h2 id="jobs-title">Vom Rohrbruch bis zur letzten Fliese</h2>
+      <div class="jobs-groups">
+        <div class="jobs-group urgent">
+          <h3>Wenn es eilt</h3>
+          <dl class="job-list">
+            <div><dt>Rohrbruch</dt><dd>Eine Leitung ist geplatzt und das Wasser läuft. Dafür gibt es den Notdienst.</dd></div>
+            <div><dt>Verstopfter Abfluss</dt><dd>Spüle, Dusche oder Toilette laufen nicht mehr ab. Wir machen den Abfluss wieder frei.</dd></div>
+          </dl>
+          <a class="button" href="tel:{{site.phone|tel}}">Notdienst anrufen</a>
+        </div>
+        <div class="jobs-group">
+          <h3>Mit Termin</h3>
+          <dl class="job-list">
+            <div><dt>Badsanierung</dt><dd>Von der Planung bis zur fertigen Fliese. Die Fliesen legt ein Fliesenleger, mit dem wir fest zusammenarbeiten.</dd></div>
+            <div><dt>Thermenwartung</dt><dd>Wartung von Gasthermen aller gängigen Marken.</dd></div>
+            <div><dt>Wasserzähler</dt><dd>Einbau und Wechsel von Wasserzählern.</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <section id="preise" class="section prices" aria-labelledby="prices-title">
+      <div class="prices-head">
+        <h2 id="prices-title">Was es kostet, bevor wir klingeln</h2>
+        <p>Alle Preise mit Mehrwertsteuer. Außerhalb von Leipzig sagen wir Ihnen die Anfahrt am Telefon.</p>
+      </div>
+      <!-- site:menu h3 -->
+    </section>
+
+    <section id="zeiten" class="section hours-section" aria-labelledby="hours-title">
+      <h2 id="hours-title">Eine Nummer für Notdienst und Büro</h2>
+      <div class="hours-grid">
+        <div class="hours-block">
+          <h3>Notdienst</h3>
+          <dl class="hours">
+            <div><dt>{{site.emergency.days}}</dt><dd>{{site.emergency.opens}}–{{site.emergency.closes}}</dd></div>
+            <div><dt>{{site.emergency.weekendDays}}</dt><dd>{{site.emergency.weekend}}</dd></div>
+          </dl>
+          <p>Unter <a href="tel:{{site.phone|tel}}">{{site.phone}}</a>, wie das Büro.</p>
+        </div>
+        <div class="hours-block">
+          <h3>Büro</h3>
+          <!-- site:hours -->
+          <p>Für Termine, Wartungen und das neue Bad.</p>
+        </div>
+        <div class="hours-block wait">
+          <h3>Bis wir da sind</h3>
+          <p>Drehen Sie den Haupthahn zu. Er sitzt meist im Keller oder direkt neben dem Wasserzähler.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="team" class="section team" aria-labelledby="team-title">
+      <h2 id="team-title">Wer bei Ihnen klingelt</h2>
+      <ul class="people">
+        <li><span class="person">Torsten Brandt</span> <span class="role">Installateur- und Heizungsbauermeister seit 2004, Inhaber</span></li>
+        <li><span class="person">Mehmet Arslan</span> <span class="role">Geselle</span></li>
+        <li><span class="person">Lea</span> <span class="role">Auszubildende</span></li>
+      </ul>
+      <figure class="fleet">
+        <svg class="mini-van" viewBox="0 0 240 124" aria-hidden="true" focusable="false"><use href="#van"/></svg>
+        <svg class="mini-van" viewBox="0 0 240 124" aria-hidden="true" focusable="false"><use href="#van"/></svg>
+        <figcaption>Sie erkennen uns an zwei dunkelblauen Transportern mit gelber Schrift.</figcaption>
+      </figure>
+    </section>
+
+    <section id="gebiet" class="section area" aria-labelledby="area-title">
+      <div class="area-text">
+        <h2 id="area-title">Leipzig und etwa {{site.area.km}}&nbsp;km rundum</h2>
+        <p>Wir fahren von der Werkstatt in Gohlis los: durch ganz Leipzig und bis {{site.area.towns.0}}, {{site.area.towns.1}} und {{site.area.towns.2}}.</p>
+        <!-- site:address -->
+        <p><a class="text-link" href="{{site.address|maps}}">Werkstatt auf der Karte ansehen</a></p>
+      </div>
+      <svg class="area-map" viewBox="0 0 600 600" role="img" aria-labelledby="map-title">
+        <title id="map-title">Schema des Einsatzgebiets: Leipzig in der Mitte mit der Werkstatt in Gohlis, ringsum etwa {{site.area.km}} Kilometer mit {{site.area.towns.0}} im Nordwesten, {{site.area.towns.1}} im Nordosten und {{site.area.towns.2}} im Süden.</title>
+        <circle class="map-ring" cx="300" cy="300" r="272"/>
+        <text class="map-km" x="300" y="16" text-anchor="middle">etwa {{site.area.km}} km</text>
+        <circle class="map-city" cx="300" cy="300" r="132"/>
+        <text class="map-city-label" x="300" y="368" text-anchor="middle">Leipzig</text>
+        <circle class="map-shop" cx="290" cy="236" r="15"/>
+        <text class="map-shop-label" x="290" y="286" text-anchor="middle">Werkstatt</text>
+        <circle class="map-town" cx="112" cy="168" r="10"/>
+        <text class="map-label" x="112" y="140" text-anchor="middle">{{site.area.towns.0}}</text>
+        <circle class="map-town" cx="482" cy="196" r="10"/>
+        <text class="map-label" x="482" y="168" text-anchor="middle">{{site.area.towns.1}}</text>
+        <circle class="map-town" cx="304" cy="482" r="10"/>
+        <text class="map-label" x="304" y="526" text-anchor="middle">{{site.area.towns.2}}</text>
+      </svg>
+    </section>
+  </main>
+
+  <footer id="kontakt" class="site-footer">
+    <h2>Anrufen oder schreiben</h2>
+    <a class="number" href="tel:{{site.phone|tel}}" aria-label="Anrufen: {{site.phone}}">{{site.phone}}</a>
+    <div class="footer-facts">
+      <p><a href="mailto:{{site.email}}">{{site.email}}</a></p>
+      <!-- site:address -->
+      <p>Meisterbetrieb, eingetragen in die Handwerksrolle der {{site.chamber}}.</p>
+    </div>
+    <p class="small-print">© <span data-year>2026</span> <span translate="no">{{site.name}}</span> · <a href="/impressum.html">Impressum</a> · <a href="/datenschutz.html">Datenschutz</a></p>
+  </footer>
+
+  <!-- the van, drawn once and used in the team section -->
+  <svg width="0" height="0" class="defs" aria-hidden="true" focusable="false">
+    <symbol id="van" viewBox="0 0 240 124">
+      <path class="van-body" d="M6 14 Q6 6 14 6 H158 Q176 6 188 22 L222 64 Q234 72 234 86 V98 Q234 104 228 104 H12 Q6 104 6 98 Z"/>
+      <path class="van-glass" d="M164 18 H176 Q182 18 186 24 L208 56 H164 Z"/>
+      <rect class="van-line" x="6" y="80" width="228" height="6"/>
+      <text class="van-letters" x="18" y="52">Brandt</text>
+      <circle class="van-tyre" cx="54" cy="104" r="17"/>
+      <circle class="van-hub" cx="54" cy="104" r="6"/>
+      <circle class="van-tyre" cx="190" cy="104" r="17"/>
+      <circle class="van-hub" cx="190" cy="104" r="6"/>
+    </symbol>
+  </svg>
+</body>
+</html>

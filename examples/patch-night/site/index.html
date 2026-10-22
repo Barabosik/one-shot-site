@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Patch Night: a modular synth evening in Saarbrücken</title>
+  <meta name="description" content="Patch Night, {{site.events.0.day|day}}: four modular synth sets in an old fire station in Saarbrücken, plus a workshop for your first patch.">
+  <meta name="theme-color" content="#130e0d">
+  <link rel="canonical" href="{{URL}}">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{URL}}">
+  <meta property="og:title" content="Patch Night: a modular synth evening in Saarbrücken">
+  <meta property="og:description" content="Four live modular synth sets in an old fire station, then Open Patch: from {{site.events.0.openPatch}} anyone can plug into the house rack.">
+  <meta property="og:image" content="{{URL}}og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <!-- From site.json: structured data for search engines, verification tags, cookieless analytics -->
+  <!-- site:head -->
+
+  <!-- Before first paint: mark that scripts run, so content hidden for an entrance never stays hidden
+       when they don't. -->
+  <!-- .js arms the scroll reveals; if main.js hasn't run after 3 s (blocked, failed), show everything -->
+  <script>document.documentElement.classList.add('js');setTimeout(function(){var d=document.documentElement;if(!d.hasAttribute('data-ready'))d.classList.remove('js')},3000);</script>
+  <script type="module" src="/src/main.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <a translate="no" class="wordmark" href="/">{{site.name}}</a>
+    <nav aria-label="Main">
+      <a href="#programme">Programme</a>
+      <a href="#workshop">Workshop</a>
+      <a href="#place">Venue</a>
+      <a class="nav-tickets" href="#tickets">Tickets</a>
+    </nav>
+    <button class="sound-toggle" type="button" aria-pressed="false">Sound</button>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <section class="hero" aria-labelledby="title">
+      <div class="hero-head">
+        <h1 translate="no" id="title" data-split="chars">{{site.name}}</h1>
+        <p class="lead" data-reveal style="--i: 4">Four modular synth sets in an old fire station in {{site.address.city}}.</p>
+      </div>
+      <div class="hero-when" data-reveal style="--i: 6">
+        <p class="when">
+          <span><time datetime="{{site.events.0.day}}">{{site.events.0.day|day}}</time></span>
+          <span>{{site.events.0.doors}}–{{site.events.0.until}}</span>
+          <span>{{site.venue}}, {{site.address.city}}</span>
+        </p>
+        <a class="button" data-magnetic href="mailto:{{site.email}}?subject=Tickets%20for%20Patch%20Night&amp;body=Name%3A%20%0D%0ATickets%3A%20%0D%0AStudent%20tickets%3A%20%0D%0AWorkshop%20seats%3A%20">Email for tickets</a>
+        <p class="price"><strong>{{site.events.0.price|price}}</strong>, students {{site.events.0.student|price}}. Write with your name and how many.</p>
+      </div>
+      <div class="rack-wrap">
+        <div class="rack" data-rack aria-hidden="true">
+          <div class="module" data-voice="moro" data-patch="1">
+            <span class="m-name"><span class="m-first">Ines </span>Moro</span>
+            <span class="m-kind">Ambient</span>
+            <span class="knob knob-big" style="--turn: -58deg"></span>
+            <span class="knobs"><span class="knob" style="--turn: 35deg"></span><span class="knob" style="--turn: -110deg"></span></span>
+            <span class="led"></span>
+            <span class="m-label">Out</span>
+            <span class="jack" data-out></span>
+          </div>
+          <div class="module" data-voice="kofi">
+            <span class="m-name">Kofi &amp; the Cables</span>
+            <span class="m-kind">Techno</span>
+            <span class="knob knob-big" style="--turn: 72deg"></span>
+            <span class="knobs"><span class="knob" style="--turn: 120deg"></span><span class="knob" style="--turn: 10deg"></span></span>
+            <span class="led"></span>
+            <span class="m-label">Out</span>
+            <span class="jack" data-out></span>
+          </div>
+          <div class="module" data-voice="brandt" data-patch="3">
+            <span class="m-name"><span class="m-first">Dr. Lisa </span>Brandt</span>
+            <span class="m-kind">Generative</span>
+            <span class="knob knob-big" style="--turn: 18deg"></span>
+            <span class="knobs"><span class="knob" style="--turn: -70deg"></span><span class="knob" style="--turn: 95deg"></span></span>
+            <span class="led"></span>
+            <span class="m-label">Out</span>
+            <span class="jack" data-out></span>
+          </div>
+          <div class="module" data-voice="open">
+            <span class="m-name">Open Patch</span>
+            <span class="m-kind">From {{site.events.0.openPatch}}</span>
+            <span class="knob knob-big" style="--turn: -125deg"></span>
+            <span class="knobs"><span class="knob" style="--turn: 0deg"></span><span class="knob" style="--turn: 60deg"></span></span>
+            <span class="led"></span>
+            <span class="m-label">Out</span>
+            <span class="jack" data-out></span>
+          </div>
+          <div class="module module-mix">
+            <span class="m-name">Mix</span>
+            <canvas class="scope" width="160" height="60"></canvas>
+            <span class="mix-ins">
+              <span class="mix-in"><span class="m-label">In 1</span><span class="jack" data-in="1"></span></span>
+              <span class="mix-in"><span class="m-label">In 2</span><span class="jack" data-in="2"></span></span>
+              <span class="mix-in"><span class="m-label">In 3</span><span class="jack" data-in="3"></span></span>
+              <span class="mix-in"><span class="m-label">In 4</span><span class="jack" data-in="4"></span></span>
+            </span>
+          </div>
+        </div>
+        <p class="rack-hint">One module for each act. Drag a loose plug into the mixer, and turn on Sound to hear your patch.</p>
+      </div>
+    </section>
+
+    <section id="programme" class="programme" aria-labelledby="programme-title">
+      <div class="programme-head" data-reveal>
+        <h2 id="programme-title">Three ways to play a modular</h2>
+        <p>Three live sets between {{site.events.0.doors}} and {{site.events.0.setsUntil}}.</p>
+      </div>
+      <ul class="acts" role="list">
+        <li class="act" data-act="moro" data-reveal>
+          <h3><span class="act-led" aria-hidden="true"></span>Ines Moro</h3>
+          <p>Slow ambient on a west-coast style modular system.</p>
+          <p class="act-kind">Ambient</p>
+        </li>
+        <li class="act" data-act="kofi" data-reveal>
+          <h3><span class="act-led" aria-hidden="true"></span>Kofi &amp; the Cables</h3>
+          <p>Techno played from patch cables, by three people.</p>
+          <p class="act-kind">Techno</p>
+        </li>
+        <li class="act" data-act="brandt" data-reveal>
+          <h3><span class="act-led" aria-hidden="true"></span>Dr. Lisa Brandt</h3>
+          <p>Generative pieces from a 1970s modular synthesizer.</p>
+          <p class="act-kind">Generative</p>
+        </li>
+      </ul>
+    </section>
+
+    <section id="open-patch" class="open-patch" aria-labelledby="open-title">
+      <div class="open-inner" data-reveal>
+        <p class="open-time" aria-hidden="true">{{site.events.0.openPatch}}</p>
+        <div class="open-text">
+          <h2 id="open-title">From {{site.events.0.openPatch}}, the rack is yours</h2>
+          <p>Open Patch: after the three sets, anyone can plug into the house rack, until we close at {{site.events.0.until}}.</p>
+        </div>
+      </div>
+      <svg class="open-cable" data-draw viewBox="0 0 1200 160" aria-hidden="true" style="--fx-t: 1.8s">
+        <path d="M-20 40 C 240 40, 300 150, 560 140 S 900 30, 1220 70" />
+      </svg>
+    </section>
+
+    <section id="workshop" class="workshop" aria-labelledby="workshop-title">
+      <h2 id="workshop-title" data-reveal>Your first patch, before the doors open</h2>
+      <div class="workshop-text" data-reveal>
+        <p>A workshop for {{site.workshop.seats}} people, from {{site.workshop.from}} to {{site.workshop.to}}, before the evening starts. Bring headphones.</p>
+        <dl class="facts">
+          <div><dt>When</dt><dd>{{site.workshop.from}}–{{site.workshop.to}}</dd></div>
+          <div><dt>Seats</dt><dd>{{site.workshop.seats}}</dd></div>
+          <div><dt>Bring</dt><dd>Headphones</dd></div>
+          <div><dt>Price</dt><dd>{{site.workshop.price|price}} on top of your ticket</dd></div>
+        </dl>
+        <p>Ask for a seat in your ticket email. <a class="text-link" href="mailto:{{site.email}}?subject=Workshop%20seat%2C%20Patch%20Night&amp;body=Name%3A%20%0D%0AWorkshop%20seats%3A%20%0D%0ATickets%20for%20the%20evening%3A%20">Email for a workshop seat</a></p>
+      </div>
+      <figure class="first-patch" data-reveal style="--i: 1">
+        <svg viewBox="0 0 640 470" role="img" aria-labelledby="patch-cap">
+          <g class="fp-module">
+            <rect x="10" y="20" width="168" height="320" rx="4" />
+            <rect x="226" y="20" width="168" height="320" rx="4" />
+            <rect x="442" y="20" width="168" height="320" rx="4" />
+          </g>
+          <g class="fp-text" aria-hidden="true">
+            <text x="94" y="62">Oscillator</text>
+            <text x="310" y="62">Filter</text>
+            <text x="526" y="62">Amp</text>
+            <text x="94" y="236">Out</text>
+            <text x="278" y="236">In</text><text x="342" y="236">Out</text>
+            <text x="494" y="236">In</text><text x="558" y="236">Out</text>
+          </g>
+          <g class="fp-knob">
+            <circle cx="94" cy="140" r="34" /><circle cx="310" cy="140" r="34" /><circle cx="526" cy="140" r="34" />
+            <path d="M94 140 L 74 115 M310 140 L 336 120 M526 140 L 526 108" />
+          </g>
+          <g class="fp-jack">
+            <circle cx="94" cy="270" r="12" /><circle cx="278" cy="270" r="12" /><circle cx="342" cy="270" r="12" /><circle cx="494" cy="270" r="12" /><circle cx="558" cy="270" r="12" />
+          </g>
+          <g class="fp-wires" data-draw style="--fx-t: 1.1s">
+          <g class="fp-cable">
+            <path d="M94 270 C 94 380, 278 380, 278 270" />
+            <path d="M342 270 C 342 380, 494 380, 494 270" />
+            <path d="M558 270 C 558 370, 598 380, 598 432" />
+          </g>
+          <g class="fp-phones">
+            <path d="M524 448 C 524 400, 596 400, 596 448" />
+            <rect x="512" y="432" width="20" height="34" rx="6" /><rect x="588" y="432" width="20" height="34" rx="6" />
+          </g>
+          </g>
+        </svg>
+        <figcaption id="patch-cap">The simplest patch there is: an oscillator, a filter, an amplifier, your headphones.</figcaption>
+      </figure>
+    </section>
+
+    <section id="place" class="place" aria-labelledby="place-title" data-reveal>
+      <h2 id="place-title">In an old fire station</h2>
+      <p class="street">{{site.address.street}}</p>
+      <div class="place-detail">
+        <p>{{site.venue}}, {{site.address.postcode}} {{site.address.city}}. <span class="gloss">Schlauchturm: the hose tower of a fire station.</span></p>
+        <p>Workshop from {{site.workshop.from}}, doors at {{site.events.0.doors}}. <a class="text-link" href="{{site.address|maps}}">Find it on the map</a></p>
+      </div>
+    </section>
+
+    <section id="tickets" class="tickets" aria-labelledby="tickets-title">
+      <div class="tickets-head" data-reveal>
+        <h2 id="tickets-title">One email, with your name and how many</h2>
+        <p>Tickets are sold by email. Write to us with your name and the number of tickets, and say how many are student tickets.</p>
+      </div>
+      <div class="ticket" data-reveal style="--i: 1">
+        <div class="ticket-main">
+        <table class="prices">
+          <caption class="visually-hidden">Prices for Patch Night</caption>
+          <tbody>
+            <tr><th scope="row">Ticket</th><td>{{site.events.0.price|price}}</td></tr>
+            <tr><th scope="row">Student ticket</th><td>{{site.events.0.student|price}}</td></tr>
+            <tr><th scope="row">Workshop “Your first patch”, {{site.workshop.from}}–{{site.workshop.to}}</th><td>+&nbsp;{{site.workshop.price|price}}</td></tr>
+          </tbody>
+        </table>
+        </div>
+        <div class="stub">
+          <p class="stub-when"><strong>{{site.name}}</strong><br><time datetime="{{site.events.0.day}}">{{site.events.0.day|day}}</time><br>{{site.events.0.doors}}–{{site.events.0.until}}<br>{{site.venue}}, {{site.address.city}}</p>
+          <a class="button" href="mailto:{{site.email}}?subject=Tickets%20for%20Patch%20Night&amp;body=Name%3A%20%0D%0ATickets%3A%20%0D%0AStudent%20tickets%3A%20%0D%0AWorkshop%20seats%3A%20">Email for tickets</a>
+          <p class="address-line"><a class="text-link" href="mailto:{{site.email}}">{{site.email}}</a></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <svg class="unplugged" viewBox="0 0 600 120" aria-hidden="true">
+      <path class="unplugged-cable" d="M-10 30 C 120 30, 160 100, 300 96 S 470 70, 520 74" />
+      <rect class="unplugged-plug" x="516" y="62" width="44" height="24" rx="5" />
+      <rect class="unplugged-tip" x="560" y="70" width="26" height="8" rx="3" />
+    </svg>
+    <p class="last-cable">{{site.events.0.until}}, last cable out.</p>
+    <p class="footer-note"><span translate="no">Patch Night</span> is run by the {{site.collective.name}}, since {{site.collective.since}}. This is the {{site.collective.edition}} <span translate="no">Patch Night</span>.</p>
+    <p class="footer-small">© <span data-year></span> {{site.collective.name}} · <a href="mailto:{{site.email}}">{{site.email}}</a></p>
+  </footer>
+</body>
+</html>

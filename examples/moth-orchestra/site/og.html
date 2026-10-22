@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=1200">
+  <meta name="robots" content="noindex">
+  <title>Moth Orchestra link preview</title>
+  <script type="module" src="/src/main.js"></script>
+  <style>
+    html:root { --lamp-x: 80%; --cord: 150px; --bulb: 64px; --moth: 150px; }
+    html, body { width: 1200px; height: 630px; overflow: hidden; }
+    .og { position: relative; isolation: isolate; width: 1200px; height: 630px; overflow: clip; padding: 56px 64px; display: grid; align-content: end;
+      background: radial-gradient(130% 90% at var(--lamp-x) 22%, var(--ground) 35%, var(--deep) 100%); }
+    .og-scene { position: absolute; inset: 0; }
+    .og-scene .moth { left: 640px; top: 120px; --rest: -20; }
+    .og-scene .moth-shadow { opacity: 0.5; transform: translate(470px, 40px) rotate(-20deg) scale(2.4); }
+    .og-copy { position: relative; z-index: 2; }
+    .og h1 { font-size: 236px; font-weight: 460; line-height: 0.84; letter-spacing: -0.012em; margin-left: -6px; white-space: nowrap; }
+    .og p { margin-top: 26px; font-size: 34px; line-height: 1.25; }
+    .og p span { color: var(--accent-text); }
+  </style>
+</head>
+<body>
+  <main class="og">
+      <div class="og-scene" aria-hidden="true">
+        <div class="glow"></div>
+        <svg class="moth-shadow" viewBox="-100 -64 200 128" focusable="false">
+          <g class="wr"><use href="#mo-wing"/></g>
+          <g class="wl" transform="scale(-1 1)"><use href="#mo-wing"/></g>
+          <use href="#mo-body"/>
+        </svg>
+        <div class="lamp">
+          <span class="cord"></span>
+          <svg class="bulb" viewBox="-30 -40 60 80" focusable="false">
+            <defs>
+              <radialGradient id="glass" cx="50%" cy="60%" r="58%">
+                <stop offset="0" class="g0"/>
+                <stop offset="0.5" class="g1"/>
+                <stop offset="1" class="g2"/>
+              </radialGradient>
+            </defs>
+            <rect class="cap" x="-7.5" y="-40" width="15" height="17" rx="2"/>
+            <path class="cap-lines" d="M-7.5,-35 H7.5 M-7.5,-30 H7.5"/>
+            <path class="glass" d="M-7,-24 C-7,-16 -20,-10 -20,6 C-20,22 -10,32 0,32 C10,32 20,22 20,6 C20,-10 7,-16 7,-24 Z"/>
+            <path class="filament" d="M-3,-23 L-3,-2 C-7,3 -3,9 0,4 C3,9 7,3 3,-2 L3,-23"/>
+          </svg>
+        </div>
+        <svg class="moth" viewBox="-100 -64 200 128" focusable="false">
+          <defs>
+            <filter id="dust" x="-5%" y="-5%" width="110%" height="110%">
+              <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" result="n"/>
+              <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -2.2 1.75" result="a"/>
+              <feComposite in="SourceGraphic" in2="a" operator="in"/>
+            </filter>
+            <g id="mo-wing">
+              <path class="m-hw" d="M5,2 C26,6 56,8 70,10 C72,28 58,46 36,50 C22,50 10,36 4,16 Z"/>
+              <path class="m-hw-edge" d="M70,10 C72,28 58,46 36,50 C43,43 60,31 63,12 Z"/>
+              <circle class="m-spot" cx="36" cy="25" r="2.6"/>
+              <path class="m-fw" d="M3,-14 C22,-30 56,-46 96,-44 C93,-30 86,-12 74,4 C60,8 30,6 5,0 Z"/>
+              <path class="m-fw-edge" d="M86,-43.5 C82,-28 76,-13 67,5 L74,4 C86,-12 93,-30 96,-44 Z"/>
+              <path class="m-line" d="M26,-28 C23,-19 29,-11 22,3"/>
+              <path class="m-line" d="M64,-42 C57,-31 64,-21 56,-11 C51,-4 57,1 52,6"/>
+              <ellipse class="m-spot" cx="44" cy="-20" rx="4.2" ry="6.5" transform="rotate(-24 44 -20)"/>
+              <circle class="m-spot" cx="33" cy="-17" r="2.4"/>
+            </g>
+            <g id="mo-body">
+              <path class="m-ant" d="M1.5,-26 C8,-36 14,-46 25,-55 C17,-44 10,-35 3.5,-25 Z"/>
+              <path class="m-ant" d="M-1.5,-26 C-8,-36 -14,-46 -25,-55 C-17,-44 -10,-35 -3.5,-25 Z"/>
+              <path class="m-body" d="M-5,0 C-7,16 -5,32 0,42 C5,32 7,16 5,0 Z"/>
+              <path class="m-seg" d="M-5.4,10 Q0,12.5 5.4,10 M-5.8,18 Q0,20.5 5.8,18 M-5.2,26 Q0,28.5 5.2,26 M-3.6,34 Q0,36 3.6,34"/>
+              <ellipse class="m-thorax" cx="0" cy="-10" rx="6.5" ry="11"/>
+              <circle class="m-body" cx="0" cy="-23" r="4.6"/>
+            </g>
+          </defs>
+          <g class="wr m-dust"><use href="#mo-wing"/></g>
+          <g class="wl m-dust" transform="scale(-1 1)"><use href="#mo-wing"/></g>
+          <use href="#mo-body"/>
+        </svg>
+      </div>
+
+    <div class="og-copy">
+      <h1 translate="no">Moth Orchestra</h1>
+      <p>Winter tour, <span>{{site.tour.from}} – {{site.tour.to}}</span>. Tickets on the site.</p>
+    </div>
+  </main>
+</body>
+</html>

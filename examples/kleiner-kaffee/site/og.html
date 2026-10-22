@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=1200">
+  <meta name="robots" content="noindex">
+  <title>Kleiner Kaffee · link preview</title>
+  <script type="module" src="/src/main.js"></script>
+  <style>
+    html:root { --og-ink: var(--accent-ink); }
+    body.og { margin: 0; padding: 0; width: 1200px; height: 630px; overflow: hidden; background: var(--accent); color: var(--og-ink); }
+    .og-card { display: grid; grid-template-columns: 1fr 420px; align-items: center; gap: 48px; height: 630px; padding: 0 72px; box-sizing: border-box; }
+    .og-name { font-family: var(--font-display); font-weight: 600; font-size: 40px; letter-spacing: -0.01em; }
+    .og-card h1 { font-size: 76px; line-height: 1.04; margin: 28px 0 0; max-width: 12ch; color: var(--og-ink); }
+    .og-place { margin-top: 32px; font-size: 28px; font-weight: 600; }
+    .og .roaster { width: 420px; height: auto; --roast: var(--copper); --roast-deep: var(--roast-light); --roast-light: var(--copper-light); --shadow-ink: rgb(0 0 0 / 0.18); }
+  </style>
+</head>
+<body class="og">
+  <main class="og-card">
+    <div>
+      <p class="og-name">{{site.name}}</p>
+      <h1>A coffee bar that roasts its own beans</h1>
+      <p class="og-place">{{site.address.street}}, {{site.address.city}}</p>
+    </div>
+    <svg class="drawing roaster" viewBox="40 30 520 580" width="520" height="580" aria-hidden="true">
+          <ellipse class="shadow" cx="300" cy="594" rx="250" ry="12"/>
+          <path class="s-iron-mid" d="M404 200 V84 a36 36 0 0 1 36 -36 H556" stroke-width="28"/>
+          <path class="s-iron-light" d="M398 200 V84 a42 42 0 0 1 42 -42 H556" stroke-width="5"/>
+          <rect class="iron" x="386" y="120" width="36" height="12" rx="3"/>
+          <rect class="iron" x="128" y="480" width="26" height="104" rx="5"/>
+          <rect class="iron" x="406" y="480" width="26" height="104" rx="5"/>
+          <rect class="roast" x="110" y="196" width="340" height="300" rx="22"/>
+          <path class="roast-deep" d="M408 196 h20 a22 22 0 0 1 22 22 v256 a22 22 0 0 1 -22 22 h-20z"/>
+          <rect class="roast-light" x="122" y="212" width="10" height="268" rx="5"/>
+          <rect class="roast-deep" x="102" y="184" width="356" height="24" rx="9"/>
+          <rect class="iron-mid" x="226" y="164" width="48" height="26"/>
+          <path class="tin" d="M170 92 H330 L282 168 H218 Z"/>
+          <path class="tin-shade" d="M250 92 H330 L282 168 H250 Z"/>
+          <rect class="iron-mid" x="162" y="82" width="176" height="16" rx="6"/>
+          <rect class="copper" x="274" y="172" width="40" height="9" rx="4.5"/>
+          <rect class="iron" x="368" y="222" width="68" height="84" rx="9"/>
+          <rect class="copper-light" x="378" y="234" width="48" height="18" rx="3"/>
+          <circle class="tin" cx="390" cy="276" r="9"/>
+          <path class="s-iron" d="M390 276 l5 -6" stroke-width="2.5"/>
+          <circle class="tin" cx="414" cy="276" r="9"/>
+          <path class="s-iron" d="M414 276 l-6 -4" stroke-width="2.5"/>
+          <circle class="copper" cx="402" cy="296" r="4"/>
+          <circle class="roast-deep" cx="250" cy="330" r="104"/>
+          <circle class="copper" cx="250" cy="330" r="90"/>
+          <path class="s-copper-light" d="M172 285 A90 90 0 0 1 250 240" stroke-width="5"/>
+          <g class="roast-light">
+            <circle cx="250" cy="233" r="4.5"/><circle cx="298.5" cy="246" r="4.5"/><circle cx="334" cy="281.5" r="4.5"/>
+            <circle cx="347" cy="330" r="4.5"/><circle cx="334" cy="378.5" r="4.5"/><circle cx="298.5" cy="414" r="4.5"/>
+            <circle cx="250" cy="427" r="4.5"/><circle cx="201.5" cy="414" r="4.5"/><circle cx="166" cy="378.5" r="4.5"/>
+            <circle cx="153" cy="330" r="4.5"/><circle cx="166" cy="281.5" r="4.5"/><circle cx="201.5" cy="246" r="4.5"/>
+          </g>
+          <rect class="iron" x="196" y="260" width="108" height="44" rx="12"/>
+          <rect class="glass" x="204" y="268" width="92" height="28" rx="7"/>
+          <g class="drum-beans roast">
+            <ellipse cx="216" cy="289" rx="7" ry="4.2" transform="rotate(-18 216 289)"/>
+            <ellipse cx="232" cy="291" rx="7" ry="4.2" transform="rotate(12 232 291)"/>
+            <ellipse cx="248" cy="288" rx="6.5" ry="4" transform="rotate(-30 248 288)"/>
+            <ellipse cx="264" cy="291" rx="7" ry="4.2" transform="rotate(20 264 291)"/>
+            <ellipse cx="280" cy="289" rx="6.5" ry="4" transform="rotate(-10 280 289)"/>
+            <ellipse cx="240" cy="281" rx="6" ry="3.6" transform="rotate(35 240 281)"/>
+          </g>
+          <rect class="iron-mid" x="250" y="323" width="132" height="13" rx="6.5"/>
+          <circle class="iron" cx="386" cy="329.5" r="12"/>
+          <circle class="roast-deep" cx="250" cy="329.5" r="15"/>
+          <rect class="roast-light" x="204" y="364" width="92" height="36" rx="10"/>
+          <rect class="roast-deep" x="212" y="372" width="76" height="4" rx="2"/>
+          <rect class="iron" x="182" y="376" width="30" height="10" rx="5"/>
+          <path class="iron-mid" d="M222 412 H278 L258 462 H196 Z"/>
+          <rect class="iron" x="210" y="500" width="40" height="84"/>
+          <rect class="iron" x="176" y="580" width="108" height="12" rx="5"/>
+          <path class="iron-mid" d="M60 472 V508 A170 28 0 0 0 400 508 V472 Z"/>
+          <path class="s-iron-light" d="M60 490 A170 28 0 0 0 400 490" stroke-width="4"/>
+          <ellipse class="tin" cx="230" cy="472" rx="170" ry="28"/>
+          <ellipse class="roast" cx="230" cy="473" rx="152" ry="21"/>
+          <g class="bean">
+            <ellipse cx="130" cy="472" rx="7" ry="3.5"/><ellipse cx="160" cy="480" rx="7" ry="3.5"/><ellipse cx="190" cy="466" rx="7" ry="3.5"/>
+            <ellipse cx="270" cy="482" rx="7" ry="3.5"/><ellipse cx="300" cy="468" rx="7" ry="3.5"/><ellipse cx="330" cy="478" rx="7" ry="3.5"/>
+            <ellipse cx="350" cy="466" rx="6" ry="3"/><ellipse cx="105" cy="478" rx="6" ry="3"/><ellipse cx="240" cy="486" rx="7" ry="3.5"/>
+          </g>
+          <g class="roast-light">
+            <ellipse cx="145" cy="465" rx="6" ry="3"/><ellipse cx="210" cy="480" rx="6" ry="3"/><ellipse cx="285" cy="460" rx="6" ry="3"/>
+            <ellipse cx="318" cy="486" rx="6" ry="3"/><ellipse cx="365" cy="474" rx="5" ry="2.6"/>
+          </g>
+          <rect class="iron" x="226" y="440" width="8" height="34"/>
+          <rect class="iron tray-arm" x="150" y="468" width="160" height="6" rx="3"/>
+        </svg>
+  </main>
+</body>
+</html>

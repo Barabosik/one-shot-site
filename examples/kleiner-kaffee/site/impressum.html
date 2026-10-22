@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Impressum · {{site.name}}</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#f5ede0">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <script type="module" src="/src/main.js"></script>
+</head>
+<body>
+  <!-- Vorlage für das Impressum nach § 5 DDG (Digitale-Dienste-Gesetz, gilt seit 14.05.2024 statt § 5 TMG).
+       Nur echte Angaben. Fehlt der Name (owner.name), steht ein Platzhalter auf der Seite, bis er eingetragen ist;
+       das Audit meldet ihn. Die übrigen Felder unter "owner" in site.json erscheinen nur, wenn sie ausgefüllt sind:
+       business (Geschäftsbezeichnung, wenn sie vom Namen abweicht), register (Registergericht und Nummer),
+       vatId (USt-IdNr. nach § 27a UStG), chamber (Kammer, Berufsbezeichnung, Staat der Verleihung).
+       Ergänzen, falls nötig: Rechtsform und Vertretungsberechtigte, zuständige Aufsichtsbehörde.
+       Im Zweifel mit einem Impressum-Generator (z. B. eRecht24) oder einer Anwältin prüfen. -->
+  <a class="skip" href="#main">Zum Inhalt</a>
+  <header class="site-header">
+    <a translate="no" class="wordmark" href="%BASE_URL%">{{site.name}}</a>
+  </header>
+
+  <main id="main" tabindex="-1" class="legal">
+    <h1>Impressum</h1>
+
+    <h2>Angaben gemäß § 5 DDG</h2>
+    <p>{{site.owner.name|later}}<!-- site:if owner.business --><br>{{site.owner.business}}<!-- site:end --></p>
+    <!-- site:address -->
+
+    <h2>Kontakt</h2>
+    <p>E-Mail: <a href="mailto:{{site.email}}">{{site.email}}</a><!-- site:if phone --><br>
+      Telefon: <a href="tel:{{site.phone|tel}}">{{site.phone}}</a><!-- site:end --></p>
+    <!-- Neben der E-Mail braucht es einen zweiten schnellen Weg: Telefon oder ein Kontaktformular.
+         Ohne "phone" in site.json fällt die Zeile weg; dann nach einem zweiten Weg fragen. -->
+
+    <!-- site:if owner.register -->
+    <h2>Registereintrag</h2>
+    <p>{{site.owner.register}}</p>
+    <!-- site:end -->
+    <!-- site:if owner.vatId -->
+    <h2>Umsatzsteuer-ID</h2>
+    <p>Umsatzsteuer-Identifikationsnummer nach § 27a UStG: {{site.owner.vatId}}</p>
+    <!-- site:end -->
+    <!-- site:if owner.chamber -->
+    <h2>Kammer und Berufsbezeichnung</h2>
+    <p>{{site.owner.chamber}}</p>
+    <!-- site:end -->
+
+    <p><a href="%BASE_URL%">Zurück zur Startseite</a></p>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span data-year></span> <span translate="no">{{site.name}}</span> · <a href="%BASE_URL%datenschutz.html">Datenschutz</a></p>
+  </footer>
+</body>
+</html>

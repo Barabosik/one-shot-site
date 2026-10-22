@@ -1,0 +1,64 @@
+/* A local stand-in sized like Work Sans, so lines don't rewrap (and the page doesn't jump) when the web font
+   arrives a moment after the first paint. */
+@font-face {
+  font-family: 'Work Sans Fallback'; src: local('Arial'), local('Helvetica Neue'), local('Helvetica');
+  size-adjust: 111%; ascent-override: 84%; descent-override: 22%; line-gap-override: 0%;
+}
+
+/* The design in numbers. Every colour, size, gap and timing on the site comes from here, so a change of
+   mood is a change in this file. Colours: run `palette.mjs` and paste its block over the colour section. */
+
+/* palette.mjs --brand "#f7b500" --strategy quiet --mode light --ground "#e9edf5", ink tinted toward the van's
+   navy; the van tokens below are the dark-blue paint and its yellow lettering (checked: 8.9:1 and 14.8:1). */
+:root {
+  --ground: oklch(98.5% 0.007 264.5);         /* #f8faff, page background */
+  --surface: oklch(95.0% 0.009 264.5);        /* #ebeef5, bands and cards */
+  --ink: oklch(20.0% 0.035 264.5);            /* near-black navy, text */
+  --muted: oklch(45.0% 0.025 264.5);          /* quiet text, 6.5:1 */
+  --line: oklch(20.0% 0.035 264.5 / 0.16);
+  --accent: oklch(81.3% 0.167 82.0);          /* #f7b500, the lettering yellow: number, call buttons */
+  --accent-ink: oklch(20.0% 0.035 264.5);     /* text on the yellow, 10:1 */
+  --accent-text: oklch(45.0% 0.110 82.0);     /* yellow dark enough for text on the ground, 5.5:1 */
+  color-scheme: light;
+
+  /* the van: dark-blue paint, white and yellow lettering */
+  --van: oklch(26.0% 0.078 264);              /* #13244c, hero, prices, footer */
+  --van-deep: oklch(21.0% 0.060 264);         /* a step darker, for a band inside the van colour */
+  --van-ink: oklch(97.0% 0.008 264);          /* text on the van, 14.8:1 */
+  --van-muted: oklch(80.0% 0.030 264);        /* quiet text on the van, 8.6:1 */
+  --van-line: oklch(97.0% 0.008 264 / 0.22);
+  --van-glass: oklch(36.0% 0.060 250);        /* the cab window */
+  --van-shine: oklch(44.0% 0.050 250);        /* a streak of light on the window */
+
+  /* type: two families at most */
+  --font-display: 'Anybody Variable', 'Arial Black', sans-serif;
+  --font-text: 'Work Sans Variable', 'Work Sans Fallback', system-ui, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* a fluid scale: small → huge, each step grows with the screen */
+  --step--1: clamp(0.84rem, 0.82rem + 0.1vw, 0.9rem);
+  --step-0: clamp(1.05rem, 1rem + 0.25vw, 1.2rem);
+  --step-1: clamp(1.3rem, 1.18rem + 0.6vw, 1.65rem);
+  --step-2: clamp(1.7rem, 1.4rem + 1.4vw, 2.6rem);
+  --step-3: clamp(2.3rem, 1.6rem + 3.2vw, 4.4rem);
+  --step-4: clamp(3rem, 1.6rem + 6.6vw, 7.5rem);
+  --step-5: clamp(5.2rem, 1rem + 21vw, 17rem);   /* the phone number, van-lettering size */
+  --leading-tight: 0.95;
+  --leading-body: 1.55;
+  --measure: 66ch;
+
+  /* space: one rhythm; the gap between sections beats any gap inside one */
+  --margin: clamp(1rem, 0.6rem + 2vw, 2.5rem);
+  --gap: clamp(1rem, 0.8rem + 1vw, 1.75rem);
+  --section: clamp(4.5rem, 2.5rem + 8vw, 10rem);
+  --radius: 0;
+  --rule: 0.375rem;                           /* the thick rule */
+  --header: 4rem;
+
+  /* motion: Still. Only instant state changes and a short press. */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --t-press: 100ms;
+  --t-hover: 120ms;
+  --t-reveal: 0ms;
+}

@@ -1,0 +1,21 @@
+# Text files keep LF line endings on every machine, so a Windows clone doesn't rewrite them all.
+* text=auto eol=lf
+# Pictures, fonts, sound, video, 3D and PDFs are never touched
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.avif binary
+*.gif binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.otf binary
+*.mp3 binary
+*.ogg binary
+*.wav binary
+*.mp4 binary
+*.webm binary
+*.glb binary
+*.pdf binary

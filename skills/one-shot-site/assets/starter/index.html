@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="{{LANG}}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>{{TITLE}}</title>
+  <meta name="description" content="{{DESCRIPTION}}">
+  <meta name="theme-color" content="{{THEME_COLOR}}">
+  <link rel="canonical" href="{{URL}}">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{URL}}">
+  <meta property="og:title" content="{{TITLE}}">
+  <meta property="og:description" content="{{DESCRIPTION}}">
+  <meta property="og:image" content="{{URL}}og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <!-- From site.json: structured data for search engines, verification tags, cookieless analytics -->
+  <!-- site:head -->
+
+  <!-- Before first paint: mark that scripts run, so content hidden for an entrance never stays hidden
+       when they don't. -->
+  <!-- .js arms the scroll reveals; if main.js hasn't run after 3 s (blocked, failed), show everything -->
+  <script>document.documentElement.classList.add('js');setTimeout(function(){var d=document.documentElement;if(!d.hasAttribute('data-ready'))d.classList.remove('js')},3000);</script>
+  <script type="module" src="/src/main.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <a class="wordmark" href="%BASE_URL%" translate="no">{{site.name}}</a>
+    <nav aria-label="Main">
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <section class="hero">
+      <h1 translate="no">{{site.name}}</h1>
+      <p class="lead">{{DESCRIPTION}}</p>
+    </section>
+
+    <section id="about" class="section" data-reveal>
+      <h2>About</h2>
+      <p>{{ABOUT}}</p>
+    </section>
+
+    <section id="contact" class="section" data-reveal>
+      <h2>Contact</h2>
+      <p><a class="button" href="mailto:{{site.email}}">Write to <span translate="no">{{site.name}}</span></a></p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span data-year></span> <span translate="no">{{site.name}}</span></p>
+  </footer>
+</body>
+</html>

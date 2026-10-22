@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Not here · one-shot-site</title>
+  <meta name="theme-color" content="#f8f6f5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#131011" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M0 0h64v44a20 20 0 0 1-20 20H0z' fill='%23ff2d75'/%3E%3Ctext x='28' y='47' text-anchor='middle' font-family='system-ui%2C -apple-system%2C Segoe UI%2C sans-serif' font-size='44' font-weight='800' fill='%23ffffff'%3E1%3C/text%3E%3C/svg%3E" type="image/svg+xml">
+  <!-- Self-contained on purpose: GitHub Pages serves this file as-is for any missing address, at any depth,
+       so it carries its own colours and links home by the full address (docs/build.mjs fills in {{URL}}). -->
+  <style>
+    :root { --ground: #f8f6f5; --ink: #191616; --muted: #5c5757; --accent: #ff2d75; --accent-text: #cf005a; color-scheme: light; }
+    @media (prefers-color-scheme: dark) { :root { --ground: #131011; --ink: #ebe7e5; --muted: #b0a8a6; --accent-text: #ff5b8a; color-scheme: dark; } }
+    body { margin: 0; min-height: 100svh; display: grid; place-content: center; padding: 1.5rem; background: var(--ground); color: var(--ink); font: 1.1rem/1.55 'Helvetica Neue', Arial, sans-serif; }
+    main { max-width: 34rem; }
+    .tag { display: inline-block; background: var(--accent); color: #fff; font-weight: 800; padding: 0.15em 0.45em; border-radius: 0 0 8px 0; margin-bottom: 1.25rem; }
+    h1 { font-size: clamp(2.4rem, 8vw, 4.6rem); line-height: 0.98; margin: 0 0 1rem; letter-spacing: -0.035em; }
+    p { margin: 0 0 1rem; color: var(--muted); }
+    a { color: var(--accent-text); font-weight: 700; text-underline-offset: 0.2em; }
+    a:hover { color: var(--ink); }
+    a:focus-visible { outline: 2px solid var(--accent-text); outline-offset: 3px; }
+  </style>
+</head>
+<body>
+  <main>
+    <span class="tag" aria-hidden="true">404</span>
+    <h1>There’s no page at this address.</h1>
+    <p>It may have moved, or the link has a typo.</p>
+    <a href="{{URL}}">Back to one-shot-site</a>
+  </main>
+</body>
+</html>

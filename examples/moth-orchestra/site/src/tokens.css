@@ -1,0 +1,71 @@
+/* The design in numbers. Every colour, size, gap and timing on the site comes from here, so a change of
+   mood is a change in this file.
+   Colours: the Lamp Hours cover, a dusty ochre moth on dark bottle green. The ground is the cover's green
+   itself (#1f2d24); palette.mjs would have pushed it down to 17% lightness, so these are set by hand and
+   every text pair checked: ink 11.4:1, muted 7.1:1, ochre text 7.0:1, ink on the ochre button 6.7:1. */
+
+:root {
+  /* colour: one ground, one ink, one accent */
+  --ground: oklch(28.1% 0.025 156.2);       /* #1f2d24, the cover's bottle green */
+  --deep: oklch(21.5% 0.022 158);           /* the same green where the lamp doesn't reach */
+  --surface: oklch(31.5% 0.03 154);         /* a raised band, a hovered row */
+  --ink: oklch(92% 0.028 88.8);             /* #ece4d0, warm off-white, paper under a lamp */
+  --muted: oklch(77.6% 0.025 122.8);        /* #b3b9a8, meta text, 7.1:1 on ground */
+  --line: oklch(92% 0.028 88.8 / 0.16);
+  --accent: oklch(68.1% 0.115 86);          /* #b8933a, the moth's ochre: buttons and the moth */
+  --accent-ink: oklch(16% 0.02 86);         /* text on the accent, 6.7:1 */
+  --accent-text: oklch(77.3% 0.107 85.4);   /* #d4b061, ochre as text and links, 7.0:1 */
+  color-scheme: dark;
+
+  /* the lamp and the moth (drawing colours, not text) */
+  --glow: oklch(86% 0.11 88);               /* the bulb's light */
+  --filament: oklch(97% 0.06 92);
+  --brass: oklch(48% 0.06 80);
+  --moth-wing: oklch(68.1% 0.115 86);       /* forewing, the cover's ochre */
+  --moth-hind: oklch(74% 0.085 84);         /* hindwing, paler and dustier */
+  --moth-mark: oklch(46% 0.075 72);         /* lines and spots on the wings */
+  --moth-body: oklch(58% 0.085 78);
+
+  /* type: two families. Imbue, a condensed high-contrast serif like the lettering on an old playbill;
+     Hanken Grotesk, a plain humanist sans with tabular figures for the dates. */
+  --font-display: 'Imbue Variable', 'Imbue fallback', serif;
+  /* one-shot: allow overused-font: chosen for its tabular figures in the tour dates */
+  --font-text: 'Hanken Grotesk Variable', Arial, system-ui, sans-serif; /* Arial is within 1% of its width */
+  --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* a fluid scale: small → huge, each step grows with the screen */
+  --step--1: clamp(0.84rem, 0.82rem + 0.1vw, 0.9rem);
+  --step-0: clamp(1.07rem, 1.02rem + 0.25vw, 1.2rem);
+  --step-1: clamp(1.3rem, 1.18rem + 0.6vw, 1.65rem);
+  --step-2: clamp(1.9rem, 1.5rem + 1.8vw, 3rem);
+  --step-3: clamp(2.8rem, 1.9rem + 4vw, 5.6rem);
+  --step-4: clamp(5.6rem, 0.5rem + 21.5vw, 21rem); /* the name, one line across a wide screen */
+  --leading-tight: 0.92;
+  --leading-body: 1.55;
+  --measure: 62ch;
+
+  /* space: one rhythm; the gap between sections beats any gap inside one */
+  --margin: clamp(1rem, 0.6rem + 2vw, 2.5rem);
+  --gap: clamp(1rem, 0.8rem + 1vw, 1.75rem);
+  --section: clamp(5.5rem, 3rem + 10vw, 12rem);
+  --radius: 999px;
+
+  /* the lamp: where it hangs, how long the cord is */
+  --lamp-x: 74%;
+  --cord: clamp(7rem, 2rem + 19vh, 14rem);
+  --bulb: clamp(3rem, 2.4rem + 1.6vw, 4.2rem);
+  --moth: clamp(5.4rem, 4rem + 3.6vw, 8.6rem);
+
+  /* motion: one ease for things arriving, short presses, slower reveals */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --t-press: 120ms;
+  --t-hover: 180ms;
+  --t-reveal: 800ms;
+  --t-walk: 1.8s;
+}
+
+/* phones: the name on two lines, as big as the width allows */
+@media (max-width: 47.99rem) {
+  :root { --step-4: clamp(5.4rem, 30vw, 9.5rem); --lamp-x: 76%; }
+}

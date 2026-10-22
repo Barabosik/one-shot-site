@@ -1,0 +1,78 @@
+{
+  "name": "Kleiner Kaffee",
+  "type": "CafeOrCoffeeShop",
+  "description": "Kleiner Kaffee is a coffee bar with eight seats on Röstergasse in Saarbrücken. It roasts its own beans every Tuesday in a 5 kg drum roaster.",
+  "url": "",
+  "email": "hallo@kleiner-kaffee.example",
+  "currency": "EUR",
+  "priceRange": "€",
+  "address": {
+    "street": "Röstergasse 12",
+    "city": "Saarbrücken",
+    "country": "DE"
+  },
+  "hours": [
+    {
+      "days": "Tue-Sat",
+      "opens": "08:00",
+      "closes": "17:00"
+    },
+    {
+      "days": "Sun",
+      "opens": "10:00",
+      "closes": "16:00"
+    }
+  ],
+  "closed": [],
+  "menu": [
+    {
+      "section": "Coffee",
+      "items": [
+        {
+          "name": "Espresso",
+          "price": "2.40",
+          "note": "A short, strong shot of coffee."
+        },
+        {
+          "name": "Flat white",
+          "price": "3.60",
+          "note": "Espresso with a little silky steamed milk."
+        },
+        {
+          "name": "Filter",
+          "price": "3.20",
+          "note": "Brewed coffee, lighter and longer than an espresso."
+        }
+      ]
+    },
+    {
+      "section": "To eat",
+      "items": [
+        {
+          "name": "Cardamom bun",
+          "price": "3.00",
+          "note": "A sweet bun spiced with cardamom."
+        }
+      ]
+    }
+  ],
+  "events": [],
+  "seats": "8",
+  "since": "2019",
+  "roast": {
+    "day": "Tuesday",
+    "batch": "5 kg"
+  },
+  "photos": false,
+  "links": {},
+  "owner": {
+    "name": "Lena Hoffmann",
+    "business": "Kleiner Kaffee"
+  },
+  "host": "GitHub Pages (GitHub, Inc., USA)",
+  "verify": {
+    "google": "",
+    "bing": ""
+  },
+  "analytics": {}
+}

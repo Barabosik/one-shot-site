@@ -1,0 +1,18 @@
+{
+  "name": "one-shot-site",
+  "type": "SoftwareApplication",
+  "description": "An agent skill that asks a few multiple-choice questions, builds a static website, checks it in your own browser and publishes it when you say yes.",
+  "url": "",
+  "email": "",
+  "phone": "",
+  "repo": "https://github.com/Barabosik/one-shot-site",
+  "install": "npx skills add Barabosik/one-shot-site -a claude-code",
+  "author": { "name": "Nikita Andreiev", "url": "https://nikita-andreiev.com" },
+  "currency": "EUR",
+  "events": [],
+  "links": {},
+  "owner": { "name": "Nikita Andreiev" },
+  "host": "GitHub Pages",
+  "verify": { "google": "", "bing": "" },
+  "analytics": {}
+}

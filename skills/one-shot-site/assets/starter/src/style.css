@@ -1,0 +1,31 @@
+/* The page itself. A plain, working layout to build over: replace it with the design from the brief. */
+
+.site-header {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--gap);
+  padding: var(--gap) var(--margin);
+}
+.wordmark { font-family: var(--font-display); font-weight: 700; text-decoration: none; padding-block: 0.5rem; }
+.site-header nav { display: flex; gap: clamp(0.75rem, 2vw, 2rem); }
+.site-header nav a { text-decoration: none; padding-block: 0.5rem; }
+
+.hero { padding: clamp(4rem, 12vw, 10rem) var(--margin) var(--section); }
+.hero h1 { font-size: var(--step-4); letter-spacing: -0.03em; max-width: 14ch; }
+.lead { margin-top: var(--gap); font-size: var(--step-1); max-width: 38ch; line-height: 1.4; }
+
+.section { padding: 0 var(--margin) var(--section); }
+.section h2 { font-size: var(--step-3); letter-spacing: -0.02em; margin-bottom: var(--gap); }
+.section p { max-width: var(--measure); }
+
+.button {
+  display: inline-flex; align-items: center; min-height: 3.25rem; padding: 0 1.6rem;
+  background: var(--accent); color: var(--accent-ink); border-radius: var(--radius);
+  font-weight: 600; text-decoration: none;
+  transition: transform var(--t-press) var(--ease-out), background-color var(--t-hover) ease;
+}
+.button:active { transform: scale(0.97); }
+@media (hover: hover) and (pointer: fine) {
+  .button:hover { background: color-mix(in oklab, var(--accent), var(--ink) 14%); }
+  .site-header nav a:hover { color: var(--accent-text); }
+}
+
+.site-footer { padding: var(--gap) var(--margin) calc(var(--gap) * 2); color: var(--muted); font-size: var(--step--1); }

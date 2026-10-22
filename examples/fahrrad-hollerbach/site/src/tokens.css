@@ -1,0 +1,48 @@
+/* The design in numbers. Every colour, size, gap and timing on the site comes from here, so a change of
+   mood is a change in this file. Colours: run `palette.mjs` and paste its block over the colour section. */
+
+:root {
+  /* colour: one ground, one ink, one accent (contrast-checked by palette.mjs) */
+  --ground: oklch(95.0% 0.005 143.8);         /* #ecefec, page background: the workshop floor */
+  --surface: oklch(91.5% 0.007 143.8);        /* #e0e4e0, bands and cards */
+  --ink: oklch(20.0% 0.002 143.8);            /* #151615, text, 15.7:1 */
+  --muted: oklch(47.0% 0.003 143.8);          /* #5a5b5a, quiet text, 5.9:1 */
+  --line: oklch(20.0% 0.002 143.8 / 0.14);
+  --accent: oklch(42.9% 0.089 143.8);         /* #2e5c2e, their green: buttons and bands */
+  --accent-ink: oklch(99.0% 0.005 143.8);     /* #fafdfa, text on accent, 7.6:1 */
+  --accent-text: oklch(42.9% 0.089 143.8);    /* #2e5c2e, links on ground, 6.8:1 */
+  --tag: oklch(86.5% 0.177 90.4);             /* #ffcc00, their yellow: the repair tag */
+  --tag-ink: oklch(16.0% 0.020 90.4);         /* #110d04, text on the tag, 12.8:1 */
+  --tag-edge: oklch(70% 0.15 85);             /* the tag's punched hole ring */
+  color-scheme: light;
+
+  /* type: two families at most */
+  --font-display: 'Saira Stencil One', 'Arial Narrow', sans-serif;
+  --font-text: 'Public Sans Variable', system-ui, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* a fluid scale: small → huge, each step grows with the screen */
+  --step--1: clamp(0.84rem, 0.82rem + 0.1vw, 0.9rem);
+  --step-0: clamp(1.05rem, 1rem + 0.25vw, 1.2rem);
+  --step-1: clamp(1.3rem, 1.18rem + 0.6vw, 1.65rem);
+  --step-2: clamp(1.7rem, 1.4rem + 1.4vw, 2.6rem);
+  --step-3: clamp(2.3rem, 1.6rem + 3.2vw, 4.4rem);
+  --step-4: clamp(3rem, 1.6rem + 6.6vw, 7.5rem);
+  --leading-tight: 1.02;
+  --leading-body: 1.55;
+  --measure: 66ch;
+
+  /* space: one rhythm; the gap between sections beats any gap inside one */
+  --margin: clamp(1rem, 0.6rem + 2vw, 2.5rem);
+  --gap: clamp(1rem, 0.8rem + 1vw, 1.75rem);
+  --section: clamp(5.5rem, 3rem + 10vw, 13rem);
+  --radius: 0;
+  --tilt: -2.5deg;
+
+  /* motion: one ease for things arriving, short presses, slower reveals */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --t-press: 120ms;
+  --t-hover: 180ms;
+  --t-reveal: 700ms;
+}

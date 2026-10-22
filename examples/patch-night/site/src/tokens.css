@@ -1,0 +1,60 @@
+/* The design in numbers. Every colour, size, gap and timing on the site comes from here, so a change of
+   mood is a change in this file. Colours: palette.mjs --brand "#ff5a2e" --mode dark --strategy quiet. */
+
+:root {
+  /* colour: a warm near-black hall, off-white ink, one signal orange (the hot patch cable, the alarm lamp) */
+  --ground: oklch(17.0% 0.010 35.4);         /* #130e0d, page background */
+  --surface: oklch(21.5% 0.012 35.4);        /* #1f1716, bands and cards */
+  --ink: oklch(93.0% 0.012 35.4);            /* #f0e5e2, text, 15.5:1 */
+  --muted: oklch(74.0% 0.020 35.4);          /* #b7a7a2, quiet text, 8.2:1 */
+  --line: oklch(93.0% 0.012 35.4 / 0.14);
+  --accent: oklch(68.3% 0.208 35.4);         /* #ff5a2e, buttons and highlights */
+  --accent-ink: oklch(16.0% 0.020 35.4);     /* #150a08, text on accent, 6.3:1 */
+  --accent-text: oklch(68.3% 0.208 35.4);    /* #ff5a2e, links on ground, 6.2:1 */
+  color-scheme: dark;
+
+  /* the rack: brushed panels under one lamp, printed legends, black knobs, nickel jacks */
+  --rail: oklch(12.5% 0.008 35.4);           /* the rack's frame, darker than the hall */
+  --panel: oklch(80.5% 0.006 70);            /* aluminium */
+  --panel-lit: oklch(87.0% 0.005 70);        /* the top of a panel, nearest the lamp */
+  --panel-ink: oklch(19.0% 0.010 35.4);      /* legends printed on the panel, 10:1 */
+  --knob: oklch(21.0% 0.006 35.4);
+  --knob-cap: oklch(30.0% 0.008 35.4);
+  --nut: oklch(68.0% 0.004 70);              /* the jack's nut */
+  --hole: oklch(10.0% 0.004 35.4);
+  --led-off: oklch(36.0% 0.040 35.4);
+  --cable-light: oklch(90.0% 0.010 70);      /* the second cable colour: off-white */
+  --cable-shade: oklch(10.0% 0.010 35.4 / 0.45);
+
+  /* type: two families. Chivo for display and panel legends, IBM Plex Sans for text */
+  --font-display: 'Chivo Variable', 'Arial', sans-serif;
+  /* one-shot: allow overused-font: the service-manual face, part of the idea */
+  --font-text: 'IBM Plex Sans Variable', system-ui, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* a fluid scale: small → huge, each step grows with the screen */
+  --step--1: clamp(0.84rem, 0.82rem + 0.1vw, 0.9rem);
+  --step-0: clamp(1.06rem, 1rem + 0.25vw, 1.2rem);
+  --step-1: clamp(1.3rem, 1.18rem + 0.6vw, 1.65rem);
+  --step-2: clamp(1.7rem, 1.4rem + 1.4vw, 2.6rem);
+  --step-3: clamp(2.3rem, 1.6rem + 3.2vw, 4.4rem);
+  --step-4: clamp(3.1rem, 1.6rem + 6.6vw, 8rem);
+  --step-5: clamp(3.4rem, 0.6rem + 12vw, 13rem);
+  --label: 0.8125rem;                        /* 13px panel legends, the smallest text on the site */
+  --leading-tight: 1.0;
+  --leading-body: 1.6;
+  --measure: 62ch;
+
+  /* space: one rhythm; the gap between sections beats any gap inside one */
+  --margin: clamp(1rem, 0.6rem + 2vw, 2.5rem);
+  --gap: clamp(1rem, 0.8rem + 1vw, 1.75rem);
+  --section: clamp(5.5rem, 3rem + 10vw, 12rem);
+  --radius: 3px;
+
+  /* motion: one ease for things arriving, short presses, slower reveals */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --t-press: 120ms;
+  --t-hover: 180ms;
+  --t-reveal: 800ms;
+}

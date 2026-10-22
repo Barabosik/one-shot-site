@@ -1,0 +1,53 @@
+name: New example or idea
+description: A site for examples/, or a change to the skill. Anything bigger than a typo or a clear bug fix starts here.
+labels: [idea]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Start here before writing the code: the maintainer says yes, no, or "yes, but like this", and nobody's
+        work goes to waste. For a new example, [examples/README.md](https://github.com/Barabosik/one-shot-site/blob/main/examples/README.md#adding-an-example)
+        has the steps for the pull request that follows.
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What is it
+      options:
+        - A new example site
+        - A change to how sites get built (SKILL.md, references, starter)
+        - A new or better check (a script)
+        - Something else
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What, and why
+      description: What you'd add or change, and the problem it solves. For an example, what it shows that the others don't.
+    validations:
+      required: true
+  - type: textarea
+    id: example
+    attributes:
+      label: For an example, the made-up client and the answers
+      description: Who the site is for in one line, and what the interview was answered with.
+      placeholder: "A made-up bakery in Graz that sells out by noon. A small business · Warm · Gentle motion · Goal: visit"
+  - type: textarea
+    id: shots
+    attributes:
+      label: Screenshots
+      description: Optional. Drag images in.
+  - type: checkboxes
+    id: made-up
+    attributes:
+      label: For an example, all of it made up
+      options:
+        - label: No real business, person, brand or account. Names, streets and phone numbers are invented, addresses use `.example`.
+        - label: Every photo is free to use (public domain, CC0 or CC BY with its credit), and I know where each one comes from.
+  - type: checkboxes
+    id: policy
+    attributes:
+      label: How changes get in
+      options:
+        - label: I've read "How changes get in" in CONTRIBUTING.md and will wait for an OK before a big pull request.
+          required: true

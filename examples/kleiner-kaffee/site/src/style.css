@@ -1,0 +1,237 @@
+/* Kleiner Kaffee: roast brown on cream, Brygada 1918 over Karla, drawings of their own things. */
+
+body { font-family: var(--font-text); background: var(--ground); color: var(--ink); }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 500; letter-spacing: -0.01em; text-wrap: balance; }
+.first-line { font-family: var(--font-display); font-size: var(--step-2); line-height: 1.2; letter-spacing: -0.01em; text-wrap: balance; }
+
+/* ---- header: the wordmark, three signposts, the action at the right end ---- */
+.site-header {
+  display: grid; grid-template-columns: 1fr auto; align-items: center; gap: var(--gap);
+  min-height: 4rem; padding: 0.5rem var(--margin);
+  background: var(--ground);
+}
+.wordmark {
+  font-family: var(--font-display); font-weight: 600; font-size: var(--step-1); letter-spacing: -0.01em;
+  text-decoration: none; color: var(--ink); padding-block: 0.4rem; justify-self: start;
+}
+.site-header nav { display: flex; gap: clamp(0.9rem, 2.4vw, 2.25rem); }
+.site-header nav a { text-decoration: none; padding-block: 0.6rem; color: var(--ink); }
+
+/* ---- buttons and links ---- */
+.button {
+  display: inline-flex; align-items: center; justify-content: center; min-height: 3.25rem; padding: 0 1.6rem;
+  background: var(--accent); color: var(--accent-ink); border-radius: var(--radius);
+  font-weight: 600; text-decoration: none;
+  transition: transform var(--t-press) var(--ease-out), background-color var(--t-hover) ease;
+}
+.button:active { transform: scale(0.97); }
+.text-link { color: var(--accent-text); font-weight: 600; text-underline-offset: 0.25em; text-decoration-thickness: 1px; padding-block: 0.3em; }
+@media (hover: hover) and (pointer: fine) {
+  .button:hover { background: color-mix(in oklab, var(--accent), var(--ink) 18%); }
+  .site-header nav a:hover, .text-link:hover { color: var(--accent-text); text-decoration-thickness: 2px; }
+}
+
+.site-header .header-action { display: none; }
+@media (min-width: 720px) {
+  .site-header {
+    grid-template-columns: 1fr auto 1fr; position: sticky; top: 0; z-index: 10;
+    box-shadow: 0 1px 0 var(--line);
+  }
+  .site-header nav { justify-self: center; }
+  .site-header .header-action { display: inline-flex; justify-self: end; }
+}
+
+/* ---- the drawings: colours from the tokens, so a palette change reaches them ---- */
+.drawing { display: block; width: 100%; height: auto; }
+.drawing .roast { fill: var(--roast); }
+.drawing .roast-deep { fill: var(--roast-deep); }
+.drawing .roast-light { fill: var(--roast-light); }
+.drawing .copper { fill: var(--copper); }
+.drawing .copper-light { fill: var(--copper-light); }
+.drawing .iron { fill: var(--iron); }
+.drawing .iron-mid { fill: var(--iron-mid); }
+.drawing .tin { fill: var(--tin); }
+.drawing .tin-shade { fill: var(--tin-shade); }
+.drawing .glass { fill: var(--glass); }
+.drawing .bean { fill: var(--bean); }
+.drawing .porcelain { fill: var(--porcelain); }
+.drawing .shadow, .drawing .floor { fill: var(--shadow-ink); }
+.drawing [class^='s-'] { fill: none; stroke-linecap: round; }
+.drawing .s-iron { stroke: var(--iron); }
+.drawing .s-iron-mid { stroke: var(--iron-mid); stroke-linecap: butt; }
+.drawing .s-iron-light { stroke: var(--iron-light); stroke-linecap: butt; }
+.drawing .s-copper { stroke: var(--copper); }
+.drawing .s-copper-light { stroke: var(--copper-light); }
+.drawing .s-roast-light { stroke: var(--roast-light); }
+.drawing .s-roast-deep { stroke: var(--roast-deep); }
+.drawing .s-porcelain { stroke: var(--porcelain); }
+
+/* ---- the first screen: the classic, words on the left, the roaster on the right ---- */
+.hero {
+  display: grid; gap: var(--gap); align-items: center;
+  padding: clamp(1rem, 3vw, 2.5rem) var(--margin) clamp(3rem, 2rem + 4vw, 6rem);
+}
+.hero h1 { font-size: var(--step-hero); line-height: 1.06; max-width: 17ch; }
+.lead { margin-top: var(--gap); font-size: var(--step-1); line-height: 1.4; max-width: 32ch; }
+.hero .open-now { margin-top: calc(var(--gap) * 1.25); font-size: var(--step-0); font-weight: 600; }
+.hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.5rem; margin-top: var(--gap); }
+.hero-picture {
+  margin: 0; display: grid; place-items: center;
+  background: var(--surface); border-radius: var(--radius-big); padding: clamp(1rem, 3vw, 3rem);
+}
+.hero-picture .roaster { width: auto; max-width: 100%; max-height: 40vh; max-height: 40svh; }
+
+@media (max-width: 899px) {
+  .hero-picture { order: -1; }
+}
+@media (max-width: 719px) {
+  .hero-picture .roaster { max-height: 32vh; max-height: 32svh; }
+  .hero-actions .button { display: none; }   /* the bar at the bottom holds it on phones */
+}
+@media (min-width: 900px) {
+  .hero {
+    grid-template-columns: repeat(12, 1fr); align-items: stretch;
+    min-height: calc(100vh - 4rem); min-height: calc(100svh - 4rem);
+  }
+  .hero-words { grid-column: 1 / span 7; align-self: center; }
+  .hero-picture { grid-column: 8 / -1; }
+  .hero-picture .roaster { max-height: calc(100vh - 14rem); max-height: calc(100svh - 14rem); }
+}
+
+/* the one moment: the roaster settles in, then the cooling arm sweeps the beans and the beans in the
+   window tumble, once */
+@media (prefers-reduced-motion: no-preference) {
+  .js .hero-picture .roaster { animation: settle 800ms var(--ease-out) 60ms both; }
+  .js .roaster .tray-arm { transform-box: fill-box; transform-origin: center; animation: sweep 900ms var(--ease-in-out) 480ms both; }
+  .js .roaster .drum-beans { transform-box: fill-box; transform-origin: center; animation: tumble 900ms var(--ease-in-out) 480ms both; }
+}
+@keyframes settle { from { opacity: 0; transform: translateY(10px) scale(0.97); } }
+@keyframes sweep { 25%, 75% { transform: scaleX(0.12); } 50% { transform: scaleX(1); } }
+@keyframes tumble { 30% { transform: translateY(-3px) rotate(-5deg); } 65% { transform: translateY(1px) rotate(4deg); } }
+
+/* ---- sections: one rhythm ---- */
+.menu, .bar, .visit { padding: 0 var(--margin) var(--section); }
+main > section h2 { font-size: var(--step-3); line-height: 1.05; }
+
+/* ---- menu: rows, each good drawn at row height ---- */
+.menu { display: grid; gap: calc(var(--gap) * 1.5); }
+.menu-head .first-line { margin-top: var(--gap); max-width: 22ch; }
+.menu-head p + p { margin-top: var(--gap); }
+.menu-board { max-width: 48rem; }
+.menu-board h3 { font-size: var(--step-1); color: var(--accent-text); margin: 0 0 0.25rem; }
+.menu-board h3 + .menu-rows { margin-bottom: calc(var(--gap) * 2); }
+.menu-rows { list-style: none; margin: 0; padding: 0; }
+.menu-rows li {
+  display: grid; grid-template-columns: clamp(4.5rem, 3rem + 5vw, 8rem) 1fr auto;
+  grid-template-areas: "pic name price" "pic note price";
+  column-gap: clamp(1rem, 0.5rem + 2vw, 2.25rem); align-items: center;
+  padding-block: clamp(0.75rem, 0.5rem + 1vw, 1.25rem); border-top: 1px solid var(--line);
+}
+.menu-rows li:last-child { border-bottom: 1px solid var(--line); }
+.menu-rows .good { grid-area: pic; }
+.item-name { grid-area: name; align-self: end; font-family: var(--font-display); font-size: var(--step-2); line-height: 1.1; }
+.item-note { grid-area: note; align-self: start; margin-top: 0.3rem; }
+.item-price {
+  grid-area: price; font-family: var(--font-display); font-size: var(--step-2);
+  font-variant-numeric: tabular-nums lining-nums; color: var(--accent-text);
+}
+@media (min-width: 900px) {
+  .menu { grid-template-columns: repeat(12, 1fr); align-items: start; }
+  .menu-head { grid-column: 1 / span 4; position: sticky; top: 6rem; }
+  .menu-board { grid-column: 6 / -1; }
+}
+
+/* ---- roasting: the one field of roast brown, the bag of beans beside the words ---- */
+.roasting {
+  display: grid; gap: calc(var(--gap) * 2); align-items: center;
+  margin: 0 var(--margin) var(--section); padding: clamp(2.5rem, 1.5rem + 5vw, 6.5rem) clamp(1.25rem, 0.5rem + 5vw, 6rem);
+  background: var(--accent); color: var(--accent-ink); border-radius: var(--radius-big);
+}
+.roasting h2 { color: var(--accent-ink); }
+.roasting .first-line { margin-top: var(--gap); }
+.roasting p { max-width: 40ch; }
+.roasting .first-line + p { margin-top: var(--gap); }
+.roasting h3 { font-size: var(--step-2); margin-top: calc(var(--gap) * 2); }
+.roasting h3 + p { margin-top: 0.5rem; }
+.roasting a { color: var(--accent-ink); }
+.beans-email { margin-top: var(--gap); font-family: var(--font-display); font-size: var(--step-1); white-space: nowrap; }
+@media (min-width: 1200px) { .beans-email { font-size: var(--step-2); } }
+.beans-email a { text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
+.beans-email + p { margin-top: var(--gap); }
+.roasting .button-light { background: var(--accent-ink); color: var(--accent-text); }
+@media (hover: hover) and (pointer: fine) {
+  .roasting .button-light:hover { background: var(--surface); }
+  .beans-email a:hover { text-decoration-thickness: 2px; }
+}
+.roasting-picture { margin: 0; justify-self: center; width: min(100%, 15rem); }
+@media (min-width: 900px) {
+  .roasting { grid-template-columns: repeat(12, 1fr); }
+  .roasting-words { grid-column: 1 / span 7; }
+  .roasting-picture { grid-column: 8 / -1; width: clamp(16rem, 26vw, 28rem); }
+}
+
+/* ---- the bar: eight stools across the width ---- */
+.bar-words .first-line { margin-top: var(--gap); max-width: 24ch; }
+@media (min-width: 900px) {
+  .bar-words { display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--gap); align-items: end; }
+  .bar-words h2 { grid-column: 1 / span 5; }
+  .bar-words .first-line { grid-column: 7 / -1; margin-top: 0; }
+}
+.bar-picture { margin-top: calc(var(--gap) * 2); overflow: hidden; }
+@media (max-width: 719px) {
+  .bar-picture .room { width: 270%; max-width: none; margin-left: -3%; }   /* closer: the first three stools, cut between the third and fourth */
+}
+
+/* ---- visit: open now, the week, the place ---- */
+.visit { display: grid; gap: calc(var(--gap) * 2.5); }
+.visit h3 { font-size: var(--step-1); margin-bottom: 0.5rem; }
+.visit .open-now, .visit address {
+  margin: 0 0 calc(var(--gap) * 2); font-family: var(--font-display); font-size: var(--step-3); font-style: normal;
+  line-height: 1.05; text-wrap: balance;
+}
+.visit .open-now { color: var(--accent-text); }
+.visit .hours { font-size: var(--step-1); max-width: 26rem; font-variant-numeric: tabular-nums; }
+.visit .hours > div {
+  display: grid; grid-template-columns: 1fr auto; gap: var(--gap);
+  padding: 0.5rem 0.75rem; margin-inline: -0.75rem; border-radius: var(--radius);
+}
+.visit .hours > [aria-current] { background: var(--surface); font-weight: 600; }
+.visit .hours > [aria-current] dt::after { content: ' · today'; font-weight: 400; color: var(--muted); }
+.visit-place address { margin-bottom: var(--gap); }
+.visit-place p + h3 { margin-top: calc(var(--gap) * 2.5); }
+@media (min-width: 900px) {
+  .visit { grid-template-columns: repeat(12, 1fr); align-items: start; }
+  .visit h2 { grid-column: 1 / -1; margin-bottom: calc(var(--gap) * -1); }
+  .visit-time { grid-column: 1 / span 6; }
+  .visit-place { grid-column: 8 / -1; }
+}
+
+/* ---- the phone's bar: open now and the action, where the thumb is ---- */
+.action-bar {
+  position: fixed; inset: auto 0 0; z-index: 10; display: flex; gap: var(--gap); align-items: center;
+  justify-content: space-between;
+  height: calc(var(--bar) + env(safe-area-inset-bottom));
+  padding: 0.6rem var(--margin) calc(0.6rem + env(safe-area-inset-bottom));
+  background: var(--ground); box-shadow: 0 -1px 0 var(--line);
+}
+.action-bar .open-now { margin: 0; font-size: var(--step-0); font-weight: 600; line-height: 1.25; max-width: 12em; }
+.action-bar .button { flex: none; }
+body { padding-bottom: calc(var(--bar) + env(safe-area-inset-bottom)); }
+@media (min-width: 720px) {
+  .action-bar { display: none; }
+  body { padding-bottom: 0; }
+}
+
+/* ---- the Impressum and the privacy page ---- */
+.legal h1 { font-size: var(--step-3); line-height: 1.05; }
+.legal h2 { font-size: var(--step-1); line-height: 1.2; }
+
+/* ---- footer ---- */
+.site-footer {
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem var(--gap);
+  padding: var(--gap) var(--margin) calc(var(--gap) * 2); border-top: 1px solid var(--line);
+  color: var(--muted); font-size: var(--step--1);
+}
+.site-footer a { color: inherit; display: inline-block; padding-block: 0.4em; }
+.footer-name { font-family: var(--font-display); font-size: var(--step-0); color: var(--ink); }
+.site-footer .open-now { color: var(--ink); font-weight: 600; }

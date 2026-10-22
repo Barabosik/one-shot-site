@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Page not found · Jonas Weber</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <!-- Self-contained on purpose: hosts serve this file as-is for any missing path. Colours from src/tokens.css. -->
+  <style>
+    :root { --ground: oklch(98.5% 0.001 62.6); --ink: oklch(20% 0.002 62.6); --accent: oklch(76.5% 0.175 62.6); --accent-ink: oklch(16% 0.02 62.6); --muted: oklch(47% 0.003 62.6); color-scheme: light; }
+    @media (prefers-color-scheme: dark) {
+      :root { --ground: oklch(17% 0.001 62.6); --ink: oklch(93% 0.002 62.6); --muted: oklch(74% 0.003 62.6); color-scheme: dark; }
+    }
+    body { margin: 0; min-height: 100svh; display: grid; align-content: center; padding: 1.5rem clamp(1rem, 4vw, 2.5rem); background: var(--ground); color: var(--ink); font: 1.1rem/1.5 system-ui, sans-serif; }
+    main { max-width: 40rem; }
+    .lane { display: flex; gap: 0.5rem; margin-bottom: 2rem; }
+    .lane span { width: 0.5rem; height: 3rem; background: var(--ink); }
+    h1 { font: 900 clamp(2.6rem, 9vw, 5.5rem)/0.95 'Arial Black', system-ui, sans-serif; letter-spacing: -0.03em; margin: 0 0 1rem; }
+    p { margin: 0 0 1.5rem; color: var(--muted); }
+    a { display: inline-flex; align-items: center; min-height: 3.25rem; padding: 0 1.5rem; background: var(--accent); color: var(--accent-ink); font-weight: 800; text-decoration: none; }
+    a:hover { background: var(--ink); color: var(--ground); }
+    a:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="lane" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+    <h1>Wrong lane.</h1>
+    <p>This page doesn’t exist, or it moved. The apps and the email address are on the home page.</p>
+    <a href="/">Go to the home page</a>
+  </main>
+</body>
+</html>

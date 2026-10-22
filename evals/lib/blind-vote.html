@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Which site is better?</title>
+<style>
+  :root { --ground: #f4f4f2; --ink: #1d1d1b; --muted: #61615c; --line: #d6d6d1; --card: #ffffff; --button: #1d1d1b; --button-ink: #ffffff; }
+  @media (prefers-color-scheme: dark) { :root { --ground: #1b1b1a; --ink: #ececea; --muted: #a3a39d; --line: #3a3a37; --card: #252524; --button: #ececea; --button-ink: #1b1b1a; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--ground); color: var(--ink); font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 1500px; margin: 0 auto; padding: 24px 16px 48px; }
+  h1 { font-size: 1.6rem; margin: 0 0 8px; }
+  p { margin: 0 0 12px; max-width: 70ch; }
+  .muted { color: var(--muted); }
+  .brief { font-size: 1.15rem; margin: 4px 0 16px; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 800px) { .pair { grid-template-columns: 1fr; } }
+  .side { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+  .side h2 { font-size: 1rem; margin: 0; display: flex; justify-content: space-between; align-items: center; }
+  .tabs button { font: inherit; font-size: .85rem; border: 1px solid var(--line); background: transparent; color: var(--ink); padding: 4px 10px; border-radius: 6px; cursor: pointer; }
+  .tabs button[aria-pressed="true"] { background: var(--ink); color: var(--ground); }
+  .shots { height: 68vh; overflow-y: auto; border: 1px solid var(--line); border-radius: 6px; background: var(--ground); padding: 12px; display: flex; flex-direction: column; gap: 14px; }
+  .shots figure { margin: 0; }
+  .shots img { display: block; width: 100%; height: auto; outline: 1px solid var(--line); }
+  .shots figcaption { font-size: .8rem; color: var(--muted); margin-top: 4px; }
+  .shots.phone { align-items: center; }
+  .shots.phone figure { width: min(390px, 100%); }
+  .pick { font: inherit; font-weight: 600; padding: 12px; border-radius: 8px; border: 0; background: var(--button); color: var(--button-ink); cursor: pointer; }
+  .pick:focus-visible, .tabs button:focus-visible, .act:focus-visible { outline: 3px solid #3b82f6; outline-offset: 2px; }
+  .act { font: inherit; padding: 10px 16px; border-radius: 8px; border: 1px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer; margin: 4px 8px 4px 0; }
+  table { border-collapse: collapse; margin: 12px 0; }
+  td, th { border-bottom: 1px solid var(--line); padding: 6px 12px; text-align: left; }
+  .big { font-size: 2rem; font-weight: 700; margin: 8px 0; }
+</style>
+</head>
+<body>
+<main id="app"></main>
+<script>
+// Pairs: { pair, about, x: { desktop: [...], phone: [...] }, y: {...}, round, names: { x, y }, part }. Which of x and
+// y is which is only named on the results view (#results). Part 2 pairs come after the rest, and a voter may skip
+// them. Nothing leaves this browser: votes are kept in localStorage.
+const PAIRS = /*PAIRS*/[];
+const partOf = (p) => p.part || 1;
+const PART1 = PAIRS.filter((p) => partOf(p) === 1).length, PART2 = PAIRS.length - PART1;
+// one key per set of pairs: pages opened from files share one storage, and another page's votes must not count here
+const KEY = `blind-vote:${PAIRS.map((p) => p.pair).join(',')}`;
+const app = document.getElementById('app');
+const load = () => { try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch { return []; } };
+const save = (v) => { try { localStorage.setItem(KEY, JSON.stringify(v)); } catch {} };
+const shuffle = (a) => { const b = [...a]; for (let i = b.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [b[i], b[j]] = [b[j], b[i]]; } return b; };
+const el = (tag, attrs = {}, ...kids) => { const e = document.createElement(tag); for (const [k, v] of Object.entries(attrs)) k === 'on' ? Object.entries(v).forEach(([ev, f]) => e.addEventListener(ev, f)) : e.setAttribute(k, v); e.append(...kids); return e; };
+
+let session = null;
+
+function start() {
+  app.replaceChildren(
+    el('h1', {}, 'Which website is better?'),
+    el('p', {}, `You will see ${PART1} pairs of websites${PART2 ? `, then ${PART2} more if you have time` : ''}. Both sites in a pair were made for the same business from the same brief. For each pair, pick the one you would rather have if it were your business.`),
+    el('p', { class: 'muted' }, 'Scroll through each site. "Phone" shows it on a phone. There is no right answer, and nothing is sent anywhere.'),
+    el('p', { class: 'muted' }, 'Each picture is one screen, so a header that stays on top shows on every one.'),
+    el('button', { class: 'pick', on: { click: begin } }, 'Start'),
+  );
+}
+
+function begin() {
+  const part = (n) => PAIRS.map((p, i) => [partOf(p), i]).filter(([k]) => k === n).map(([, i]) => i);
+  session = { voter: Date.now().toString(36) + Math.random().toString(36).slice(2, 6), order: [...shuffle(part(1)), ...shuffle(part(2))], at: 0, flips: PAIRS.map(() => Math.random() < 0.5) };
+  show();
+}
+
+function sideView(label, data) {
+  const shots = el('div', { class: 'shots' });
+  const tabs = el('span', { class: 'tabs' });
+  const set = (kind) => {
+    shots.className = `shots ${kind}`;
+    // one figure per screen with a gap between, so a stack of screenshots doesn't read as one broken page; the
+    // screenshots stop at the page's end, so the last one can show part of the one before again
+    const n = data[kind].length;
+    shots.replaceChildren(...data[kind].map((src, i) => el('figure', {},
+      el('img', { src, alt: `${label}, ${kind} screen ${i + 1}`, loading: 'lazy' }),
+      el('figcaption', {}, i === n - 1 && n > 1 ? `Screen ${n} of ${n}, the end of the page (it can repeat part of screen ${n - 1})` : `Screen ${i + 1} of ${n}`))));
+    shots.scrollTop = 0;
+    for (const b of tabs.children) b.setAttribute('aria-pressed', String(b.dataset.kind === kind));
+  };
+  for (const kind of ['desktop', 'phone']) tabs.append(el('button', { 'data-kind': kind, 'aria-pressed': 'false', on: { click: () => set(kind) } }, kind === 'desktop' ? 'Desktop' : 'Phone'));
+  set('desktop');
+  return { shots, tabs };
+}
+
+function show() {
+  if (session.at === PART1 && PART2 && !session.more) return between();
+  if (session.at >= session.order.length) return thanks();
+  const i = session.order[session.at];
+  const p = PAIRS[i];
+  const left = session.flips[i] ? 'y' : 'x', right = left === 'x' ? 'y' : 'x';
+  const col = (name, which) => {
+    const v = sideView(name, p[which]);
+    return el('section', { class: 'side', 'aria-label': name },
+      el('h2', {}, name, v.tabs), v.shots,
+      el('button', { class: 'pick', on: { click: () => vote(p.pair, which, left) } }, `${name} is better`));
+  };
+  app.replaceChildren(
+    el('p', { class: 'muted' }, session.at < PART1 ? `Pair ${session.at + 1} of ${PART1}` : `Extra pair ${session.at - PART1 + 1} of ${PART2}`),
+    el('p', { class: 'brief' }, `The business asked: “${p.about}”`),
+    el('div', { class: 'pair' }, col('Left', left), col('Right', right)),
+  );
+  window.scrollTo(0, 0);
+}
+
+// after the main pairs: the extra ones only if the voter wants them
+function between() {
+  app.replaceChildren(
+    el('h1', {}, `That was all ${PART1} pairs`),
+    el('p', {}, `Your choices are saved. If you have time, there are ${PART2} more pairs from another comparison. They are optional.`),
+    el('button', { class: 'pick', on: { click: () => { session.more = true; show(); } } }, `Show the ${PART2} more`),
+    ' ',
+    el('button', { class: 'act', on: { click: thanks } }, 'Finish'),
+  );
+  window.scrollTo(0, 0);
+}
+
+function vote(pair, chose, left) {
+  const all = load();
+  all.push({ voter: session.voter, pair, chose, left, at: new Date().toISOString() });
+  save(all);
+  session.at++;
+  show();
+}
+
+function thanks() {
+  app.replaceChildren(
+    el('h1', {}, 'Thank you'),
+    el('p', {}, 'Your choices are saved on this computer.'),
+    el('button', { class: 'pick', on: { click: start } }, 'Next person'),
+  );
+}
+
+function results() {
+  const all = load();
+  const voters = new Set(all.map((v) => v.voter)).size;
+  const leftWins = all.filter((v) => v.chose === v.left).length;
+  const per = {};
+  for (const v of all) { per[v.pair] ||= { x: 0, y: 0 }; per[v.pair][v.chose]++; }
+  const pct = (a, n) => (n ? `${Math.round((a / n) * 100)}%` : '-');
+  const name = (p, side) => p.names?.[side] || (side === 'x' ? "The skill's site" : "The plain agent's site");
+  // one line per round on the page: how often its first-named side was picked
+  const rounds = [...new Set(PAIRS.map((p) => p.round || ''))];
+  const line = (r) => {
+    const ps = PAIRS.filter((p) => (p.round || '') === r), vs = all.filter((v) => ps.some((p) => p.pair === v.pair)), x = vs.filter((v) => v.chose === 'x').length;
+    return el('p', { class: rounds.length > 1 ? 'brief' : 'big' }, `${rounds.length > 1 ? `Round ${r}${partOf(ps[0]) === 2 ? ' (the optional part)' : ''}: ` : ''}${name(ps[0], 'x')} was picked ${x} of ${vs.length} times (${pct(x, vs.length)})`);
+  };
+  app.replaceChildren(
+    el('h1', {}, 'Results'),
+    ...rounds.map(line),
+    el('p', {}, `${voters} ${voters === 1 ? 'person' : 'people'} voted. The left-hand site was picked ${pct(leftWins, all.length)} of the time (50% means the side made no difference).`),
+    el('table', {}, el('tr', {}, el('th', {}, 'Pair'), el('th', {}, 'One side'), el('th', {}, 'The other')),
+      ...PAIRS.map((p) => { const v = per[p.pair] || { x: 0, y: 0 }; return el('tr', {}, el('td', {}, p.pair), el('td', {}, `${name(p, 'x')}: ${v.x}`), el('td', {}, `${name(p, 'y')}: ${v.y}`)); })),
+    el('button', { class: 'act', on: { click: () => navigator.clipboard?.writeText(JSON.stringify(all, null, 2)) } }, 'Copy all votes'),
+    el('button', { class: 'act', on: { click: () => { const a = el('a', { href: URL.createObjectURL(new Blob([JSON.stringify(all, null, 2)], { type: 'application/json' })), download: 'blind-vote-results.json' }); a.click(); } } }, 'Save as a file'),
+    el('button', { class: 'act', on: { click: () => { if (confirm('Delete every vote stored in this browser?')) { save([]); results(); } } } }, 'Clear all votes'),
+    el('p', { class: 'muted' }, 'Votes live only in this browser. Back to voting: remove #results from the address.'),
+  );
+}
+
+const route = () => (location.hash === '#results' ? results() : start());
+addEventListener('hashchange', route);
+route();
+</script>
+</body>
+</html>

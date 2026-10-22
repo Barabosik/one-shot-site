@@ -1,0 +1,58 @@
+{
+  "name": "Jonas Weber",
+  "type": "Person",
+  "job": "Independent app developer",
+  "description": "Jonas Weber builds small phone apps that each do one job: Tide, Groundwork and Mono. Two client projects a year, booking spring 2027.",
+  "url": "",
+  "email": "hello@jonasweber.example",
+  "phone": "",
+  "currency": "EUR",
+  "address": {
+    "street": "Bahnengasse 8",
+    "postcode": "04109",
+    "city": "Leipzig",
+    "country": "DE"
+  },
+  "clients": {
+    "perYear": "two",
+    "next": "spring 2027"
+  },
+  "apps": [
+    {
+      "name": "Tide",
+      "job": "a swim-lap counter for your watch",
+      "proof": "41k downloads",
+      "detail": "design award finalist, 2024"
+    },
+    {
+      "name": "Groundwork",
+      "job": "a plant-watering planner",
+      "proof": "4.8 stars",
+      "detail": "from 2,300 ratings"
+    },
+    {
+      "name": "Mono",
+      "job": "a black-and-white film camera",
+      "proof": "38 countries",
+      "detail": "where it was featured"
+    }
+  ],
+  "streaming": {
+    "from": "2017",
+    "to": "2022"
+  },
+  "events": [],
+  "links": {
+    "booking": "",
+    "payment": ""
+  },
+  "owner": {
+    "name": "Jonas Weber"
+  },
+  "host": "GitHub Pages (GitHub, Inc., USA)",
+  "verify": {
+    "google": "",
+    "bing": ""
+  },
+  "analytics": {}
+}

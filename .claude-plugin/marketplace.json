@@ -1,0 +1,16 @@
+{
+  "name": "one-shot-site",
+  "description": "One skill: from a short multiple-choice interview to a live, checked website.",
+  "owner": {
+    "name": "Nikita Andreiev",
+    "url": "https://github.com/Barabosik"
+  },
+  "plugins": [
+    {
+      "name": "one-shot-site",
+      "source": "./",
+      "description": "Answer a few easy questions; get a polished static website, checked in a real browser and published.",
+      "category": "development"
+    }
+  ]
+}

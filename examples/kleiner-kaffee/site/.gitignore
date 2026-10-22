@@ -1,0 +1,7 @@
+node_modules/
+dist/
+# working files from the checks; the brief and deliberate exceptions stay in git
+.one-shot/*
+!.one-shot/brief.md
+!.one-shot/allow.json
+.DS_Store

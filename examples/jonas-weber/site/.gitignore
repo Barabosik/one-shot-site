@@ -1,0 +1,9 @@
+node_modules/
+dist/
+# the brief and the check results stay on this machine (the brief holds guesses and private notes);
+# only the list of deliberate exceptions goes into git, so the checks agree on every machine
+.one-shot/*
+!.one-shot/allow.json
+# an example keeps its brief, so the gallery can show how the run got there
+!.one-shot/brief.md
+.DS_Store

@@ -1,0 +1,86 @@
+/* The design in numbers. Every colour, size, gap and timing on the page comes from here.
+   Layout: a calm paper page that frames six loud sites; the pink of the skill's number tags is the one colour,
+   used on the actions, the tags and the Install field. palette.mjs --brand "#ff2d75" --strategy quiet,
+   with the ground moved a little towards warm grey so the example sites' own colours read true. */
+
+:root {
+  /* colour: one ground, one ink, one accent (contrast-checked by palette.mjs) */
+  --ground: oklch(97.6% 0.004 40);        /* #f8f6f5, page background */
+  --surface: oklch(94.0% 0.006 40);       /* #ece9e7, a quieter band, the window chrome */
+  --raised: oklch(99.4% 0.002 40);        /* #fefdfd, a panel that sits on the surface */
+  --ink: oklch(20.0% 0.008 20);           /* #191616, text, 16.6:1 */
+  --muted: oklch(46.0% 0.010 20);         /* #5c5757, quiet text, 6.6:1 */
+  --line: oklch(20.0% 0.008 20 / 0.13);
+  --accent: oklch(65.6% 0.241 7.9);       /* #ff2d75, the number tags' pink: buttons, tags, the Install field */
+  --accent-ink: oklch(16.0% 0.020 7.9);   /* #150a0c, text on the pink, 5.5:1 */
+  --accent-text: oklch(54.5% 0.220 7.9);  /* #cf005a, the pink as text on the ground, 5.2:1 */
+  --code: oklch(20.0% 0.008 20);          /* commands sit on ink */
+  --code-ink: oklch(95.0% 0.006 40);
+  --shade: oklch(20% 0.01 20 / 0.55);     /* behind the Install panel */
+  color-scheme: light;
+
+  /* type: one family at two extremes, the system's own monospace for commands */
+  --font-display: 'Schibsted Grotesk Variable', 'Schibsted fallback', 'Helvetica Neue', Arial, sans-serif;
+  --font-text: 'Schibsted Grotesk Variable', 'Schibsted fallback', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, Consolas, monospace;
+
+  /* a fluid scale: few steps, far apart */
+  --step--1: clamp(0.86rem, 0.84rem + 0.1vw, 0.92rem);
+  --step-0: clamp(1.06rem, 1rem + 0.25vw, 1.18rem);
+  --step-1: clamp(1.25rem, 1.15rem + 0.5vw, 1.55rem);
+  --step-2: clamp(1.75rem, 1.35rem + 1.9vw, 3.1rem);
+  --step-3: clamp(2.35rem, 1.5rem + 4vw, 5.2rem);
+  --step-4: clamp(2.7rem, 1.2rem + 6.4vw, 7.4rem);
+  --leading-tight: 0.98;
+  --leading-body: 1.55;
+  --measure: 62ch;
+
+  /* space: the gap between sections beats any gap inside one */
+  --margin: max(1rem, env(safe-area-inset-left, 0px), clamp(1rem, 0.4rem + 3vw, 3rem));
+  --gap: clamp(1rem, 0.8rem + 1vw, 1.75rem);
+  --section: clamp(5rem, 2.5rem + 9vw, 11rem);
+  --radius: 10px;
+  --radius-big: 16px;
+  --page: 1360px;
+
+  /* motion: one ease for arrivals, short presses, slower reveals */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --t-press: 120ms;
+  --t-hover: 180ms;
+  --t-panel: 460ms;
+  --t-reveal: 700ms;
+}
+
+/* dark: palette.mjs --mode dark from the same pink, its own palette, not the light one inverted */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: oklch(17.5% 0.006 20);      /* #131011 */
+    --surface: oklch(22.5% 0.008 20);     /* #1f1b1c */
+    --raised: oklch(26.0% 0.009 20);      /* #272223 */
+    --ink: oklch(93.0% 0.008 40);         /* #ebe7e5, 15.2:1 */
+    --muted: oklch(74.0% 0.012 30);       /* #b0a8a6, 8.0:1 */
+    --line: oklch(93.0% 0.008 40 / 0.14);
+    --accent-text: oklch(70.0% 0.200 7.9); /* #ff5b8a, 6.4:1 */
+    --code: oklch(12.5% 0.006 20);
+    --code-ink: oklch(93.0% 0.008 40);
+    --shade: oklch(5% 0.01 20 / 0.7);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: oklch(17.5% 0.006 20);
+  --surface: oklch(22.5% 0.008 20);
+  --raised: oklch(26.0% 0.009 20);
+  --ink: oklch(93.0% 0.008 40);
+  --muted: oklch(74.0% 0.012 30);
+  --line: oklch(93.0% 0.008 40 / 0.14);
+  --accent-text: oklch(70.0% 0.200 7.9);
+  --code: oklch(12.5% 0.006 20);
+  --code-ink: oklch(93.0% 0.008 40);
+  --shade: oklch(5% 0.01 20 / 0.7);
+  color-scheme: dark;
+}
+
+/* the fallback takes the web font's width, so nothing jumps when it arrives */
+@font-face { font-family: 'Schibsted fallback'; src: local('Arial'); size-adjust: 101%; ascent-override: 96%; descent-override: 25%; }

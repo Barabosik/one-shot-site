@@ -1,0 +1,57 @@
+{
+  "name": "Patch Night",
+  "type": "Event",
+  "description": "Four modular synth sets in an old fire station in Saarbrücken, plus a workshop for your first patch. Run by the Saar Synth Collective.",
+  "url": "",
+  "email": "tickets@patchnight.example",
+  "phone": "",
+  "currency": "EUR",
+  "address": {
+    "street": "Am Schlauchturm 4",
+    "postcode": "66111",
+    "city": "Saarbrücken",
+    "country": "DE"
+  },
+  "venue": "Alte Löschhalle",
+  "events": [
+    {
+      "name": "Patch Night",
+      "description": "Four modular synth sets in the Alte Löschhalle, an old fire station: Ines Moro, Kofi & the Cables, Dr. Lisa Brandt, and Open Patch from 23:00.",
+      "start": "2027-03-13T19:00",
+      "end": "2027-03-14T01:00",
+      "day": "2027-03-13",
+      "doors": "19:00",
+      "until": "01:00",
+      "setsUntil": "23:00",
+      "openPatch": "23:00",
+      "place": "Alte Löschhalle",
+      "price": "18",
+      "student": "12"
+    }
+  ],
+  "workshop": {
+    "name": "Your first patch",
+    "from": "16:00",
+    "to": "18:00",
+    "seats": "12",
+    "price": "15"
+  },
+  "collective": {
+    "name": "Saar Synth Collective",
+    "since": "2023",
+    "edition": "third"
+  },
+  "links": {
+    "booking": "",
+    "payment": ""
+  },
+  "owner": {
+    "name": "Saar Synth Collective"
+  },
+  "host": "",
+  "verify": {
+    "google": "",
+    "bing": ""
+  },
+  "analytics": {}
+}

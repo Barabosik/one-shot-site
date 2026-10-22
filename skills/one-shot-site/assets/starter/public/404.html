@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="{{LANG}}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Page not found · {{NAME}}</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <!-- Self-contained on purpose: hosts serve this file as-is for any missing path. Match the site's colours. -->
+  <style>
+    :root { --ground: oklch(98.5% 0.008 41.9); --ink: oklch(20% 0.015 41.9); --accent: oklch(54.2% 0.137 41.9); color-scheme: light; }
+    body { margin: 0; min-height: 100svh; display: grid; place-content: center; padding: 1.5rem; background: var(--ground); color: var(--ink); font: 1.1rem/1.5 system-ui, sans-serif; }
+    h1 { font-size: clamp(2.4rem, 8vw, 5rem); line-height: 1; margin: 0 0 1rem; letter-spacing: -0.03em; }
+    a { color: var(--accent); text-underline-offset: 0.2em; }
+    a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Nothing here.</h1>
+    <p>The page may have moved. <a href="/">Go to the home page</a>.</p>
+  </main>
+</body>
+</html>

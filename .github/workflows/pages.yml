@@ -1,0 +1,73 @@
+# The project page: docs/site (a one-shot-site project) with every example site built into it (see docs/build.mjs).
+#
+# It publishes nothing until GitHub Pages is turned on for the repository:
+#   Settings → Pages → Build and deployment → Source: GitHub Actions
+# Until then each run only builds the page, as a check, and says that Pages is off.
+# Once it is on, every push to main that changes docs/ or examples/ publishes the page again,
+# and Actions → Pages → Run workflow does it by hand.
+name: Pages
+
+# While the repository is private it runs only by hand (Actions minutes are limited). On launch day, when the
+# repository goes public, put back under on:
+#   push:
+#     branches: [main]
+#     paths: ['docs/**', 'examples/**', '.github/workflows/pages.yml']
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+    outputs:
+      publish: ${{ steps.check.outputs.publish }}
+    steps:
+      - name: Is Pages turned on?
+        id: check
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          type=$(gh api "repos/${{ github.repository }}/pages" --jq .build_type 2>/dev/null || true)
+          if [ "$type" = "workflow" ]; then
+            echo "publish=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "publish=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Pages is off (or not set to GitHub Actions), so this run only builds the page. To publish: Settings → Pages → Source: GitHub Actions."
+          fi
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+      - name: Configure Pages
+        id: pages
+        if: steps.check.outputs.publish == 'true'
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
+      - name: Build the page and the example sites
+        run: node docs/build.mjs _site ${{ steps.pages.outputs.base_url && format('--url {0}/', steps.pages.outputs.base_url) || '' }}
+      - if: steps.check.outputs.publish == 'true'
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    if: needs.build.outputs.publish == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1

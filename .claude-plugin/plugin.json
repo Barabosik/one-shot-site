@@ -1,0 +1,11 @@
+{
+  "name": "one-shot-site",
+  "version": "0.5.0",
+  "description": "Answer a few easy questions; get a polished static website, checked in a real browser and published.",
+  "author": { "name": "Nikita Andreiev", "url": "https://github.com/Barabosik" },
+  "homepage": "https://github.com/Barabosik/one-shot-site",
+  "repository": "https://github.com/Barabosik/one-shot-site",
+  "license": "MIT",
+  "agents": ["./agents/reviewer.md"],
+  "keywords": ["website", "landing-page", "portfolio", "design", "vite", "accessibility", "deploy"]
+}

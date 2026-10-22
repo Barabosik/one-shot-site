@@ -1,0 +1,13 @@
+# Keeps the GitHub Actions in .github/workflows up to date: one grouped pull request a week.
+# The skill itself has no runtime dependencies to watch; the starter's packages are installed fresh for every site.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      actions:
+        patterns: ["*"]
+    commit-message:
+      prefix: "CI"

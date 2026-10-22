@@ -1,0 +1,269 @@
+/* Moth Orchestra: a dark bottle-green room, one bare bulb, the ochre moth from the cover. */
+
+/* Until Imbue arrives, Times squeezed to Imbue's width, so the name doesn't rewrap and push the page about */
+@font-face { font-family: 'Imbue fallback'; src: local('Times New Roman'), local('Times'), local('Liberation Serif'); size-adjust: 67%; }
+
+/* ---------- header ---------- */
+.site-header {
+  position: absolute; inset: 0 0 auto; z-index: 10;
+  display: flex; align-items: center; gap: clamp(0.75rem, 2.4vw, 2.25rem);
+  padding: clamp(0.6rem, 0.4rem + 1vw, 1.25rem) var(--margin);
+}
+.wordmark {
+  margin-right: auto; padding-block: 0.6rem;
+  font-family: var(--font-display); font-size: var(--step-1); font-weight: 560; line-height: 1;
+  text-decoration: none; letter-spacing: 0.02em;
+}
+.site-header nav { display: flex; gap: clamp(0.9rem, 2vw, 2rem); }
+.site-header nav a { text-decoration: none; padding-block: 0.7rem; font-weight: 500; }
+.sound-toggle {
+  display: inline-flex; align-items: center; gap: 0.5em; min-height: 2.75rem; padding: 0 1rem 0 0.8rem;
+  border: 1px solid var(--line); border-radius: var(--radius); background: transparent;
+  font-size: var(--step--1); font-weight: 600; letter-spacing: 0.02em;
+  transition: border-color var(--t-hover) ease, background-color var(--t-hover) ease, transform var(--t-press) var(--ease-out);
+}
+.sound-toggle svg { width: 1.15em; height: 1.15em; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; }
+.sound-toggle .waves { opacity: 0.35; transition: opacity var(--t-hover) ease; }
+.sound-toggle[aria-pressed="true"] { border-color: var(--accent); color: var(--accent-text); }
+.sound-toggle[aria-pressed="true"] .waves { opacity: 1; }
+.sound-toggle .state::before { content: "off"; }
+.sound-toggle[aria-pressed="true"] .state::before { content: "on"; }
+.sound-toggle:active { transform: scale(0.96); }
+@media (max-width: 34rem) { .site-header .nav-more { display: none; } }
+
+/* ---------- buttons and links ---------- */
+.button {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.6em;
+  min-height: 3.4rem; padding: 0 1.9rem;
+  background: var(--accent); color: var(--accent-ink); border-radius: var(--radius);
+  font-weight: 650; text-decoration: none; letter-spacing: 0.01em;
+  box-shadow: 0 0 0 0 color-mix(in oklch, var(--glow) 0%, transparent);
+  transition: transform var(--t-press) var(--ease-out), background-color var(--t-hover) ease, box-shadow 400ms var(--ease-out);
+}
+.button:active { transform: scale(0.97); }
+.text-link { color: var(--accent-text); text-decoration-thickness: 1px; }
+@media (hover: hover) and (pointer: fine) {
+  .button:hover { background: color-mix(in oklch, var(--accent), var(--filament) 22%); box-shadow: 0 0 2.5rem 0.2rem color-mix(in oklch, var(--glow) 32%, transparent); }
+  .site-header nav a:hover, .wordmark:hover { color: var(--accent-text); }
+  .sound-toggle:hover { border-color: var(--accent); }
+  .text-link:hover { text-decoration-thickness: 2px; }
+}
+
+/* ---------- the first screen ---------- */
+.hero {
+  position: relative; isolation: isolate; overflow: clip;
+  min-height: 100vh; min-height: 100svh;
+  display: grid; align-content: end;
+  padding: calc(var(--cord) + var(--bulb) * 2) var(--margin) clamp(2rem, 1rem + 4vh, 4.5rem);
+  background: radial-gradient(130% 90% at var(--lamp-x) 22%, var(--ground) 35%, var(--deep) 100%);
+}
+.scene { position: absolute; inset: 0; pointer-events: none; }
+.glow {
+  position: absolute; z-index: 0; left: var(--lamp-x); top: calc(var(--cord) + var(--bulb) * 0.77);
+  width: min(170vmax, 2400px); aspect-ratio: 1; margin: calc(min(170vmax, 2400px) / -2) 0 0 calc(min(170vmax, 2400px) / -2);
+  background: radial-gradient(closest-side,
+    color-mix(in oklch, var(--glow) 55%, transparent),
+    color-mix(in oklch, var(--glow) 20%, transparent) 14%,
+    color-mix(in oklch, var(--glow) 7%, transparent) 38%,
+    transparent 72%);
+  mix-blend-mode: screen; /* light adds to the wall instead of painting over it */
+}
+.lamp {
+  position: absolute; z-index: 1; left: var(--lamp-x); top: 0;
+  width: var(--bulb); margin-left: calc(var(--bulb) / -2);
+  display: flex; flex-direction: column; align-items: center; transform-origin: 50% 0;
+}
+.cord { width: 2px; height: var(--cord); background: linear-gradient(var(--deep), color-mix(in oklch, var(--ink) 45%, transparent)); }
+.bulb { width: var(--bulb); height: calc(var(--bulb) * 4 / 3); overflow: visible; filter: drop-shadow(0 0 1.1rem color-mix(in oklch, var(--glow) 75%, transparent)); }
+.bulb .cap { fill: var(--brass); }
+.bulb .cap-lines { stroke: var(--deep); stroke-width: 1.2; }
+.bulb .glass { fill: url(#glass); }
+.bulb .g0 { stop-color: var(--filament); }
+.bulb .g1 { stop-color: var(--glow); }
+.bulb .g2 { stop-color: var(--accent); stop-opacity: 0.85; }
+.bulb .filament { fill: none; stroke: var(--filament); stroke-width: 1.4; stroke-linejoin: round; }
+
+/* the moth: drawn once (symbol art), coloured through custom properties so its shadow can reuse it */
+.moth, .moth-shadow { position: absolute; width: var(--moth); height: calc(var(--moth) * 0.64); overflow: visible; }
+.moth {
+  z-index: 3; --rest: -24;
+  left: calc(var(--lamp-x) - var(--moth) * 2.3); top: calc(var(--cord) + var(--bulb) * 0.15);
+  rotate: calc(var(--rest) * 1deg);
+}
+.moth-shadow {
+  z-index: 0; left: 0; top: 0; opacity: 0; filter: blur(2px);
+  --mf: var(--deep); --mh: var(--deep); --mm: var(--deep); --mb: var(--deep); --ma: 0;
+}
+.m-fw { fill: var(--mf, var(--moth-wing)); }
+.m-hw { fill: var(--mh, var(--moth-hind)); }
+.m-fw-edge, .m-hw-edge { fill: var(--mm, var(--moth-mark)); opacity: var(--ma, 0.4); }
+.m-spot { fill: var(--mm, var(--moth-mark)); }
+.m-line { fill: none; stroke: var(--mm, var(--moth-mark)); stroke-width: 1.4; stroke-linecap: round; }
+.m-seg { fill: none; stroke: var(--mm, var(--moth-mark)); stroke-width: 0.9; }
+.m-body, .m-ant { fill: var(--mb, var(--moth-body)); }
+.m-thorax { fill: var(--mf, var(--moth-wing)); }
+.m-dust { filter: url(#dust); }
+
+/* the switch-on: the bulb flickers to life once */
+@media (prefers-reduced-motion: no-preference) {
+  .js .glow, .js .bulb { animation: switch-on 1.3s steps(1, end) both; }
+}
+@keyframes switch-on {
+  0% { opacity: 0.15; } 18% { opacity: 0.85; } 26% { opacity: 0.3; } 40% { opacity: 1; } 52% { opacity: 0.6; } 64%, 100% { opacity: 1; }
+}
+
+.hero-copy { position: relative; z-index: 2; }
+.hero h1 {
+  font-size: var(--step-4); font-weight: 460; line-height: 0.84; letter-spacing: -0.012em;
+  font-optical-sizing: auto; margin-left: -0.04em; white-space: nowrap; /* one line, whatever font is showing */
+}
+@media (max-width: 47.99rem) { .hero h1 { white-space: normal; width: min-content; } } /* one word per line */
+.hero-line { margin-top: clamp(1rem, 0.6rem + 1.4vw, 1.75rem); max-width: 34ch; font-size: var(--step-1); line-height: 1.35; }
+.cities { list-style: none; padding: 0; margin: clamp(1rem, 0.6rem + 1vw, 1.5rem) 0 0; display: flex; flex-wrap: wrap; gap: 0.15rem 0; }
+.cities li:not(:last-child)::after { content: "·"; color: var(--accent-text); padding-inline: 0.45em; }
+.cities a { display: inline-block; padding-block: 0.35rem; text-decoration: none; font-weight: 500; }
+.cities .c-date { display: none; }
+@media (hover: hover) and (pointer: fine) { .cities a:hover { color: var(--accent-text); } }
+.hero-act { margin-top: clamp(1.25rem, 0.8rem + 1.6vw, 2.25rem); display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.5rem; }
+.hero-act .note { color: var(--muted); font-size: var(--step--1); }
+
+/* ---------- the dates ---------- */
+.dates { padding: var(--section) var(--margin) calc(var(--section) * 0.45); background: linear-gradient(var(--deep), var(--ground) 30rem); }
+.dates-head { display: grid; gap: var(--gap); margin-bottom: clamp(1.5rem, 1rem + 2vw, 3rem); }
+.dates-head h2, .last-song h2, .album h2 { font-size: var(--step-3); font-weight: 470; line-height: 0.95; letter-spacing: -0.01em; }
+.dates-head p { color: var(--muted); max-width: 40ch; }
+.cap { text-transform: capitalize; }
+@media (min-width: 64rem) {
+  .dates { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); column-gap: clamp(2rem, 4vw, 5rem); align-items: start; }
+  .dates-head { position: sticky; top: 2rem; margin-bottom: 0; padding-top: 0.6rem; }
+}
+
+.events.tour { list-style: none; padding: 0; margin: 0; display: block; border-top: 1px solid var(--line); }
+.tour li {
+  display: grid; align-items: center; column-gap: clamp(0.9rem, 0.5rem + 1.6vw, 2.5rem);
+  grid-template-columns: 3.4rem minmax(0, 1fr) auto;
+  grid-template-areas: "date city tickets" "date place price";
+  padding-block: clamp(0.85rem, 0.6rem + 0.8vw, 1.4rem);
+  border-bottom: 1px solid var(--line);
+  scroll-margin-top: 4rem;
+  transition: background-color var(--t-hover) ease;
+}
+.tour li:target { background: color-mix(in oklch, var(--glow) 9%, transparent); }
+.ev-date { grid-area: date; align-self: start; }
+.ev-date time { display: grid; justify-items: start; line-height: 1; font-variant-numeric: tabular-nums lining-nums; }
+.ev-wd, .ev-mon { font-size: var(--step--1); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.ev-day { font-family: var(--font-display); font-size: var(--step-2); font-weight: 500; color: var(--accent-text); margin-block: 0.1em; }
+.ev-city { grid-area: city; font-size: var(--step-2); font-weight: 480; line-height: 1; }
+.ev-place { grid-area: place; color: var(--muted); }
+.ev-price { grid-area: price; justify-self: end; font-variant-numeric: tabular-nums; color: var(--muted); }
+.ev-tickets { grid-area: tickets; justify-self: end; }
+.ticket {
+  display: inline-flex; align-items: center; min-height: 2.9rem; padding: 0 1.25rem;
+  border: 1px solid var(--accent); border-radius: var(--radius); color: var(--accent-text);
+  font-weight: 650; text-decoration: none;
+  transition: background-color var(--t-hover) ease, color var(--t-hover) ease, transform var(--t-press) var(--ease-out);
+}
+.ticket:active { transform: scale(0.97); }
+@media (hover: hover) and (pointer: fine) {
+  .tour li:hover { background: color-mix(in oklch, var(--glow) 6%, transparent); }
+  .ticket:hover, .tour li:hover .ticket { background: var(--accent); color: var(--accent-ink); }
+}
+@media (min-width: 52rem) {
+  .tour li {
+    grid-template-columns: 4.6rem minmax(0, 1.1fr) minmax(0, 1fr) 4rem auto;
+    grid-template-areas: "date city place price tickets";
+  }
+  .ev-date { align-self: center; }
+  .ev-place { font-size: var(--step-0); }
+  .ev-price { font-size: var(--step-0); color: var(--ink); }
+}
+
+/* ---------- the last song ---------- */
+.last-song {
+  display: grid; gap: clamp(1.5rem, 1rem + 2vw, 3rem) clamp(2rem, 1rem + 3vw, 4rem); align-items: start;
+  padding: calc(var(--section) * 0.75) var(--margin) var(--section);
+}
+.last-song h2 { max-width: 16ch; }
+.last-song-text { display: grid; gap: var(--gap); max-width: 34rem; }
+.last-song-text p { max-width: var(--measure); }
+.key { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.6rem; color: var(--muted); font-size: var(--step--1); }
+.key-player, .key-dot { width: 0.9rem; height: 0.9rem; border-radius: 50%; background: var(--accent); }
+.key-dot { width: 0.6rem; height: 0.6rem; margin-left: 0.8rem; background: var(--muted); }
+.room { margin: 0; }
+.room-plan { width: 100%; height: auto; overflow: visible; }
+.room-walls { fill: var(--deep); stroke: var(--line); stroke-width: 2; }
+.room-stage { fill: var(--surface); stroke: var(--line); stroke-width: 1.5; }
+.room-label { fill: var(--muted); font-family: var(--font-text); font-size: 24px; letter-spacing: 0.12em; text-transform: uppercase; }
+.dot { fill: var(--muted); opacity: 0.75; }
+.player { fill: var(--accent); filter: drop-shadow(0 0 6px color-mix(in oklch, var(--glow) 60%, transparent)); }
+@media (prefers-reduced-motion: no-preference) {
+  /* the base.css fade stays, and the band walks from the stage into the middle once the plan is in view */
+  .js .room .dot, .js .room .player {
+    transform: translate(var(--dx), var(--dy));
+    transition: transform var(--t-walk) var(--ease-in-out) calc(500ms + var(--i) * 60ms);
+  }
+  .js .room .player { transition-delay: calc(900ms + var(--i) * 110ms); }
+  .js .room.is-in .dot, .js .room.is-in .player { transform: none; }
+}
+@media (min-width: 64rem) {
+  /* the words sit level with the middle of the plan, so the left of a wide screen doesn't go empty beside it */
+  .last-song { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); }
+  .last-song h2 { grid-column: 1 / -1; max-width: 22ch; }
+  .last-song-text { align-self: center; }
+}
+
+/* ---------- the album ---------- */
+.album {
+  display: grid; gap: clamp(2rem, 1rem + 3vw, 4rem); align-items: center;
+  padding: var(--section) var(--margin);
+  background: radial-gradient(80% 70% at 30% 50%, color-mix(in oklch, var(--glow) 8%, transparent), transparent 70%), var(--deep);
+}
+.specimen { margin: 0; justify-self: center; width: min(100%, 34rem); }
+.specimen-moth { width: 100%; height: auto; overflow: visible; rotate: -6deg; }
+.album-text { display: grid; gap: var(--gap); justify-items: start; max-width: 36rem; }
+.album-text p { max-width: var(--measure); }
+.button-quiet { background: transparent; color: var(--accent-text); border: 1px solid var(--accent); }
+@media (hover: hover) and (pointer: fine) { .button-quiet:hover { background: var(--accent); color: var(--accent-ink); } }
+.lineup {
+  margin-top: calc(var(--gap) * 0.5); padding-top: var(--gap); border-top: 1px solid var(--line);
+  font-family: var(--font-display); font-size: var(--step-2); font-weight: 450; line-height: 1.08; text-wrap: balance;
+}
+@media (min-width: 64rem) {
+  .album { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+}
+
+/* ---------- footer ---------- */
+.site-footer {
+  padding: var(--section) var(--margin) calc(var(--gap) * 1.5);
+  background: var(--ground); border-top: 1px solid var(--line);
+}
+.footer-top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: var(--gap) calc(var(--gap) * 2); }
+.site-footer h2 { font-family: var(--font-text); font-size: var(--step--1); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.6rem; }
+.mail { font-family: var(--font-display); font-size: var(--step-2); font-weight: 480; line-height: 1.1; color: var(--accent-text); text-decoration-thickness: 1px; overflow-wrap: anywhere; }
+/* a picture of the name: its tall text box reaches over the small print below, so it lets the clicks through */
+.footer-name { position: relative; margin-top: clamp(3rem, 2rem + 4vw, 6rem); pointer-events: none; }
+.footer-name p {
+  font-family: var(--font-display); font-weight: 470; line-height: 0.8; letter-spacing: -0.012em;
+  font-size: clamp(3.6rem, 0.3rem + 19.6vw, 19rem); white-space: nowrap;
+  color: color-mix(in oklch, var(--accent) 78%, var(--ground)); /* big text: 3:1 is enough, this is about 3.5:1 */
+}
+/* the moth from the cover, resting on the name */
+.footer-moth { position: absolute; width: clamp(3.4rem, 2rem + 5vw, 7.5rem); height: auto; right: 6%; top: -12%; rotate: 18deg; overflow: visible; }
+.small { margin-top: var(--gap); color: var(--muted); font-size: var(--step--1); }
+.small a { color: inherit; }
+@media (hover: hover) and (pointer: fine) { .mail:hover { text-decoration-thickness: 2px; } .small a:hover { color: var(--accent-text); } }
+@media (max-width: 47.99rem) { .footer-name p { white-space: normal; font-size: 30vw; line-height: 0.82; } .footer-moth { right: 4%; top: 30%; } }
+
+/* the rows arrive once, one after another, top to bottom */
+@media (prefers-reduced-motion: no-preference) {
+  .js .tour-wrap[data-reveal] { opacity: 1; translate: none; }
+  .js .tour-wrap .tour li { opacity: 0; translate: 0 0.75rem; transition: opacity 600ms var(--ease-out), translate 600ms var(--ease-out), background-color var(--t-hover) ease; }
+  .js .tour-wrap.is-in .tour li { opacity: 1; translate: none; }
+  .js .tour-wrap.is-in .tour li:nth-child(2) { transition-delay: 60ms, 60ms, 0ms; }
+  .js .tour-wrap.is-in .tour li:nth-child(3) { transition-delay: 120ms, 120ms, 0ms; }
+  .js .tour-wrap.is-in .tour li:nth-child(4) { transition-delay: 180ms, 180ms, 0ms; }
+  .js .tour-wrap.is-in .tour li:nth-child(5) { transition-delay: 240ms, 240ms, 0ms; }
+  .js .tour-wrap.is-in .tour li:nth-child(6) { transition-delay: 300ms, 300ms, 0ms; }
+  .js .tour-wrap.is-in .tour li:nth-child(7) { transition-delay: 360ms, 360ms, 0ms; }
+  .js .tour-wrap.is-in .tour li:nth-child(n+8) { transition-delay: 420ms, 420ms, 0ms; }
+}

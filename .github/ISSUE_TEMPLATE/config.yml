@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Question or idea to talk through
+    url: https://github.com/Barabosik/one-shot-site/discussions
+    about: How do I…, would it make sense to…, show what you made. Discussions, not issues.
+  - name: Security problem
+    url: https://github.com/Barabosik/one-shot-site/security/advisories/new
+    about: Report it privately, not as an issue. SECURITY.md says how.

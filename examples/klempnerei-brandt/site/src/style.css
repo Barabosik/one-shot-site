@@ -1,0 +1,203 @@
+/* Klempnerei Brandt. The page is lettered like their van: navy paint, white and yellow letters, the number
+   as big as the side allows. Wide Anybody for names, narrow Anybody for numbers, Work Sans for reading. */
+
+html { scroll-padding-top: calc(var(--header) + 0.5rem); }
+
+/* ---------- shared pieces ---------- */
+.button {
+  display: inline-flex; align-items: center; justify-content: center; min-height: 3.25rem; padding: 0 1.5rem;
+  background: var(--accent); color: var(--accent-ink); border-radius: var(--radius);
+  font-weight: 700; text-decoration: none;
+}
+/* Still: no movement anywhere. Pressing and hovering change colour at once. */
+.button:active { background: color-mix(in oklch, var(--accent), black 14%); }
+
+.number {
+  display: block; width: fit-content;
+  font-family: var(--font-display); font-stretch: 56%; font-weight: 720;
+  font-size: clamp(7rem, 0.6rem + 19vw, 15rem); line-height: 0.84; letter-spacing: -0.005em;
+  color: var(--accent); text-decoration: none; text-wrap: balance; font-variant-numeric: tabular-nums;
+}
+.number:active { color: color-mix(in oklch, var(--accent), white 30%); }
+
+.text-link { display: inline-block; padding-block: 0.6rem; font-weight: 600; text-decoration-thickness: 2px; }
+
+@media (hover: hover) and (pointer: fine) {
+  .button:hover { background: color-mix(in oklch, var(--accent), white 24%); }
+  .number:hover { text-decoration: underline; text-decoration-thickness: 0.05em; text-underline-offset: 0.06em; }
+  .site-header nav a:hover, .text-link:hover { text-decoration: underline; text-decoration-thickness: 3px; text-decoration-color: var(--accent); }
+}
+
+/* on the navy, the focus ring and links switch to the van's lettering colours */
+.van :focus-visible, .prices :focus-visible, .site-footer :focus-visible { outline-color: var(--accent); }
+.van a:not(.number), .prices a, .site-footer a:not(.number) { color: var(--van-ink); }
+
+.defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+.nowrap { white-space: nowrap; }
+
+/* ---------- header ---------- */
+.site-header {
+  position: sticky; top: 0; z-index: 10;
+  display: flex; align-items: center; gap: var(--gap);
+  min-height: var(--header); padding: 0.5rem var(--margin);
+  background: var(--ground); border-bottom: 1px solid var(--line);
+}
+.tag { font-weight: 650; text-decoration: none; line-height: 1.2; padding-block: 0.5rem; max-width: 16rem; }
+.site-header nav { display: none; gap: clamp(1rem, 2vw, 2rem); margin-left: auto; }
+.site-header nav a { text-decoration: none; font-weight: 600; padding-block: 0.6rem; }
+.header-call { margin-left: auto; min-height: 2.75rem; padding: 0 1.15rem; }
+@media (min-width: 960px) {
+  .tag { max-width: none; }
+  .site-header nav { display: flex; }
+  .header-call { margin-left: 0; }
+}
+
+/* ---------- the van (first screen) ---------- */
+.hero { --wheel: clamp(4.5rem, 10vw, 9.5rem); padding: clamp(0.75rem, 2vw, 2rem) var(--margin) 0; }
+.van {
+  position: relative; display: grid; gap: clamp(0.75rem, 1.6vw, 1.25rem); align-content: start;
+  margin-bottom: calc(var(--wheel) / 2);
+  padding: clamp(1.4rem, 3.5vw, 3.5rem) clamp(1.25rem, 4vw, 4rem) clamp(4.25rem, 8vw, 7.5rem);
+  background: var(--van); color: var(--van-ink);
+  border-radius: 0.6rem clamp(3rem, 12vw, 14rem) 0.6rem 0.6rem;
+}
+.van h1 {
+  font-stretch: 150%; font-weight: 800; font-size: clamp(2.1rem, 0.2rem + 6.4vw, 6.25rem);
+  line-height: 0.95; letter-spacing: -0.02em; max-width: 11ch;
+}
+.trade { font-size: var(--step-1); line-height: 1.35; max-width: 36ch; }
+.van .number { margin-top: clamp(0.25rem, 1vw, 0.75rem); }
+.van-call { font-family: var(--font-display); font-stretch: 112%; font-weight: 750; font-size: var(--step-1); line-height: 1.2; }
+.van-window, .van-stripe, .wheel { position: absolute; }
+.van-window { display: none; }
+@media (min-width: 1100px) {
+  .van-window {
+    display: block; top: clamp(1.5rem, 3vw, 3rem); right: clamp(2.5rem, 6vw, 6.5rem); width: 18%; height: 34%;
+    border-radius: 0.5rem clamp(2.5rem, 8vw, 10rem) 0.5rem 0.5rem;
+    background: linear-gradient(118deg, var(--van-glass) 58%, var(--van-shine) 58% 66%, var(--van-glass) 66%);
+  }
+}
+.van-stripe { left: 0; right: 0; bottom: clamp(1.75rem, 3vw, 3rem); height: clamp(0.6rem, 1.2vw, 1.1rem); background: var(--accent); }
+.wheel {
+  bottom: 0; width: var(--wheel); aspect-ratio: 1; translate: 0 50%; border-radius: 50%;
+  background: radial-gradient(circle, var(--surface) 0 24%, var(--ink) 25%);
+  border: clamp(0.35rem, 0.8vw, 0.7rem) solid var(--ground);
+}
+.wheel.back { left: 12%; }
+.wheel.front { right: 14%; }
+/* the road the van stands on */
+.van::after {
+  content: ''; position: absolute; left: calc(-1 * var(--margin)); right: calc(-1 * var(--margin));
+  bottom: calc(var(--wheel) / -2 - var(--rule) + clamp(0.35rem, 0.8vw, 0.7rem)); height: var(--rule); background: var(--ink);
+}
+.kerb { display: grid; gap: 0.35rem; padding-top: clamp(1.25rem, 2.5vw, 2rem); max-width: 60ch; }
+
+/* ---------- sections ---------- */
+.section { padding: var(--section) var(--margin) 0; }
+.section h2, .site-footer h2 {
+  font-stretch: 108%; font-weight: 800; font-size: clamp(2rem, 1.3rem + 3vw, 4.2rem); line-height: 0.98; letter-spacing: -0.015em;
+  max-width: 20ch;
+}
+.section h3 { font-stretch: 112%; font-weight: 800; font-size: var(--step-1); line-height: 1.1; }
+
+/* what we do: two groups, rows with thick rules */
+.jobs-groups { display: grid; gap: clamp(2.5rem, 5vw, 4rem); margin-top: clamp(2rem, 4vw, 3.5rem); }
+.jobs-group h3 { padding-top: 0.75rem; border-top: var(--rule) solid var(--ink); }
+.jobs-group.urgent h3 { border-top-color: var(--accent); }
+.job-list > div { display: grid; gap: 0.35rem; padding-block: clamp(1rem, 2vw, 1.4rem); border-bottom: 1px solid var(--line); }
+.job-list dt { font-family: var(--font-display); font-stretch: 125%; font-weight: 800; font-size: var(--step-2); line-height: 1.02; hyphens: manual; }
+.job-list dd { margin: 0; max-width: 44ch; }
+.jobs-group .button { margin-top: 1.5rem; }
+@media (min-width: 900px) {
+  .jobs-groups { grid-template-columns: 5fr 7fr; gap: clamp(2rem, 5vw, 5rem); }
+}
+
+/* prices: a navy band, the numbers as big as the lettering */
+.prices { margin-top: var(--section); padding-bottom: var(--section); background: var(--van); color: var(--van-ink); display: grid; gap: clamp(2rem, 4vw, 3rem); }
+.prices-head { display: grid; gap: var(--gap); align-content: start; }
+.prices-head p { max-width: 34ch; color: var(--van-muted); }
+.prices .menu { margin: 0; }
+.prices .menu dl { display: grid; grid-template-columns: auto 1fr; gap: 0; }
+.prices .menu dl > div {
+  display: grid; grid-column: 1 / -1; grid-template-columns: subgrid; column-gap: clamp(1rem, 3vw, 2.5rem);
+  align-items: end; padding-block: clamp(0.9rem, 2vw, 1.4rem); border-top: 1px solid var(--van-line);
+}
+.prices .menu dd.price {
+  grid-column: 1; grid-row: 1 / span 2; justify-self: end;
+  font-family: var(--font-display); font-stretch: 56%; font-weight: 720;
+  font-size: clamp(4.25rem, 2rem + 9vw, 9.5rem); line-height: 0.82; color: var(--accent);
+}
+.prices .menu dt { grid-column: 2; font-weight: 700; font-size: var(--step-1); line-height: 1.2; align-self: end; }
+.prices .menu .note { grid-column: 2; color: var(--van-muted); font-size: var(--step-0); align-self: start; }
+/* wide screens: the three prices stand side by side, like lettering across the van */
+@media (min-width: 900px) {
+  .prices-head { grid-template-columns: 7fr 5fr; align-items: end; column-gap: clamp(2rem, 5vw, 5rem); }
+  .prices-head p { justify-self: end; }
+  .prices .menu dl { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--gap); }
+  .prices .menu dl > div { grid-column: auto; display: flex; flex-direction: column; gap: 0.4rem; padding-top: 1.25rem; border-top: var(--rule) solid var(--accent); }
+  .prices .menu dl > div > * { align-self: start; }
+  .prices .menu dd.price { order: -1; font-size: clamp(6rem, 1rem + 12vw, 14rem); margin-bottom: 0.75rem; }
+}
+
+/* hours */
+.hours-grid { display: grid; gap: clamp(2rem, 4vw, 3rem); margin-top: clamp(2rem, 4vw, 3.5rem); }
+.hours-block a { display: inline-block; padding-block: 0.35rem; }
+.hours-block { display: grid; gap: 0.6rem; align-content: start; padding-top: 0.75rem; border-top: var(--rule) solid var(--ink); }
+.hours-block .hours { margin: 0; gap: 0.35rem; }
+.hours-block .hours > div { grid-template-columns: auto 1fr; column-gap: 1em; align-items: baseline; }
+.hours-block .hours dt { font-weight: 600; min-width: 4.5em; }
+.hours-block .hours dd { font-family: var(--font-display); font-stretch: 62%; font-weight: 750; font-size: var(--step-2); line-height: 1.1; }
+.hours-block.wait { background: var(--accent); color: var(--accent-ink); border-top: 0; padding: clamp(1.25rem, 3vw, 2rem); }
+@media (min-width: 900px) { .hours-grid { grid-template-columns: repeat(3, 1fr); } }
+
+/* team */
+.people { list-style: none; padding: 0; margin: clamp(2rem, 4vw, 3.5rem) 0 0; border-top: var(--rule) solid var(--ink); }
+.people li { display: grid; gap: 0.25rem; padding-block: clamp(1rem, 2.2vw, 1.6rem); border-bottom: 1px solid var(--line); }
+.person { font-family: var(--font-display); font-stretch: 150%; font-weight: 800; font-size: var(--step-2); line-height: 1.02; letter-spacing: -0.015em; }
+.role { font-size: var(--step-0); }
+@media (min-width: 760px) {
+  .people li { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); align-items: baseline; gap: var(--gap); }
+}
+.fleet { display: grid; grid-template-columns: repeat(2, minmax(0, 15rem)); gap: var(--gap); margin-top: clamp(2.5rem, 5vw, 4rem); align-items: end; }
+.fleet figcaption { grid-column: 1 / -1; max-width: 40ch; }
+.mini-van { width: 100%; height: auto; }
+.van-body { fill: var(--van); }
+.van-glass { fill: var(--van-glass); }
+.van-line { fill: var(--accent); }
+.van-letters { fill: var(--accent); font-family: var(--font-display); font-stretch: 150%; font-weight: 800; font-size: 24px; }
+.van-tyre { fill: var(--ink); stroke: var(--ground); stroke-width: 4; }
+.van-hub { fill: var(--surface); }
+
+/* service area */
+.area { display: grid; gap: clamp(2rem, 4vw, 3rem); }
+.area-text { display: grid; gap: var(--gap); align-content: start; }
+.area-text p, .area-text address { max-width: 40ch; margin: 0; }
+.area-map { width: 100%; max-width: 34rem; height: auto; justify-self: center; }
+.map-ring { fill: none; stroke: var(--ink); stroke-width: 3; stroke-dasharray: 10 9; }
+.map-km, .map-label { fill: var(--ink); font-family: var(--font-text); font-weight: 700; font-size: 26px; paint-order: stroke; stroke: var(--ground); stroke-width: 10px; stroke-linejoin: round; }
+.map-city { fill: var(--van); }
+.map-city-label { fill: var(--van-ink); font-family: var(--font-display); font-stretch: 130%; font-weight: 800; font-size: 40px; }
+.map-shop { fill: var(--accent); }
+.map-shop-label { fill: var(--van-ink); font-family: var(--font-text); font-weight: 600; font-size: 23px; }
+.map-town { fill: var(--ink); }
+@media (min-width: 900px) {
+  .area { grid-template-columns: 1fr 1fr; align-items: center; }
+}
+
+/* ---------- footer: the number once more, as the closing lettering ---------- */
+.site-footer {
+  margin-top: var(--section); padding: var(--section) var(--margin) 1.5rem;
+  background: var(--van); color: var(--van-ink); display: grid; gap: clamp(1.25rem, 3vw, 2rem);
+}
+.site-footer h2 { font-stretch: 150%; }
+.footer-facts { display: grid; gap: 1rem; margin-top: var(--gap); }
+.footer-facts p, .footer-facts address { margin: 0; max-width: 34ch; }
+.small-print { margin-top: clamp(2rem, 5vw, 4rem); padding-top: 1rem; border-top: 1px solid var(--van-line); color: var(--van-muted); font-size: var(--step--1); }
+@media (min-width: 900px) { .footer-facts { grid-template-columns: repeat(3, auto); justify-content: start; column-gap: clamp(2rem, 6vw, 6rem); } }
+
+/* ---------- Impressum and Datenschutz ---------- */
+.legal { padding: clamp(2rem, 6vw, 5rem) var(--margin) var(--section); }
+.legal h1 { font-stretch: 115%; font-weight: 800; font-size: clamp(1.9rem, 1.3rem + 3vw, 4rem); line-height: 1; hyphens: auto; overflow-wrap: break-word; }
+.legal h2 { font-stretch: 112%; font-size: var(--step-1); margin-top: 2em; margin-bottom: 0.4em; }
+.legal p, .legal address { max-width: var(--measure); }
+.legal + .site-footer { margin-top: 0; padding-top: clamp(2rem, 5vw, 3rem); }

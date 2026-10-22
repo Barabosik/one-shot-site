@@ -1,0 +1,49 @@
+/* effects.js: the starting states. Everything is hidden or offset only when scripts run (.js) and the visitor
+   hasn't asked for less motion, so without either the page is simply all there. */
+
+.fx-sr { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.fx-w { display: inline-block; white-space: nowrap; }
+[data-count] { font-variant-numeric: tabular-nums; }
+
+@media (prefers-reduced-motion: no-preference) {
+  /* data-split: words (or letters) rise out of a clipped line, one after another */
+  .js [data-split]:not(.fx-ready) { opacity: 0; }
+  .js [data-split] .fx-w { overflow: clip; padding-block: 0.12em; margin-block: -0.12em; vertical-align: top; } /* room for accents and descenders */
+  .js [data-split] .fx-p { display: inline-block; translate: 0 125%; transition: translate var(--fx-t, 0.7s) var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)) calc(var(--fx-i) * var(--fx-step, 40ms)); }
+  .js [data-split].is-in .fx-p { translate: none; }
+
+  /* data-draw: SVG lines draw themselves */
+  .js [data-draw] .fx-line { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset var(--fx-t, 1.4s) var(--ease-in-out, cubic-bezier(0.65, 0, 0.35, 1)) calc(var(--fx-i) * 120ms); }
+  .js [data-draw].is-in .fx-line { stroke-dashoffset: 0; }
+
+  /* data-mask: a picture wipes into view */
+  .js [data-mask] { clip-path: inset(0 0 100% 0); transition: clip-path var(--fx-t, 1.1s) var(--ease-in-out, cubic-bezier(0.65, 0, 0.35, 1)); }
+  .js [data-mask="down"] { clip-path: inset(100% 0 0 0); }
+  .js [data-mask="left"] { clip-path: inset(0 0 0 100%); }
+  .js [data-mask="right"] { clip-path: inset(0 100% 0 0); }
+  .js [data-mask].is-in { clip-path: inset(0); }
+
+  /* data-marquee: one endless row, paused on hover, focus, off screen, or by its button */
+  [data-marquee].fx-ready { overflow: clip; }
+  [data-marquee] .fx-track { width: max-content; animation: fx-marquee var(--fx-t, 30s) linear infinite; }
+  [data-marquee="reverse"] .fx-track { animation-direction: reverse; }
+  [data-marquee]:is(:hover, :focus-within, .fx-paused, .fx-away) .fx-track { animation-play-state: paused; }
+
+  /* data-magnetic and data-tilt ease in effects.js and set no transition here, so a button keeps its own */
+
+  /* a soft cross-fade between the pages of a multi-page site, where the browser can */
+  @view-transition { navigation: auto; }
+}
+@keyframes fx-marquee { to { translate: -50% 0; } }
+
+/* the marquee's row; with reduced motion (or before scripts run) a plain wrapping row */
+[data-marquee], [data-marquee] .fx-set { display: flex; flex-wrap: wrap; align-items: center; gap: var(--fx-gap, 3rem); }
+[data-marquee] .fx-track { display: flex; }
+@media (prefers-reduced-motion: no-preference) {
+  [data-marquee].fx-ready { display: block; }
+  [data-marquee] .fx-set { flex-wrap: nowrap; flex-shrink: 0; padding-inline-end: var(--fx-gap, 3rem); }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-marquee] .fx-copy, .fx-pause { display: none; }
+}
+.fx-pause { font: inherit; font-size: 0.85em; }

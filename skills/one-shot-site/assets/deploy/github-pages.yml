@@ -1,0 +1,43 @@
+# Build the site and publish it to GitHub Pages on every push to main.
+# One-time setup: Settings → Pages → Source: GitHub Actions
+# (or: gh api -X POST repos/OWNER/REPO/pages -f build_type=workflow)
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: lts/*
+          cache: npm
+      - run: npm ci
+      # A project page lives at https://OWNER.github.io/REPO/, so assets need that prefix.
+      # A user page (OWNER.github.io) or a custom domain needs BASE=/ instead.
+      - run: npm run build
+        env:
+          BASE: ${{ vars.BASE || '/' }}
+      - uses: actions/configure-pages@v6
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: ./dist
+      - id: deployment
+        uses: actions/deploy-pages@v5

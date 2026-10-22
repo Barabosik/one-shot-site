@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Impressum · {{site.name}}</title>
+  <meta name="description" content="Impressum der {{site.name}}, {{site.address}}.">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#13244c">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <script type="module" src="/src/main.js"></script>
+</head>
+<body>
+  <!-- Impressum nach § 5 DDG. Nur echte Angaben. Offen (beim Inhaber erfragen): der Staat, in dem der
+       Meistertitel verliehen wurde, und die Anschrift der Handwerkskammer. Im Zweifel mit einem
+       Impressum-Generator (z. B. eRecht24) oder einer Anwältin prüfen. -->
+  <a class="skip" href="#main">Zum Inhalt</a>
+  <header class="site-header">
+    <a translate="no" class="tag" href="/">{{site.name}}</a>
+    <a class="button header-call" href="tel:{{site.phone|tel}}">Anrufen</a>
+  </header>
+
+  <main id="main" tabindex="-1" class="legal">
+    <h1>Impressum</h1>
+
+    <h2>Angaben gemäß § 5 DDG</h2>
+    <p>{{site.name}}<br>Inhaber: {{site.owner.name}}</p>
+    <!-- site:address -->
+
+    <h2>Kontakt</h2>
+    <p>Telefon: <a href="tel:{{site.phone|tel}}">{{site.phone}}</a><br>
+      E-Mail: <a href="mailto:{{site.email}}">{{site.email}}</a></p>
+
+    <h2>Umsatzsteuer</h2>
+    <p>Umsatzsteuer-Identifikationsnummer nach § 27a Umsatzsteuergesetz: {{site.vatId}}</p>
+
+    <h2>Handwerk und Kammer</h2>
+    <p>Berufsbezeichnung: {{site.owner.title}}<br>
+      Eingetragen in die Handwerksrolle der {{site.chamber}}. Sie ist auch die zuständige Kammer.<br>
+      Es gilt das Gesetz zur Ordnung des Handwerks (Handwerksordnung), nachzulesen bei
+      <a href="https://www.gesetze-im-internet.de/hwo/">gesetze-im-internet.de</a>.</p>
+
+    <p><a href="/">Zurück zur Startseite</a></p>
+  </main>
+
+  <footer class="site-footer">
+    <p class="small-print">© <span data-year>2026</span> <span translate="no">{{site.name}}</span> · <a href="/datenschutz.html">Datenschutz</a></p>
+  </footer>
+</body>
+</html>

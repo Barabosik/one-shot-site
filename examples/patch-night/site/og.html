@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="robots" content="noindex">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Patch Night: link preview</title>
+  <meta name="description" content="Patch Night, {{site.events.0.day|day}}: four modular synth sets in an old fire station in Saarbrücken, plus a workshop for your first patch.">
+  <meta name="theme-color" content="#130e0d">
+  <link rel="canonical" href="{{URL}}">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{URL}}">
+  <meta property="og:title" content="Patch Night: a modular synth evening in Saarbrücken">
+  <meta property="og:description" content="Four live modular synth sets in an old fire station, then Open Patch: from {{site.events.0.openPatch}} anyone can plug into the house rack.">
+  <meta property="og:image" content="{{URL}}og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <!-- From site.json: structured data for search engines, verification tags, cookieless analytics -->
+  <!-- site:head -->
+
+  <!-- Before first paint: mark that scripts run, so content hidden for an entrance never stays hidden
+       when they don't. -->
+  <!-- .js arms the scroll reveals; if main.js hasn't run after 3 s (blocked, failed), show everything -->
+  <script>document.documentElement.classList.add('js');setTimeout(function(){var d=document.documentElement;if(!d.hasAttribute('data-ready'))d.classList.remove('js')},3000);</script>
+  <script type="module" src="/src/main.js"></script>
+  <style>
+    html:root { --rack-h: 21rem; }
+    .og { width: 1200px; height: 630px; overflow: hidden; display: grid; grid-template-rows: auto 1fr; gap: 28px; padding: 44px 48px 0; }
+    .og-top { display: flex; align-items: end; justify-content: space-between; gap: 40px; }
+    .og h1 { font-size: 132px; font-weight: 600; letter-spacing: -0.035em; line-height: 0.85; white-space: nowrap; }
+    .og-when { font-family: var(--font-display); font-size: 30px; line-height: 1.25; font-weight: 500; text-align: right; }
+    .og-when strong { color: var(--accent-text); font-weight: 600; }
+    .og .rack { --rack-h: 25rem; height: var(--rack-h); border-radius: 4px 4px 0 0; }
+    .og .knob-big { --k: 3.6rem; }
+    .og .m-name { font-size: 17px; }
+  </style>
+</head>
+<body>
+  <main class="og">
+    <div class="og-top">
+      <h1 translate="no">{{site.name}}</h1>
+      <p class="og-when"><strong>{{site.events.0.day|day}}</strong><br>{{site.events.0.doors}}–{{site.events.0.until}}<br>{{site.venue}}, {{site.address.city}}</p>
+    </div>
+    <div class="rack" data-rack aria-hidden="true">
+          <div class="module" data-voice="moro" data-patch="1">
+            <span class="m-name"><span class="m-first">Ines </span>Moro</span>
+            <span class="m-kind">Ambient</span>
+            <span class="knob knob-big" style="--turn: -58deg"></span>
+            <span class="knobs"><span class="knob" style="--turn: 35deg"></span><span class="knob" style="--turn: -110deg"></span></span>
+            <span class="led"></span>
+            <span class="m-label">Out</span>
+            <span class="jack" data-out></span>
+          </div>
+          <div class="module" data-voice="kofi">
+            <span class="m-name">Kofi &amp; the Cables</span>
+            <span class="m-kind">Techno</span>
+            <span class="knob knob-big" style="--turn: 72deg"></span>
+            <span class="knobs"><span class="knob" style="--turn: 120deg"></span><span class="knob" style="--turn: 10deg"></span></span>
+            <span class="led"></span>
+            <span class="m-label">Out</span>
+            <span class="jack" data-out></span>
+          </div>
+          <div class="module" data-voice="brandt" data-patch="3">
+            <span class="m-name"><span class="m-first">Dr. Lisa </span>Brandt</span>
+            <span class="m-kind">Generative</span>
+            <span class="knob knob-big" style="--turn: 18deg"></span>
+            <span class="knobs"><span class="knob" style="--turn: -70deg"></span><span class="knob" style="--turn: 95deg"></span></span>
+            <span class="led"></span>
+            <span class="m-label">Out</span>
+            <span class="jack" data-out></span>
+          </div>
+          <div class="module" data-voice="open">
+            <span class="m-name">Open Patch</span>
+            <span class="m-kind">From {{site.events.0.openPatch}}</span>
+            <span class="knob knob-big" style="--turn: -125deg"></span>
+            <span class="knobs"><span class="knob" style="--turn: 0deg"></span><span class="knob" style="--turn: 60deg"></span></span>
+            <span class="led"></span>
+            <span class="m-label">Out</span>
+            <span class="jack" data-out></span>
+          </div>
+          <div class="module module-mix">
+            <span class="m-name">Mix</span>
+            <canvas class="scope" width="160" height="60"></canvas>
+            <span class="mix-ins">
+              <span class="mix-in"><span class="m-label">In 1</span><span class="jack" data-in="1"></span></span>
+              <span class="mix-in"><span class="m-label">In 2</span><span class="jack" data-in="2"></span></span>
+              <span class="mix-in"><span class="m-label">In 3</span><span class="jack" data-in="3"></span></span>
+              <span class="mix-in"><span class="m-label">In 4</span><span class="jack" data-in="4"></span></span>
+            </span>
+          </div>
+        </div>
+  </main>
+</body>
+</html>

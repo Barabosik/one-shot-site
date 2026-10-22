@@ -1,0 +1,45 @@
+node_modules/
+dist/
+.DS_Store
+Thumbs.db
+
+# working files from the checks; a site's brief and deliberate exceptions stay in git
+**/.one-shot/*
+!**/.one-shot/brief.md
+!**/.one-shot/allow.json
+
+# test sites and runs made while trying the skill (keep them outside the repo; these catch strays)
+/runs/
+/*-runs/
+
+# benchmark and eval output
+/evals/results/
+/evals/baseline.json
+/evals/baseline-examples.json
+/evals/runs/
+/evals/out/
+/evals/output/
+/evals/.cache/
+
+# secrets and local settings
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# logs, scratch, archives
+*.log
+npm-debug.log*
+/tmp/
+/scratch/
+*.tgz
+*.zip
+
+# editors and agent tooling
+.claude/
+.vscode/
+.idea/
+.history/

@@ -1,0 +1,22 @@
+{
+  "name": "klempnerei-brandt",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "node tools/one-shot/lint.mjs .",
+    "look": "vite build && node tools/one-shot/look.mjs dist",
+    "audit": "vite build && node tools/one-shot/audit.mjs dist"
+  },
+  "devDependencies": {
+    "axe-core": "^4.14.0",
+    "vite": "^8.3.4"
+  },
+  "dependencies": {
+    "@fontsource-variable/anybody": "^5.3.0",
+    "@fontsource-variable/work-sans": "^5.3.0"
+  }
+}

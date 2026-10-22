@@ -1,0 +1,77 @@
+/* The design in numbers. Every colour, size, gap and timing on the site comes from here, so a change of
+   mood is a change in this file. Colours: palette.mjs --brand "#ff9500" --strategy quiet --ground neutral,
+   once per mode. The orange is the orange of a phone's airplane-mode switch; black and white from Mono. */
+
+:root {
+  /* colour, light: black and white, one orange used as whole fields and on the action */
+  --ground: oklch(98.5% 0.001 62.6);         /* #fbfaf9, page background */
+  --surface: oklch(95.0% 0.002 62.6);        /* #efeeed, bands and cards */
+  --ink: oklch(20.0% 0.002 62.6);            /* #171615, text, 17.3:1 */
+  --muted: oklch(47.0% 0.003 62.6);          /* #5c5a59, quiet text, 6.5:1 */
+  --line: oklch(20.0% 0.002 62.6 / 0.14);
+  --accent: oklch(76.5% 0.175 62.6);         /* #ff9500, buttons and highlights */
+  --accent-ink: oklch(16.0% 0.020 62.6);     /* #130b05, text on accent, 8.8:1 */
+  --accent-text: oklch(54.0% 0.124 62.6);    /* #a05b00, links on ground, 5.0:1 */
+  --rule: var(--ink);                        /* the thick rules between rows */
+  color-scheme: light;
+
+  /* type: two families */
+  --font-display: 'Archivo Variable', 'Arial Black', sans-serif;
+  /* one-shot: allow overused-font: a plain text face under Archivo, which carries the look */
+  --font-text: 'IBM Plex Sans Variable', system-ui, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  --wide: 112%;                              /* the display face's width for the app names */
+
+  /* a fluid scale: small → huge, each step grows with the screen */
+  --step--1: clamp(0.84rem, 0.82rem + 0.1vw, 0.9rem);
+  --step-0: clamp(1.05rem, 1rem + 0.25vw, 1.2rem);
+  --step-1: clamp(1.3rem, 1.18rem + 0.6vw, 1.65rem);
+  --step-2: clamp(1.7rem, 1.4rem + 1.4vw, 2.6rem);
+  --step-3: clamp(2.1rem, 1.5rem + 2.6vw, 3.9rem);
+  --step-4: clamp(3rem, 1.6rem + 6.6vw, 7.5rem);
+  --step-name: clamp(3.4rem, 0.9rem + 10.4vw, 10.5rem);  /* the app names: the bold move */
+  --step-huge: clamp(14rem, 6rem + 34vw, 36rem);         /* the one big 2 */
+  --leading-tight: 1.02;
+  --leading-body: 1.55;
+  --measure: 66ch;
+
+  /* space: one rhythm; the gap between sections beats any gap inside one */
+  --margin: clamp(1rem, 0.6rem + 2vw, 2.5rem);
+  --gap: clamp(1rem, 0.8rem + 1vw, 1.75rem);
+  --section: clamp(5.5rem, 3rem + 10vw, 13rem);
+  --radius: 0;
+  --rule-w: clamp(3px, 0.2rem, 4px);
+
+  /* motion: one ease for things arriving, short presses, slower reveals */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --t-press: 120ms;
+  --t-hover: 180ms;
+  --t-reveal: 600ms;
+}
+
+/* colour, dark: its own palette (palette.mjs --mode dark), not an inversion */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: oklch(17.0% 0.001 62.6);         /* #100f0f, page background */
+    --surface: oklch(21.5% 0.002 62.6);        /* #1a1919, bands and cards */
+    --ink: oklch(93.0% 0.002 62.6);            /* #e9e7e7, text, 15.6:1 */
+    --muted: oklch(74.0% 0.003 62.6);          /* #acaaa9, quiet text, 8.3:1 */
+    --line: oklch(93.0% 0.002 62.6 / 0.14);
+    --accent: oklch(76.5% 0.175 62.6);         /* #ff9500, buttons and highlights */
+    --accent-ink: oklch(16.0% 0.020 62.6);     /* #130b05, text on accent, 8.8:1 */
+    --accent-text: oklch(76.5% 0.175 62.6);    /* #ff9500, links on ground, 8.7:1 */
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: oklch(17.0% 0.001 62.6);
+  --surface: oklch(21.5% 0.002 62.6);
+  --ink: oklch(93.0% 0.002 62.6);
+  --muted: oklch(74.0% 0.003 62.6);
+  --line: oklch(93.0% 0.002 62.6 / 0.14);
+  --accent: oklch(76.5% 0.175 62.6);
+  --accent-ink: oklch(16.0% 0.020 62.6);
+  --accent-text: oklch(76.5% 0.175 62.6);
+  color-scheme: dark;
+}

@@ -1,0 +1,25 @@
+/* Gasthaus Zur Linde - Design 2009 */
+body {
+  margin: 0;
+  padding: 10px;
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
+  font-size: 13px;
+  color: #333300;
+  background-color: #e8f0c8;
+  background-image: repeating-linear-gradient(45deg, #e8f0c8 0px, #e8f0c8 10px, #dfe9b8 10px, #dfe9b8 20px);
+}
+table.rahmen { width: 780px; margin: 0 auto; border: 3px ridge #2e6b30; background: #ffffee; }
+td.kopf { background: #2e6b30; color: #ffff99; text-align: center; padding: 12px; }
+td.kopf h1 { font-family: "Times New Roman", serif; font-size: 34px; margin: 0; text-shadow: 2px 2px 0 #000; }
+td.menue { width: 160px; vertical-align: top; background: #cfe3a6; border-right: 2px dotted #2e6b30; padding: 8px; }
+td.menue a { display: block; color: #003300; font-weight: bold; margin: 6px 0; }
+td.menue a:hover { color: red; }
+td.inhalt { vertical-align: top; padding: 12px; }
+td.fuss { background: #2e6b30; color: #ffff99; font-size: 10px; text-align: center; padding: 6px; }
+h2 { color: #2e6b30; font-size: 18px; border-bottom: 1px dashed #2e6b30; }
+.neu { color: red; font-weight: bold; animation: blinken 1s steps(2) infinite; }
+@keyframes blinken { 50% { visibility: hidden; } }
+.zaehler { font-family: "Courier New", monospace; background: #000; color: #0f0; padding: 1px 4px; }
+table.karte { width: 100%; border-collapse: collapse; }
+table.karte td { border-bottom: 1px dotted #999966; padding: 4px; }
+table.karte td.preis { text-align: right; white-space: nowrap; }

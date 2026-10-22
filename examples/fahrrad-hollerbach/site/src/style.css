@@ -1,0 +1,137 @@
+/* Fahrrad Hollerbach: the repair tag that hangs on every bike in the workshop. Bold, toward a workshop:
+   stencil headlines, their green for actions and one band, their yellow for the tags. */
+
+h1, h2, h3 { font-weight: 400; } /* Saira Stencil One has one weight; never fake a bold */
+
+.site-header {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--gap);
+  padding: var(--gap) var(--margin);
+}
+.wordmark { font-family: var(--font-display); font-size: var(--step-1); text-decoration: none; padding-block: 0.4rem; }
+.site-header nav { display: flex; gap: clamp(0.9rem, 2.4vw, 2.2rem); font-weight: 600; }
+.site-header nav a { text-decoration: none; padding-block: 0.6rem; }
+
+.small { color: var(--muted); } /* the notes carry facts (VAT, Sundays closed): body size */
+
+.button {
+  display: inline-flex; align-items: center; min-height: 3.4rem; padding: 0 1.6rem;
+  background: var(--accent); color: var(--accent-ink); border-radius: var(--radius);
+  font-weight: 700; text-decoration: none;
+  transition: transform var(--t-press) var(--ease-out), background-color var(--t-hover) ease;
+}
+.button:active { transform: scale(0.97); }
+.more { font-weight: 700; color: var(--accent-text); padding-block: 0.8rem; }
+
+/* --- the first screen: the headline across, the tag hanging into it --- */
+.hero { padding: clamp(1.5rem, 4vw, 3.5rem) var(--margin) var(--section); overflow-x: clip; } /* the tilted tag never widens the page */
+.hero h1 { font-size: clamp(2.7rem, 1rem + 7.4vw, 8.6rem); line-height: 0.92; letter-spacing: -0.01em; max-width: 13ch; }
+.hero-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr); gap: clamp(2rem, 6vw, 7rem); align-items: start; margin-top: var(--gap); }
+.lead { font-size: var(--step-1); line-height: 1.42; max-width: 34ch; }
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem 1.6rem; margin-top: calc(var(--gap) * 1.4); }
+
+/* a shipping tag: cut top corners, a punched hole, a string */
+.tag {
+  position: relative; background: var(--tag); color: var(--tag-ink);
+  clip-path: polygon(2.2rem 0, calc(100% - 2.2rem) 0, 100% 2.2rem, 100% 100%, 0 100%, 0 2.2rem);
+  padding: 3.6rem clamp(1.2rem, 2.4vw, 2rem) 1.5rem;
+}
+.tag::before {
+  content: ''; position: absolute; top: 1.15rem; left: 50%; width: 1.2rem; height: 1.2rem; translate: -50% 0;
+  border-radius: 50%; background: var(--ground); box-shadow: 0 0 0 4px var(--tag-edge);
+}
+/* the tag hangs up into the headline's band, less far on a narrow desktop, where "Termin." reaches its column */
+.tag-wrap { position: relative; padding-top: 4.4rem; margin-top: clamp(-9rem, calc(-8vw + max(0px, (1200px - 100vw) * 0.45)), -1rem); rotate: var(--tilt); transform-origin: 50% 0; max-width: 28rem; justify-self: end; width: 100%; }
+.string { position: absolute; top: 0; left: 50%; width: 4.5rem; height: 4.6rem; translate: -50% 0; color: var(--ink); }
+.tag-label { font-family: var(--font-display); font-size: var(--step-1); letter-spacing: 0.06em; text-transform: uppercase; padding-bottom: 0.5rem; border-bottom: 3px solid currentColor; }
+.tag-list { margin-top: 0.4rem; }
+.tag-list div { display: flex; align-items: baseline; gap: 0.75rem; padding: 0.7rem 0; border-bottom: 1px dashed color-mix(in oklch, var(--tag-ink) 45%, transparent); }
+.tag-list dt { flex: 1; font-weight: 600; line-height: 1.25; }
+.tag-list dd { margin: 0; font-family: var(--font-display); font-size: var(--step-2); line-height: 1; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.tag-foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.3rem 1rem; margin-top: 1rem; font-size: var(--step--1); font-weight: 700; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .js .hero .tag-wrap { animation: hang 1.1s var(--ease-out) 0.15s both; }
+  @keyframes hang { from { rotate: -9deg; } to { rotate: var(--tilt); } }
+}
+
+/* --- sections --- */
+.section { padding: 0 var(--margin) var(--section); }
+.section h2, .familie h2 { font-size: var(--step-3); letter-spacing: -0.01em; }
+
+/* the price list, set like a workshop board */
+.werkstatt { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: clamp(2rem, 6vw, 7rem); align-items: start; }
+.werkstatt-head p { margin-top: var(--gap); max-width: 40ch; }
+.photo { margin-top: calc(var(--gap) * 1.5); }
+.photo img { width: 100%; object-fit: cover; }
+.photo figcaption { margin-top: 0.6rem; font-size: var(--step--1); color: var(--muted); }
+.price-list .menu { margin-top: 0; }
+.price-list .menu-section + .menu-section { margin-top: calc(var(--gap) * 2); }
+.price-list h3 { font-size: var(--step-1); letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent-text); padding-bottom: 0.5rem; border-bottom: 3px solid var(--ink); }
+.price-list .menu dl { gap: 0; }
+.price-list .menu dl > div { align-items: baseline; padding: 0.85rem 0; border-bottom: 1px solid var(--line); }
+.price-list .menu dt { font-weight: 600; font-size: var(--step-1); line-height: 1.25; }
+.price-list .menu .price { font-family: var(--font-display); font-size: var(--step-2); line-height: 1; }
+.price-list .menu .note { margin-top: 0.2rem; }
+.price-list .small { margin-top: var(--gap); }
+
+/* three tags on a row: new, used, rental */
+.raeder h2 { margin-bottom: calc(var(--gap) * 1.5); }
+.tags { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.25rem, 3vw, 3rem); align-items: start; }
+.tags .tag { transform-origin: 50% 0; transition: rotate var(--t-hover) var(--ease-out); }
+.tags .tag:nth-child(1) { rotate: -1.5deg; }
+.tags .tag:nth-child(2) { rotate: 1deg; margin-top: 1.5rem; }
+.tags .tag:nth-child(3) { rotate: -0.5deg; }
+.tags h3 { font-size: var(--step-2); padding-bottom: 0.5rem; border-bottom: 3px solid currentColor; }
+.tags p { margin-top: 0.8rem; }
+.tag-price span { font-family: var(--font-display); font-size: var(--step-2); }
+@media (hover: hover) and (pointer: fine) {
+  .tags .tag:hover { rotate: 0deg; }
+  .button:hover { background: color-mix(in oklch, var(--accent), var(--ink) 14%); }
+  .site-header nav a:hover, .more:hover { color: var(--accent-text); }
+}
+
+/* the family: one green band, the years set like a shop sign */
+.familie {
+  display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); gap: clamp(2rem, 6vw, 7rem); align-items: center;
+  background: var(--accent); color: var(--accent-ink); padding: var(--section) var(--margin);
+  margin-bottom: var(--section);
+}
+.years { list-style: none; padding: 0; margin: calc(var(--gap) * 1.5) 0 0; display: grid; gap: 0; }
+.years li { display: grid; grid-template-columns: minmax(6ch, auto) 1fr; gap: 0.4rem 1.5rem; align-items: baseline; padding: 1rem 0; border-top: 2px solid color-mix(in oklch, var(--accent-ink) 35%, transparent); }
+.years b { font-family: var(--font-display); font-weight: 400; font-size: var(--step-4); line-height: 0.9; color: var(--tag); }
+.years span { max-width: 32ch; }
+.familie-words > p { margin-top: calc(var(--gap) * 1.2); max-width: 40ch; }
+.familie-photo { margin: 0; }
+.familie-photo img { aspect-ratio: 4 / 5; }
+
+/* visiting: hours, the way there, the phone */
+.besuch h2 { max-width: 20ch; margin-bottom: calc(var(--gap) * 1.5); }
+.besuch-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.5rem, 4vw, 4rem); border-top: 3px solid var(--ink); padding-top: var(--gap); }
+.besuch h3 { font-family: var(--font-text); font-weight: 700; font-size: var(--step--1); letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-text); }
+.besuch .hours { margin-top: 0.8rem; }
+.besuch .hours > div { padding: 0.3rem 0; border-bottom: 1px solid var(--line); }
+.besuch p { margin-top: 0.8rem; max-width: 34ch; }
+.besuch p a { display: inline-block; padding-block: 0.25rem; }
+.big-link { font-family: var(--font-display); font-size: var(--step-2); text-decoration: none; color: var(--accent-text); }
+
+/* the ending: the tag, done */
+.site-footer { display: grid; justify-items: center; gap: var(--gap); padding: 0 var(--margin) calc(var(--gap) * 2); text-align: center; }
+.tag-done { width: min(20rem, 100%); rotate: 2deg; transform-origin: 50% 0; }
+.done { font-family: var(--font-display); font-size: var(--step-3); line-height: 1; margin-top: 0.8rem; }
+.fine { color: var(--muted); font-size: var(--step--1); max-width: 60ch; }
+.fine a { display: inline-block; padding-block: 0.3em; }
+
+/* --- phones and tablets --- */
+@media (max-width: 1000px) {
+  .hero-row, .werkstatt, .familie { grid-template-columns: 1fr; }
+  .tag-wrap { margin-top: 0; justify-self: center; max-width: 24rem; }
+  .tags { grid-template-columns: 1fr; max-width: 30rem; }
+  .tags .tag:nth-child(2) { margin-top: 0; }
+  .familie-photo { max-width: 26rem; }
+  .besuch-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .site-header { flex-wrap: wrap; row-gap: 0; }
+  .site-header nav { gap: 1rem; font-size: var(--step--1); }
+  .hero h1 { font-size: clamp(2.5rem, 11vw, 3.4rem); }
+}

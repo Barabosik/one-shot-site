@@ -1,0 +1,32 @@
+{
+  "client": "one-shot-site",
+  "lang": "en",
+  "line": "Answer a few questions. Get a finished website.",
+  "sub": "An agent skill. It asks, builds, checks the site in your own browser, and asks before it publishes.",
+  "action": "Install it",
+  "nav": ["Examples", "Try it", "Install"],
+  "concepts": [
+    {
+      "name": "Answers in the address bar",
+      "idea": "Every site sits in a browser window whose address bar holds the answers that made it; the try-it questions fill the bar and open the real site.",
+      "mood": "quiet", "brand": "#ff2d75", "fonts": ["Schibsted Grotesk", "Schibsted Grotesk"],
+      "move": "object", "bold": "one big browser window running a real example site, its bar reading the answers",
+      "image": "../../../examples/kleiner-kaffee/desktop.jpg",
+      "recommended": true
+    },
+    {
+      "name": "Six questions, six sites",
+      "idea": "The first screen is the six answer sets as a list, each row opening the site it made.",
+      "mood": "bold", "brand": "#ff2d75", "fonts": ["Schibsted Grotesk", "Schibsted Grotesk"],
+      "move": "rows", "line": "Six sets of answers. Six websites.",
+      "rows": "A small business · Bold · Still | Klempnerei Brandt\nAn event · Night · Showpiece | Moth Orchestra\nA redesign · Gentle | Fahrrad Hollerbach\nA small business · Warm · Gentle | Kleiner Kaffee\nMe and my work · Bold · Lively | Jonas Weber\nAn event · Night · Showpiece | Patch Night"
+    },
+    {
+      "name": "Ready to ship",
+      "idea": "The audit's last line is the headline; every site on the page passed the same gate.",
+      "mood": "night", "brand": "#ff2d75", "fonts": ["Schibsted Grotesk", "Schibsted Grotesk"],
+      "move": "proof", "line": "Nothing ships until it says so.",
+      "proof": "Ready to ship | the audit's verdict on every example site\n0 | placeholders, invented quotes or links to # in any of them"
+    }
+  ]
+}

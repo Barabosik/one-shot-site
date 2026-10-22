@@ -1,0 +1,79 @@
+# Pages CMS (https://pagescms.org): a form for site.json, so the owner can change hours, prices and events
+# in the browser. Each save is a commit; the GitHub Pages workflow publishes it. Copy to .pages.yml in the
+# repo root and remove the sections the site doesn't use. Keep every field site.json has listed here (the
+# hidden ones too): a field missing from this list may be dropped when the form saves.
+content:
+  - name: facts
+    label: Opening hours, prices and contact
+    type: file
+    path: site.json
+    format: json
+    fields:
+      - { name: name, type: string, hidden: true }
+      - { name: type, type: string, hidden: true }
+      - { name: description, type: text, hidden: true }
+      - { name: url, type: string, hidden: true }
+      - { name: currency, type: string, hidden: true }
+      - { name: priceRange, type: string, hidden: true }
+      - { name: job, type: string, hidden: true }
+      - name: email
+        label: Email
+        type: string
+      - name: phone
+        label: Phone
+        type: string
+      - name: address
+        label: Address
+        type: object
+        fields:
+          - { name: street, label: Street and number, type: string }
+          - { name: postcode, label: Postcode, type: string }
+          - { name: city, label: City, type: string }
+          - { name: country, label: Country code (DE, AT…), type: string }
+      - name: hours
+        label: Opening hours
+        type: object
+        list: true
+        fields:
+          - { name: days, label: "Days (Mon, Tue-Sat…)", type: string }
+          - { name: opens, label: "Opens (08:00)", type: string }
+          - { name: closes, label: "Closes (17:00)", type: string }
+      - name: closed
+        label: Closed on (holidays, breaks)
+        type: object
+        list: true
+        fields:
+          - { name: from, label: From, type: date }
+          - { name: to, label: To (leave empty for one day), type: date }
+          - { name: note, label: Note, type: string }
+      - name: menu
+        label: Menu and prices
+        type: object
+        list: true
+        fields:
+          - { name: section, label: Section, type: string }
+          - name: items
+            label: Items
+            type: object
+            list: true
+            fields:
+              - { name: name, label: Name, type: string }
+              - { name: price, label: "Price (2.40)", type: string }
+              - { name: note, label: Note, type: string }
+      - name: events
+        label: Events
+        type: object
+        list: true
+        fields:
+          - { name: name, label: Name, type: string }
+          - { name: start, label: "Starts (2027-03-14T19:00)", type: string }
+          - { name: end, label: Ends, type: string }
+          - { name: place, label: Place, type: string }
+          - { name: price, label: Price, type: string }
+          - { name: tickets, label: Ticket link, type: string }
+      - name: links
+        label: Links
+        type: object
+        fields:
+          - { name: booking, label: Booking link, type: string }
+          - { name: payment, label: Payment link, type: string }

@@ -1,0 +1,10 @@
+node_modules/
+dist/
+# new-site copies the skill's checks here; this repo runs them from skills/one-shot-site/scripts instead
+tools/
+# the brief and the concepts stay in git, as the examples' briefs do: this page was made with the skill
+.one-shot/*
+!.one-shot/allow.json
+!.one-shot/brief.md
+!.one-shot/concepts.json
+.DS_Store
