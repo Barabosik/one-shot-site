@@ -534,15 +534,19 @@ test('settle waits for what moves on the screen: transitions, effects marked is-
 test('theme addon: the button names the theme a click switches to, on light and dark systems, with and without a saved pick', { skip, timeout: 120000 }, async () => {
   const dir = mkdtempSync(join(tmpdir(), 'oss-theme-'));
   cpSync(resolve('skills/one-shot-site/assets/addons/theme.js'), join(dir, 'theme.js'));
-  const page = (button) => `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Theme</title><link rel="icon" href="data:,">
+  const page = (button, css = '') => `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Theme</title><link rel="icon" href="data:,">
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#111111" media="(prefers-color-scheme: dark)">
     <script>try{var t=localStorage.getItem('site-theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
     <style>:root { --ground: #ffffff; } @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --ground: #111111; } }
-      :root[data-theme="dark"] { --ground: #111111; } .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }</style>
+      :root[data-theme="dark"] { --ground: #111111; } .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); } ${css}</style>
+    <script>(() => { const start = document.startViewTransition?.bind(document); window.fades = []; if (start) document.startViewTransition = (cb) => { const t = start(cb); fades.push(t); return t; }; })();</script>
     <script type="module">import { initTheme } from './theme.js'; initTheme(document.querySelector('.theme-toggle'));</script>
     </head><body>${button}</body></html>`;
-  writeFileSync(join(dir, 'index.html'), page('<button class="theme-toggle" type="button" data-light="Hell" data-dark="Dunkel"><span class="visually-hidden">Wechseln zu </span><span class="theme-word">Dunkel</span></button>'));
+  const german = '<button class="theme-toggle" type="button" data-light="Hell" data-dark="Dunkel"><span class="visually-hidden">Wechseln zu </span><span class="theme-word">Dunkel</span></button>';
+  writeFileSync(join(dir, 'index.html'), page(german));
+  // a cross-fade long enough to click into
+  writeFileSync(join(dir, 'fade.html'), page(german, '::view-transition-group(root) { animation-duration: 4s; }'));
   // the markup sites were built with before: a bare word and aria-pressed
   writeFileSync(join(dir, 'old.html'), page('<button class="theme-toggle" type="button" aria-pressed="false">Dark</button>'));
   const server = createServer((req, res) => {
@@ -556,8 +560,11 @@ test('theme addon: the button names the theme a click switches to, on light and 
   const state = `(() => { const b = document.querySelector('.theme-toggle'), ground = getComputedStyle(document.documentElement).getPropertyValue('--ground').trim();
     return { dark: ground === '#111111', word: b.querySelector('.theme-word')?.textContent, name: b.textContent.replace(/\\s+/g, ' ').trim(), pressed: b.getAttribute('aria-pressed'),
       icons: b.querySelectorAll('svg.theme-icon').length, metas: [...document.querySelectorAll('meta[name="theme-color"]')].every((m) => m.content === ground), saved: localStorage.getItem('site-theme') }; })()`;
-  // a click, then the cross-fade's frames
-  const click = (times = 1) => `(async () => { for (let i = 0; i < ${times}; i++) document.querySelector('.theme-toggle').click(); await new Promise((r) => setTimeout(r, 400)); return ${state}; })()`;
+  // the state once every cross-fade asked for has swapped the theme: that happens at the next frame drawn, which on a
+  // slow machine (macOS CI) comes well after 400 ms; one that never swaps fails here after 5 s
+  const settled = `(async () => { const all = Promise.all(fades.map((t) => t.updateCallbackDone.catch(() => {})));
+    if (await Promise.race([all.then(() => 1), new Promise((r) => setTimeout(r, 5000, 0))])) return ${state}; throw new Error('the theme never swapped'); })()`;
+  const click = (times = 1) => `(async () => { for (let i = 0; i < ${times}; i++) document.querySelector('.theme-toggle').click(); return ${settled}; })()`;
   const browser = await launch();
   try {
     for (const scheme of ['light', 'dark']) {
@@ -587,13 +594,26 @@ test('theme addon: the button names the theme a click switches to, on light and 
     await p.eval('localStorage.clear()');
     await p.goto(base);
     await p.send('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-color-scheme', value: 'dark' }] });
-    assert.equal((await p.eval(`new Promise((r) => setTimeout(r, 200)).then(() => ${state})`)).word, 'Hell', 'the system turned dark');
+    const followed = `(async () => { for (let t = 0; t < 5000 && document.querySelector('.theme-word').textContent !== 'Hell'; t += 20) await new Promise((r) => setTimeout(r, 20)); return ${state}; })()`;
+    assert.equal((await p.eval(followed)).word, 'Hell', 'the system turned dark');
     // the old markup: the bare word is wrapped, the icon added, aria-pressed dropped
     await p.send('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-color-scheme', value: 'light' }] });
     await p.goto(base + 'old.html');
     assert.deepEqual(await p.eval(state), { dark: false, word: 'Dark', name: 'Dark', pressed: null, icons: 1, metas: true, saved: null }, 'old markup on load');
     assert.equal((await p.eval(click())).word, 'Light', 'old markup after a click');
     assert.deepEqual(p.problems, []);
+    // real clicks while the cross-fade runs: the browser hands them to <html>, and one on the button still counts,
+    // so a second click goes back; one beside it does nothing
+    await p.goto(base);
+    await p.eval('localStorage.clear()');
+    await p.goto(base + 'fade.html');
+    const at = await p.eval(`(() => { const r = document.querySelector('.theme-toggle').getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2 }; })()`);
+    const mouse = async ({ x, y }) => { for (const type of ['mousePressed', 'mouseReleased']) await p.send('Input.dispatchMouseEvent', { type, x, y, button: 'left', clickCount: 1 }); return p.eval(settled); };
+    assert.equal((await mouse(at)).dark, true, 'a real click');
+    assert.equal((await mouse({ x: at.x, y: at.y + 200 })).dark, true, 'a click beside the button, during the cross-fade');
+    assert.deepEqual(await p.eval('fades.length'), 1, 'still one cross-fade');
+    const back = await mouse(at);
+    assert.deepEqual([back.dark, back.word, back.saved], [false, 'Dunkel', 'light'], 'a second real click during the cross-fade goes back');
     await p.close();
   } finally { await browser.close(); server.close(); }
   rmSync(dir, { recursive: true, force: true });
@@ -1091,13 +1111,17 @@ test('look: text that runs into other text or out of its chip is named; decorati
         <div class="card" style="${faults ? 'height:36px;overflow:hidden' : ''}">Doors at eight<br>Support from Salt Flats<br>Last train at one</div>
         <p style="position:relative">Tickets at the door<span style="position:absolute;left:0;top:0;opacity:0">A hint that waits for a hover</span></p>
         <svg width="200" height="40" style="display:block"><text x="0" y="20">Map</text><text x="8" y="22">Label</text></svg>
+        <!-- closed questions: the browser still lays each folded answer out, over the next question, where nobody sees it -->
+        <details><summary>Is there a cloakroom?</summary><p style="margin:0">Yes, by the door, until one.</p></details>
+        <details><summary>Can I bring a pram?</summary><p style="margin:0">There is a lift at the side.</p></details>
+        <details><summary>Is it all ages?</summary><p style="margin:0">Under sixteens with an adult.</p></details>
       </main></body></html>`;
     writeFileSync(join(dir, 'clash.html'), page('Clash', true));
     writeFileSync(join(dir, 'clean.html'), page('Clean', false));
     const r = node([join(SCRIPTS, 'look.mjs'), dir, '--pages', 'clash,clean', '--widths', '390,1440', '--frames', '1', '--out', join(dir, 'out')]);
     const found = JSON.parse(readFileSync(join(dir, 'out/report.json'), 'utf8')).findings.filter((f) => /^(collide|spill)$/.test(f.rule));
     const on = (p) => found.filter((f) => f.at.startsWith(p + ' '));
-    assert.deepEqual(on('clean'), [], 'the same page without the faults: decoration, an ellipsis, faded and SVG text are fine\n' + r.stdout);
+    assert.deepEqual(on('clean'), [], 'the same page without the faults: decoration, an ellipsis, faded and SVG text and folded answers are fine\n' + r.stdout);
     const clash = on('clash');
     const collide = clash.filter((f) => f.rule === 'collide');
     assert.equal(collide.length, 2, r.stdout);
@@ -1110,7 +1134,7 @@ test('look: text that runs into other text or out of its chip is named; decorati
     assert.equal(spill.length, 2, r.stdout);
     assert.match(spill.find((f) => /Kaiserslautern/.test(f.where)).text, /^At 390px on screen 1 "Kaiserslautern" runs \d+px out of its box \(span\.chip\) on the right\. Give the box room for its longest word/);
     assert.match(spill.find((f) => /div\.card/.test(f.where)).text, /"Support from Salt Flats" is cut off by its box \(div\.card\): \d+px of its letters are hidden on the bottom\. Let the box grow with its text \(no fixed height\)/);
-    assert.ok(!found.some((f) => /TOUR|span\.short|hover|Map|Label/.test(f.where)), 'aria-hidden decoration, an ellipsis, faded text and SVG text are left out');
+    assert.ok(!found.some((f) => /TOUR|span\.short|hover|Map|Label|by the door|lift at the side|Under sixteens/.test(f.where)), 'aria-hidden decoration, an ellipsis, faded text, SVG text and the answers in closed <details> are left out');
   } finally { rmSync(dir, { recursive: true, force: true }); }
 });
 

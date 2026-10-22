@@ -1588,9 +1588,10 @@ export function clashingText(width, screen) {
     return v;
   };
 
-  // every line of visible text on this screen, as the box of its letters
+  // every line of visible text on this screen, as the box of its letters. A closed <details> still lays out its folded
+  // part, under its summary but taking no room, so that text has boxes on the next question (14 false collides on an FAQ)
   const runs = [];
-  const SKIP = 'script, style, noscript, template, svg, select, option, textarea, [aria-hidden="true"], [hidden], [inert], dialog:not([open]), [data-oss-numbers], .visually-hidden, .sr-only';
+  const SKIP = 'script, style, noscript, template, svg, select, option, textarea, [aria-hidden="true"], [hidden], [inert], dialog:not([open]), details:not([open]) > :not(summary), [data-oss-numbers], .visually-hidden, .sr-only';
   const tw = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
   for (let n = tw.nextNode(); n; n = tw.nextNode()) {
     const el = n.parentElement;

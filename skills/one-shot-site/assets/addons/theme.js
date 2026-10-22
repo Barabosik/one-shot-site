@@ -48,14 +48,26 @@ export function initTheme(button) {
     const ground = getComputedStyle(html).getPropertyValue('--ground').trim();
     if (ground) for (const meta of document.querySelectorAll('meta[name="theme-color"]')) meta.content = ground;
   };
-  button.addEventListener('click', () => {
+  let fading = null; // the cross-fade under way
+  const toggle = () => {
     const next = (wanted || (isDark() ? 'dark' : 'light')) === 'dark' ? 'light' : 'dark';
     wanted = next;
     const swap = () => { html.dataset.theme = next; show(); };
     // a soft cross-fade where the browser can do it
-    if (document.startViewTransition && !matchMedia('(prefers-reduced-motion: reduce)').matches) document.startViewTransition(swap);
-    else swap();
+    if (document.startViewTransition && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const t = (fading = document.startViewTransition(swap));
+      const over = () => { if (fading === t) fading = null; };
+      t.finished.then(over, over);
+    } else swap();
     try { localStorage.setItem(KEY, next); } catch { /* ignore */ }
+  };
+  button.addEventListener('click', toggle);
+  // While a cross-fade runs, the browser sends every click to <html>, so a second click on the button would be lost
+  // (on a slow machine the fade lasts long enough to hit): a click there inside the button's box still counts.
+  document.addEventListener('click', (e) => {
+    if (!fading || e.target !== html) return;
+    const r = button.getBoundingClientRect();
+    if (e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom) toggle();
   });
   system.addEventListener('change', show);
   show();
