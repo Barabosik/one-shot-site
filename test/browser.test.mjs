@@ -562,6 +562,41 @@ test('settle waits for what moves on the screen: transitions, effects marked is-
   rmSync(dir, { recursive: true, force: true });
 });
 
+// Printing a page or saving it as a PDF left every section nobody had scrolled to blank: the entrances' hidden
+// starting states (base.css, effects.css, the motion addon's inline styles) applied in print too.
+test('print and PDF show what waits for an entrance: reveals, split words, masks, drawn lines, counters, GSAP lists', { skip, timeout: 120000 }, async () => {
+  const dir = mkdtempSync(join(tmpdir(), 'oss-print-'));
+  const css = (f) => 'file:///' + resolve('skills/one-shot-site/assets', f).replace(/\\/g, '/');
+  writeFileSync(join(dir, 'index.html'), `<!doctype html><html lang="en" class="js"><head><meta charset="utf-8"><title>Print</title>
+    <link rel="stylesheet" href="${css('starter/src/base.css')}"><link rel="stylesheet" href="${css('addons/effects.css')}"></head>
+    <body><main><h1>Menu</h1><div style="height:3000px"></div>
+      <section data-reveal id="reveal"><h2>Coffee</h2></section>
+      <h2 data-split class="fx-ready"><span class="fx-sr">Bread at seven</span><span aria-hidden="true"><span class="fx-w"><span class="fx-p" id="word" style="--fx-i:0">Bread</span></span></span></h2>
+      <img data-mask id="mask" alt="" width="40" height="40" src="data:image/gif;base64,R0lGODlhAQABAAAAACw=">
+      <svg data-draw width="100" height="10"><path class="fx-line" id="line" pathLength="1" d="M0 5H100" stroke="#000"/></svg>
+      <p data-count><span class="fx-sr">1,200</span><span class="fx-n" aria-hidden="true"><span class="fx-ghost" id="ghost">1,200</span><span id="run">0</span></span></p>
+      <ul data-stagger><li id="item" style="opacity: 0; visibility: hidden">Rye</li></ul>
+    </main></body></html>`);
+  const browser = await launch();
+  try {
+    const page = await browser.newPage({ width: 800, height: 600 });
+    await page.goto('file:///' + join(dir, 'index.html').replace(/\\/g, '/'));
+    const state = () => page.eval(`(() => { const s = (id) => getComputedStyle(document.getElementById(id));
+      return { reveal: s('reveal').opacity, word: s('word').translate, mask: s('mask').clipPath, line: s('line').strokeDashoffset,
+        ghost: s('ghost').visibility, run: s('run').visibility, item: [s('item').opacity, s('item').visibility].join(' ') }; })()`);
+    const screen = await state();
+    // the page is a fair test: on a screen, all of them wait for their entrance
+    assert.equal(screen.reveal, '0', JSON.stringify(screen));
+    assert.notEqual(screen.word, 'none', JSON.stringify(screen));
+    assert.notEqual(screen.mask, 'none', JSON.stringify(screen));
+    assert.equal(screen.item, '0 hidden', JSON.stringify(screen));
+    await page.send('Emulation.setEmulatedMedia', { media: 'print', features: [{ name: 'prefers-reduced-motion', value: 'no-preference' }] });
+    assert.deepEqual(await state(), { reveal: '1', word: 'none', mask: 'none', line: '0px', ghost: 'visible', run: 'hidden', item: '1 visible' });
+    await page.close();
+  } finally { await browser.close(); }
+  rmSync(dir, { recursive: true, force: true });
+});
+
 test('theme addon: the button names the theme a click switches to, on light and dark systems, with and without a saved pick', { skip, timeout: 120000 }, async (t) => {
   const dir = mkdtempSync(join(tmpdir(), 'oss-theme-'));
   cpSync(resolve('skills/one-shot-site/assets/addons/theme.js'), join(dir, 'theme.js'));

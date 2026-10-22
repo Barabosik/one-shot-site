@@ -36,7 +36,8 @@ In GSAP: `power3.out` / `expo.out` for arrivals, `power2.inOut` for moves.
 - Transitions, not keyframes, for anything that can be interrupted (hover, toggles), so it reverses smoothly.
 - Hover effects only for real pointers: `@media (hover: hover) and (pointer: fine)`.
 - Scroll-triggered reveals play once. Content is visible in the HTML first; the hidden starting state is only
-  applied when JS runs and motion is allowed (base.css does this with `.js` and the media query).
+  applied on a screen, when JS runs and motion is allowed (base.css does this with `.js` and
+  `@media screen and (prefers-reduced-motion: no-preference)`), so a printed page or a saved PDF shows it all.
 - Keep it smooth on a mid-range phone: few animated elements at once, no animated blur over ~20px, no animating
   huge images.
 

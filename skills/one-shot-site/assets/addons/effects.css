@@ -1,5 +1,5 @@
-/* effects.js: the starting states. Everything is hidden or offset only when scripts run (.js) and the visitor
-   hasn't asked for less motion, so without either the page is simply all there. */
+/* effects.js: the starting states. Everything is hidden or offset only on a screen, when scripts run (.js) and the
+   visitor hasn't asked for less motion, so without any of them (a printed page, a saved PDF) it is simply all there. */
 
 .fx-sr { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .fx-w { display: inline-block; white-space: nowrap; }
@@ -8,7 +8,7 @@
 .fx-n > * { grid-area: 1 / 1; white-space: nowrap; }
 .fx-ghost { visibility: hidden; }
 
-@media (prefers-reduced-motion: no-preference) {
+@media screen and (prefers-reduced-motion: no-preference) {
   /* data-split: words (or letters) rise out of a clipped line, one after another */
   .js [data-split]:not(.fx-ready) { opacity: 0; }
   .js [data-split] .fx-w { overflow: clip; padding-block: 0.12em; margin-block: -0.12em; vertical-align: top; } /* room for accents and descenders */
@@ -45,11 +45,16 @@
 /* the marquee's row; with reduced motion (or before scripts run) a plain wrapping row */
 [data-marquee], [data-marquee] .fx-set { display: flex; flex-wrap: wrap; align-items: center; gap: var(--fx-gap, 3rem); }
 [data-marquee] .fx-track { display: flex; }
-@media (prefers-reduced-motion: no-preference) {
+@media screen and (prefers-reduced-motion: no-preference) {
   [data-marquee].fx-ready { display: block; }
   [data-marquee] .fx-set { flex-wrap: nowrap; flex-shrink: 0; padding-inline-end: var(--fx-gap, 3rem); }
 }
-@media (prefers-reduced-motion: reduce) {
+@media print, (prefers-reduced-motion: reduce) {
   [data-marquee] .fx-copy, .fx-pause { display: none; }
+}
+/* a number that hasn't counted up yet prints as the real number, not as 0 */
+@media print {
+  .fx-ghost { visibility: visible; }
+  .fx-n > :not(.fx-ghost) { visibility: hidden; }
 }
 .fx-pause { font: inherit; font-size: 0.85em; }
