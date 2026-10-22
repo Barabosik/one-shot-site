@@ -44,7 +44,9 @@ Calmer sites by default. The skill:
 - **Fewer false alarms and stalls.** `look` and `audit` no longer report a collide for the hidden text of a closed
   `<details>`. The browser gets 45 s to start, then one more try with a fresh profile
   (`ONE_SHOT_BROWSER_START` sets a longer wait for a slow machine). Waits for the screen to settle, a scroll step
-  and pictures to decode no longer hang when frames come seconds apart.
+  and pictures to decode no longer hang when frames come seconds apart. `film` watches the first screen for
+  `--seconds` from the first paint, so a page that paints late on a slow machine still gets its whole first screen
+  filmed.
 
 The examples:
 
