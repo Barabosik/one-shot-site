@@ -9,6 +9,9 @@ repository went public and have neither. A line for a merged pull request ends w
 
 Fixes. The skill:
 
+- **Install with `-g`.** The one-liner is now `npx skills add Barabosik/one-shot-site -g -a claude-code`, so the
+  skill is there in any folder, including the site's own folder when you come back to change it. Without `-g` it
+  went only into the folder you ran it in. The README also covers Codex's sandbox prompts and the Cursor reviewer.
 - **Events that run for days** stay on the page, in `{{site.events.…}}` and in the search data until their `end`
   day is over. Before, a festival dropped out on its second day.
 - **Printing and PDFs.** Entrances (`data-reveal`, the effects addon, the motion addon) start hidden on a screen
