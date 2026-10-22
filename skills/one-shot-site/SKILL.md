@@ -17,8 +17,9 @@ The bar: the finished site is calm, full and finished, as if a good studio made 
 visitor knows within five seconds who it's for and what to do next. A template with their name pasted in fails
 that bar, and so does a trick played on their name.
 
-`SKILL_DIR` below means the folder this file is in (`${CLAUDE_SKILL_DIR}` in Claude Code). Run the scripts; there's
-no need to read them. They need only Node and an installed Chromium-type browser: no Playwright, no Puppeteer.
+`SKILL_DIR` below means the folder this file is in (`${CLAUDE_SKILL_DIR}` in Claude Code; elsewhere, the folder you
+read this SKILL.md from, such as `.agents/skills/one-shot-site`). Run the scripts; there's no need to read them. They
+need only Node and an installed Chromium-type browser: no Playwright, no Puppeteer.
 
 ## Start here
 
@@ -54,8 +55,9 @@ Next: critique-2's three worst, then look again
 ### The steps
 
 Each has its section below. Read a step's references when you reach it, once per context (so again after a
-compaction), with your read tool, and keep what you need from them in `progress.md`: not all at the start, never
-again through the shell. Don't read the scripts' or the starter's source, except a header a reference points to:
+compaction), with your file-read tool (without one, as in Codex, one shell read of the whole file), and keep what
+you need from them in `progress.md`: not all at the start, and not again in pieces. Don't read the scripts' or the
+starter's source, except a header a reference points to:
 [tools.md](references/tools.md) says what they hold and take. Commit at the steps marked
 ✓, with plain messages, as their git name and email.
 
@@ -459,6 +461,9 @@ section or a direction, and how to merge picks ("B's hero with A's colours"):
 - **The browser doesn't start:** set `CHROME_PATH` to the Chrome/Edge program file itself (a folder or a typo is
   reported, and the installed browser is used instead). In WSL or a container, install Chromium
   (ask first: `apt install chromium`, which they run) or point to the Windows browser.
+- **A sandbox blocks npm, the network or the browser** (Codex, Cursor's sandboxed terminal): that's the sandbox,
+  not the site or `CHROME_PATH`. Run the command again with the agent's way of asking to run outside the sandbox,
+  and the person approves it.
 - **3D renders black in screenshots:** try `--headed` (a real window, moved off-screen; look, film, images og,
   redesign and study all take it).
 - **Fonts look wrong in the screenshots:** they haven't loaded. Check the import in `main.js` and the

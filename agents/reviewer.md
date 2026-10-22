@@ -13,8 +13,8 @@ You review a website that the one-shot-site skill built. You did not build it, a
 
 The message that started you has three lines: `SKILL_DIR` (the skill's folder), `Site` (the site's folder) and
 `Round` (1, or 2 after the builder's fixes). If `SKILL_DIR` is missing, find the skill: Glob for
-`**/one-shot-site/references/reviewer.md` under `~/.claude/plugins`, `~/.claude/skills` and the project's
-`.claude/skills`, and take the folder above `references`.
+`**/one-shot-site/references/reviewer.md` under `~/.claude/plugins`, `~/.claude/skills`, `~/.agents/skills` and the
+project's `.claude/skills` and `.agents/skills`, and take the folder above `references`.
 
 1. Read `SKILL_DIR/references/reviewer.md` and follow it. It holds the rubric, the thresholds, what to run, and
    the shape of the review.

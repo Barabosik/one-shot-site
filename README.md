@@ -205,7 +205,8 @@ Copilot all read `.agents/skills/` and `~/.agents/skills/`.
 
 **The reviewer** ([How it works](#how-it-works), step 5) comes with the plugin as `one-shot-site:reviewer`. If you
 only installed the skill, the same review still runs in a fresh context. In Cursor you can copy `agents/reviewer.md`
-into your project's `.cursor/agents/` to call it by name, though I haven't tested that yet.
+from this repository (the `npx skills` install doesn't include it) into your project's `.cursor/agents/` and change
+its `model: opus` line to `model: inherit`, though I haven't tested that yet.
 
 ### Requirements
 
@@ -216,6 +217,8 @@ into your project's `.cursor/agents/` to call it by name, though I haven't teste
 - An agent that can run shell commands. Agents other than Claude Code should work, but I haven't tested them yet. If
   your agent has a question picker (Claude Code does), you'll click your answers. Otherwise you get a numbered list
   and reply with "2" or "1,3".
+- In Codex, the default sandbox has no network, so it asks before npm installs, font and photo downloads and the
+  browser checks. Say yes, or start it with `codex -c sandbox_workspace_write.network_access=true`.
 
 <details>
 <summary>The tools inside (they work on any site)</summary>
