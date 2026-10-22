@@ -181,9 +181,15 @@ try {
     page.send('Page.screencastFrameAck', { sessionId: p.sessionId }).catch(() => {});
   });
   await page.send('Page.startScreencast', { format: 'jpeg', quality: 72, maxWidth: W, maxHeight: H, everyNthFrame: 1 });
-  const started = Date.now();
   await page.goto(site.url + path);
-  await sleep(Math.max(0, SECONDS * 1000 + 250 - (Date.now() - started)));
+  // the first screen gets SECONDS from its first paint, the clock the headline is timed on: a machine that paints
+  // late would otherwise start scrolling as the page appears, and a jump a person at the top would see then comes
+  // while scrolled, where scroll anchoring hides it. A page that paints no text or picture within 10 s of loading
+  // goes on.
+  const loaded = Date.now();
+  let paintedAt = null;
+  while ((paintedAt = await page.eval('window.__film?.painted ?? null')) === null && Date.now() - loaded < 10000) await sleep(100);
+  await sleep(paintedAt === null ? 0 : Math.max(0, paintedAt + SECONDS * 1000 + 250 - await page.eval('performance.now()')));
   timeOrigin = await page.eval('performance.timeOrigin');
   loadEnd = await page.eval('performance.now()');
   for (const l of await page.eval(LOOPING) || []) loops.set(l.el + '|' + l.label, l);

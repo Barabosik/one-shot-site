@@ -108,9 +108,12 @@ test('film records motion: slow headline, endless loop, layout shift, a canvas d
   const dir = mkdtempSync(join(tmpdir(), 'oss-film-'));
   writeFileSync(join(dir, 'index.html'), `<!doctype html><html lang="en"><meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1"><title>Film</title><link rel="icon" href="data:,">
+    <!-- paints after 4.5 s on every machine, as a slow one does (macOS on CI): past the 4 s an earlier film watched
+         before it scrolled, so its jump came while scrolled, where scroll anchoring hides it -->
+    <script>const t0 = performance.now(); while (performance.now() - t0 < 4500);</script>
     <style>
       body { margin: 0; font: 18px/1.5 sans-serif; background: #fff; color: #111 }
-      h1 { margin: 0; padding: 40px 16px; animation: in 2.4s both } /* long enough to count as slow even when a slow machine paints late */
+      h1 { margin: 0; padding: 40px 16px; animation: in 3.2s both } /* slow by a margin even where the first paint is reported late (1.1 s on macOS for 2.4 s) */
       @keyframes in { from { opacity: 0 } }
       .spin { width: 120px; height: 120px; background: #c33; margin: 16px; animation: turn 2s linear infinite }
       @keyframes turn { to { transform: rotate(1turn) } }
@@ -131,7 +134,8 @@ test('film records motion: slow headline, endless loop, layout shift, a canvas d
         setTimeout(() => { const d = document.createElement('div'); d.style.height = '700px'; document.body.prepend(d); }, 300);
       }).observe({ type: 'paint', buffered: true });
     </script></body></html>`);
-  const film = (...extra) => node([join(SCRIPTS, 'film.mjs'), dir, '--seconds', '3', '--steps', '2', '--width', '800', ...extra]);
+  // 4 s from the first paint, so the h1 is done (readable) before the first scroll takes it off screen
+  const film = (...extra) => node([join(SCRIPTS, 'film.mjs'), dir, '--seconds', '4', '--steps', '2', '--width', '800', ...extra]);
   const r = film('--video', '--out', join(dir, 'film'));
   assert.equal(r.status, 1, r.stdout + r.stderr);
   const rules = new Set(JSON.parse(readFileSync(join(dir, 'film/report.json'), 'utf8')).findings.map((f) => f.rule));
