@@ -116,7 +116,8 @@ node SKILL_DIR/scripts/look.mjs https://the-live-url/ --frames 3
 - The page loads at the real address, with no errors and no failed requests.
 - `https://the-live-url/does-not-exist` shows the 404 page.
 - The link preview works: paste the URL into a chat with themselves, or check with a preview tool.
-- Optional: submit the sitemap in Google Search Console (the person's account).
+- Submit the sitemap in Google Search Console (the person's account). Optional at the root of a domain; needed
+  for a site under a path (a GitHub project page), where crawlers never read its robots.txt (set-url.mjs says so).
 
 ## The handover
 

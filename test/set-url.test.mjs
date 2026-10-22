@@ -144,3 +144,18 @@ test('the starter 404 page links home and to its icon by the address set-url giv
     assert.match(readFileSync(join(dir, 'public/404.html'), 'utf8'), /<a href="https:\/\/kleiner-kaffee\.example\/">/, 'and moves with the address');
   } finally { rmSync(dir, { recursive: true, force: true }); }
 });
+
+// On a GitHub project page robots.txt sits at /NAME/robots.txt, where crawlers never look, so its Sitemap line was
+// never read and nothing said so.
+test('set-url says when the site lives under a path, where robots.txt goes unread', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'oss-url-path-'));
+  try {
+    writeFileSync(join(dir, 'index.html'), '<link rel="canonical" href="{{URL}}">');
+    const sub = run(dir, 'https://owner.github.io/kleiner-kaffee/');
+    assert.equal(sub.status, 0, sub.stderr);
+    assert.match(sub.stdout, /under \/kleiner-kaffee\/, and crawlers read robots\.txt only at https:\/\/owner\.github\.io\/robots\.txt.*submit https:\/\/owner\.github\.io\/kleiner-kaffee\/sitemap\.xml in Google Search Console/);
+    const root = run(dir, 'https://kleiner-kaffee.example/');
+    assert.equal(root.status, 0, root.stderr);
+    assert.doesNotMatch(root.stdout, /robots\.txt/, 'at the root of its host, robots.txt works');
+  } finally { rmSync(dir, { recursive: true, force: true }); }
+});

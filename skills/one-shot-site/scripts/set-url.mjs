@@ -94,4 +94,8 @@ ${pages.map((p) => `  <url><loc>${loc(p)}</loc></url>`).join('\n')}
 `);
 }
 
+// crawlers read robots.txt only at the root of the host: under a path (a GitHub project page) its Sitemap line is
+// never seen, so the sitemap has to be handed in
+const { origin, pathname } = new URL(url);
+if (pathname !== '/') console.log(`The site lives under ${pathname}, and crawlers read robots.txt only at ${origin}/robots.txt, so its Sitemap line goes unseen. Once it is live, submit ${url}sitemap.xml in Google Search Console (and Bing Webmaster Tools).`);
 console.log(`Address set to ${url} in ${changed} file(s); ${existsSync(join(root, 'public')) ? `sitemap lists ${pages.length} page(s)` : 'no public/ folder, so no sitemap was written'}. Rebuild, then run the audit without --draft.`);
