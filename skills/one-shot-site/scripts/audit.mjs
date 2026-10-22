@@ -204,7 +204,7 @@ try {
       await p.call(scrollThrough, 120);
       await p.eval(`new Promise((done) => { const t0 = performance.now(); (function wait() {
         const busy = document.getAnimations().some((x) => x.playState === 'running' && x.effect?.getTiming().iterations !== Infinity);
-        if (!busy || performance.now() - t0 > 4000) setTimeout(done, 400); else requestAnimationFrame(wait); })(); })`);
+        if (!busy || performance.now() - t0 > 4000) setTimeout(done, 400); else setTimeout(wait, 50); })(); })`);
       await p.eval(src + ';1');
       const res = await p.eval(`axe.run(document, { runOnly: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa', 'best-practice'] }).then(r => r.violations.map(v => ({ id: v.id, impact: v.impact, help: v.help, n: v.nodes.length, where: v.nodes.slice(0, 2).map(n => n.target.join(' ')).join(', ') })))`);
       notes.push(`axe-core on ${f.path}: ${res.length ? `${res.length} rule${res.length > 1 ? 's' : ''} broken, listed above` : 'no violations'}.`);

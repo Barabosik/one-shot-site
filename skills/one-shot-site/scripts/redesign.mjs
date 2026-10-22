@@ -524,7 +524,8 @@ async function sheet(browser, dir, name, body) {
     figcaption{margin-top:5px;color:#999;font-weight:500;font-size:13px} .pair{margin-bottom:26px} .mark{color:#ff2d75}</style>${body}`);
   const page = await browser.newPage({ width: 1600, height: 900 });
   await page.goto(pathToFileURL(html).href);
-  await page.eval('Promise.all([...document.images].map((i) => i.decode().catch(() => 0)))');
+  // the pictures decoded, or 10 s: a decode that never ends held the run for the browser's 120 s limit
+  await page.eval('Promise.race([Promise.all([...document.images].map((i) => i.decode().catch(() => 0))), new Promise((r) => setTimeout(r, 10000))])');
   const height = await page.eval('document.documentElement.scrollHeight');
   await page.shot(join(dir, name + '.jpg'), { quality: 80, clip: { x: 0, y: 0, width: 1600, height: Math.min(height, 9000) } });
   await page.close();

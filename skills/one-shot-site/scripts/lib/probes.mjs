@@ -31,8 +31,9 @@ export function appLinkGuard() {
 export function scrollThrough(stepMs) {
   return new Promise(async (done) => {
     const wait = (ms) => new Promise((r) => setTimeout(r, ms));
-    // two frames: the page has really drawn this scroll position, so its observers saw it, even on a busy CPU
-    const drawn = () => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+    // two frames: the page has really drawn this scroll position, so its observers saw it, even on a busy CPU. At
+    // most a second: a machine drawing in software (macOS on CI) went seconds between frames, every step
+    const drawn = () => new Promise((r) => { requestAnimationFrame(() => requestAnimationFrame(r)); setTimeout(r, 1000); });
     const h = innerHeight * 0.7;
     for (let y = 0; y < document.documentElement.scrollHeight - innerHeight + h; y += h) {
       scrollTo({ top: y, behavior: 'instant' });
@@ -49,6 +50,8 @@ export function scrollThrough(stepMs) {
 // Wait until what moves on this screen has arrived: CSS animations and transitions that end are done, the effects
 // addon's pieces in view are marked .is-in, and its counting numbers show their final value. Endless loops and
 // scroll-driven animations don't count. Gives up after capMs. Resolves with the time it waited.
+// It looks every 50 ms, not once a frame: a machine that draws in software under load (a CI runner) can go seconds
+// between frames, and then the frames alone outlasted the cap with everything long arrived.
 export function settle(capMs) {
   return new Promise((done) => {
     const t0 = performance.now();
@@ -56,11 +59,16 @@ export function settle(capMs) {
     const busy = () => document.getAnimations().some((a) => a.playState === 'running' && a.timeline === document.timeline && a.effect?.getTiming().iterations !== Infinity)
       || [...document.querySelectorAll('[data-split], [data-count], [data-draw], [data-mask]')].some((e) => inView(e) && !e.classList.contains('is-in'))
       || [...document.querySelectorAll('[data-count] .fx-ghost')].some((g) => inView(g) && g.nextElementSibling && g.nextElementSibling.textContent !== g.textContent);
-    // two frames first: the page sees where it is scrolled to, its observers fire and the entrances start
-    requestAnimationFrame(() => requestAnimationFrame(function wait() {
+    const look = () => {
       if (!busy() || performance.now() - t0 > capMs) done(Math.round(performance.now() - t0));
-      else requestAnimationFrame(wait);
-    }));
+      else setTimeout(look, 50);
+    };
+    // two frames first: the page sees where it is scrolled to, its observers fire and the entrances start. When
+    // frames are slow in coming, a second is enough of a head start.
+    let started = false;
+    const go = () => { if (!started) { started = true; look(); } };
+    requestAnimationFrame(() => requestAnimationFrame(go));
+    setTimeout(go, Math.min(1000, capMs));
   });
 }
 
@@ -196,7 +204,7 @@ export async function mediaContrast(page) {
       const lines = await page.eval(`(async () => {
         const el = document.querySelector('[data-oss-mc="${m.i}"]');
         scrollTo({ top: Math.max(0, ${m.top} - innerHeight / 3), behavior: 'instant' });
-        await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+        await new Promise((r) => { requestAnimationFrame(() => requestAnimationFrame(r)); setTimeout(r, 1000); });
         const rects = [];
         for (const n of el.childNodes) {
           if (n.nodeType !== 3 || !n.data.trim()) continue;
