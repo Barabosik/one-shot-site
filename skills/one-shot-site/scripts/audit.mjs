@@ -413,7 +413,7 @@ const home0 = facts.find((f) => f.path === '/');
 const country = String(facts0?.address?.country || '').toUpperCase();
 if (home0 && (/^de\b/i.test(home0.lang || '') || ['DE', 'AT', 'CH', 'LI'].includes(country))) {
   const hrefs = home0.links.join(' ');
-  if (!/impressum|imprint|legal/i.test(hrefs)) add('warn', 'impressum', 'German-speaking sites with any business purpose need an Impressum, one click from every page (Germany: § 5 DDG). See legal.md.', '/');
+  if (!/impressum|imprint|legal/i.test(hrefs)) add('warn', 'impressum', 'German-speaking sites with any business purpose need an Impressum, one click from every page (Germany: § 5 DDG, Austria: § 5 ECG). See legal.md.', '/');
   if (!/datenschutz|privacy/i.test(hrefs)) add('warn', 'privacy-page', 'No link to a privacy page (Datenschutzerklärung). Every site that is not purely private needs one, since the host sees visitor IP addresses. See legal.md.', '/');
 }
 // CC BY photos from photos.mjs: the license asks for the credit where the photo is seen

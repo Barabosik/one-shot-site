@@ -8,13 +8,15 @@ or a generator like eRecht24 or Datenschutz-Generator.de. Say this to them once,
 
 | Page | Who | Where |
 |---|---|---|
-| Impressum | Germany: any site with a business purpose, freelancers and associations included (§ 5 DDG, which replaced § 5 TMG in May 2024). Austria: § 5 ECG. | one click from every page, usually the footer |
+| Impressum | Germany: any site with a business purpose, freelancers and associations included (§ 5 DDG, which replaced § 5 TMG in May 2024). Austria: § 5 ECG, plus the disclosure under § 25 MedienG (name, line of business, where they live or are based). | one click from every page, usually the footer |
 | Privacy page (Datenschutzerklärung) | every site in the EU that isn't purely private: the host sees visitor IP addresses. Anywhere: a site that collects emails or messages (a waitlist, a form) | same |
 | Cookie banner | only when the site sets non-essential cookies or loads third-party content before a click | the starter needs none |
 
 `new-site.mjs --legal de` adds `impressum.html` and `datenschutz.html`, filled from `site.json` (`owner.name`,
-`address`, `email`, `host`), and links them in the footer. Read both with the person and fill in only real
-facts. Until `owner.name` is known the pages show `{{OWNER_NAME}}`: a draft audit lists it as waiting on them, and the
+`address`, `email`, `host`), and links them in the footer. For a business in Austria (`--country AT`, a +43 phone or
+a `de-AT` page) the Impressum cites § 5 ECG, and calls the VAT number UID-Nummer and the register Firmenbuch; add
+their line of business (Unternehmensgegenstand) by hand, for § 25 MedienG. Read both with the person and fill in
+only real facts. Until `owner.name` is known the pages show `{{OWNER_NAME}}`: a draft audit lists it as waiting on them, and the
 final audit stops on it, since the name is required. Ask for it; until it's in, both pages stay with the mark (never remove them to pass the audit). The
 Impressum shows these `owner` fields only when they are filled in: `business` (the trading name, if it isn't the
 owner's name), `register` ("Amtsgericht Leipzig, HRB 12345"), `vatId` (USt-IdNr.) and `chamber`

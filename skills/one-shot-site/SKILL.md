@@ -208,8 +208,9 @@ Addons: `effects` (no library: split headlines, count-ups, drawn lines, wipes, m
 and/or `motion` (GSAP) for Lively and Showpiece (question 4), `hero3d` for Showpiece, `theme` and `sound` from the
 extras (question 6), `embed` for a video or map that should sit in the page. See
 [references/extras.md](references/extras.md). `--legal de` for a business or freelancer in Germany or Austria
-(Impressum and privacy page, see [references/legal.md](references/legal.md)), only when they said where it is
-(an address, a phone, their words), never from the language or a guess. Not said? No legal pages yet; the
+(Impressum and privacy page, see [references/legal.md](references/legal.md); with `--country AT` the Impressum
+cites Austrian law), only when they said where it is (an address, a phone, their words), never from the language
+or a guess. Not said? No legal pages yet; the
 handover's list asks "Where is the business based? In Germany or Austria it needs an Impressum and a privacy
 page." The address is usually unknown at this
 point: leave out `--url`, run the audit with `--draft`, and fill it in later with `set-url.mjs` (step 11).

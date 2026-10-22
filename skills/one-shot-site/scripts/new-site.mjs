@@ -21,7 +21,8 @@
 // for a person, a group or software, which sell nothing until --currency says so.
 //
 // --legal de adds an Impressum and a privacy page (German templates, filled from site.json) and links them
-// in the footer.
+// in the footer. For a business in Austria (--country AT, a +43 phone or a de-AT page) the Impressum cites
+// Austrian law: § 5 ECG, the UID number and the Firmenbuch, not § 5 DDG.
 //
 // Anything not given stays as a {{PLACEHOLDER}}; the audit refuses to pass until each one is filled.
 import { cpSync, existsSync, lstatSync, mkdirSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs';
@@ -185,10 +186,14 @@ const CURRENCY = { GB: 'GBP', US: 'USD', CH: 'CHF', LI: 'CHF', CA: 'CAD', AU: 'A
 // --legal, else the language's region.
 const DIAL = { 49: 'DE', 43: 'AT', 41: 'CH', 44: 'GB', 1: 'US', 33: 'FR', 34: 'ES', 39: 'IT', 31: 'NL', 32: 'BE', 352: 'LU', 45: 'DK', 46: 'SE', 47: 'NO', 48: 'PL', 420: 'CZ', 36: 'HU', 351: 'PT', 353: 'IE', 358: 'FI', 61: 'AU', 64: 'NZ', 81: 'JP', 65: 'SG', 27: 'ZA', 55: 'BR', 52: 'MX', 91: 'IN' };
 const dialled = (() => { const d = String(a.phone || '').replace(/[^\d+]/g, '').match(/^(?:\+|00)(\d{1,3})/)?.[1]; return d && (DIAL[d.slice(0, 3)] || DIAL[d.slice(0, 2)] || DIAL[d.slice(0, 1)]); })();
+// --legal de serves Germany and Austria, so a de-AT page with it is in Austria, not Germany
+const LEGAL_IN = { de: ['DE', 'AT'] };
+const langRegion = String(fill.LANG).split('-')[1]?.toUpperCase();
 const [region, regionFrom] = a.country ? [String(a.country).toUpperCase(), countryFromFile ? '--facts' : '--country']
   : dialled ? [dialled, 'the phone number']
+  : a.legal && LEGAL_IN[a.legal].includes(langRegion) ? [langRegion, '--legal and --lang']
   : a.legal ? [String(a.legal).toUpperCase(), '--legal']
-  : [String(fill.LANG).split('-')[1]?.toUpperCase(), '--lang'];
+  : [langRegion, '--lang'];
 // a person, a product or a group has no shop front: no street address, opening hours or menu to fill in (a country,
 // yes: a translator in Lisbon works from Portugal)
 const placeless = /^(Person|Organization|Corporation|NGO|SoftwareApplication|WebApplication|MobileApplication|Product|WebSite|CreativeWork|Book|MusicGroup|PerformingGroup)$/.test(a.schema || '');
@@ -235,6 +240,33 @@ if (a.legal) {
     const text = put(readFileSync(join(skill, 'assets/legal', a.legal, p), 'utf8'), p);
     writeFileSync(join(dir, p), same ? text.replace(`<html lang="${a.legal}">`, `<html lang="${fill.LANG}">`) : text);
     pages.push(p);
+  }
+  // Austria: the same Impressum under Austrian law. The German one cites § 5 DDG and § 27a UStG, which don't apply there.
+  if (a.legal === 'de' && region === 'AT') {
+    const AT = [
+      ['<!-- Vorlage für das Impressum nach § 5 DDG (Digitale-Dienste-Gesetz, gilt seit 14.05.2024 statt § 5 TMG).',
+        '<!-- Vorlage für das Impressum in Österreich nach § 5 ECG (E-Commerce-Gesetz). Für die Offenlegung nach\n'
+        + '       § 25 MedienG den Unternehmensgegenstand ergänzen (z. B. "Café und Rösterei"); Wohnort oder Sitz steht schon da.'],
+      ['register (Registergericht und Nummer)', 'register (Firmenbuchnummer und Firmenbuchgericht, z. B. "FN 123456 a, Handelsgericht Wien")'],
+      ['vatId (USt-IdNr. nach § 27a UStG), chamber (Kammer, Berufsbezeichnung, Staat der Verleihung).',
+        'vatId (UID-Nummer), chamber (Kammer, Berufsbezeichnung, Staat der Verleihung, die gewerbe- oder\n'
+        + '       berufsrechtlichen Vorschriften und wo sie stehen, z. B. "Gewerbeordnung: www.ris.bka.gv.at").'],
+      ['Ergänzen, falls nötig: Rechtsform und Vertretungsberechtigte, zuständige Aufsichtsbehörde.',
+        'Ergänzen, falls nötig: Rechtsform, zuständige Aufsichtsbehörde (bei einem Gewerbe die Gewerbebehörde);\n'
+        + '       im Firmenbuch eingetragene Unternehmen auch die Angaben nach § 14 UGB.'],
+      ['Im Zweifel mit einem Impressum-Generator (z. B. eRecht24) oder einer Anwältin prüfen.', 'Im Zweifel mit den Musterimpressen der WKO (wko.at) oder einer Anwältin prüfen.'],
+      ['<h2>Angaben gemäß § 5 DDG</h2>', '<h2>Angaben gemäß § 5 ECG</h2>'],
+      ['<h2>Registereintrag</h2>', '<h2>Firmenbuch</h2>'],
+      ['<h2>Umsatzsteuer-ID</h2>', '<h2>UID-Nummer</h2>'],
+      ['<p>Umsatzsteuer-Identifikationsnummer nach § 27a UStG: {{site.owner.vatId}}</p>', '<p>{{site.owner.vatId}}</p>'],
+    ];
+    const file = join(dir, 'impressum.html');
+    let text = readFileSync(file, 'utf8');
+    for (const [from, to] of AT) {
+      if (!text.includes(from)) throw new Error(`assets/legal/de/impressum.html no longer has "${from.slice(0, 60)}…": update the Austrian lines in new-site.mjs`);
+      text = text.replace(from, () => to);
+    }
+    writeFileSync(file, text);
   }
   const home = join(dir, 'index.html');
   writeFileSync(home, readFileSync(home, 'utf8').replace('<p>© <span data-year></span> <span translate="no">{{site.name}}</span></p>',

@@ -8,6 +8,7 @@ import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { findBrowser, launch } from '../skills/one-shot-site/scripts/lib/chrome.mjs';
 import { settle } from '../skills/one-shot-site/scripts/lib/probes.mjs';
+import { render } from '../skills/one-shot-site/assets/starter/site-data.js';
 
 const SCRIPTS = resolve('skills/one-shot-site/scripts');
 const skip = findBrowser() ? false : 'no Chrome, Edge, Brave or Chromium installed';
@@ -437,6 +438,37 @@ test('new-site --legal de adds an Impressum and a privacy page, linked from the 
   }
   assert.equal(JSON.parse(readFileSync(join(site, 'site.json'), 'utf8')).owner.name, '');
   rmSync(root, { recursive: true, force: true });
+});
+
+// An Austrian business got the German Impressum: "Angaben gemäß § 5 DDG" and the VAT number "nach § 27a UStG",
+// German law; a de-AT page with --legal de was even set in Germany.
+test('new-site --legal de for a business in Austria: the Impressum cites Austrian law', () => {
+  const root = mkdtempSync(join(tmpdir(), 'oss-legal-at-'));
+  try {
+    const make = (name, ...extra) => {
+      const r = node([join(SCRIPTS, 'new-site.mjs'), join(root, name), '--name', name, '--legal', 'de', '--no-install', ...extra]);
+      assert.equal(r.status, 0, r.stdout + r.stderr);
+      return { out: r.stdout, facts: JSON.parse(readFileSync(join(root, name, 'site.json'), 'utf8')), impressum: readFileSync(join(root, name, 'impressum.html'), 'utf8') };
+    };
+    for (const [name, extra] of [['wien', ['--lang', 'de-AT']], ['graz', ['--lang', 'de', '--country', 'AT']], ['linz', ['--lang', 'de', '--phone', '+43 732 123456']]]) {
+      const at = make(name, ...extra);
+      assert.equal(at.facts.address.country, 'AT', name);
+      assert.match(at.impressum, /<h2>Angaben gemäß § 5 ECG<\/h2>/, name);
+      assert.match(at.impressum, /§ 25 MedienG den Unternehmensgegenstand/, `${name}: the disclosure is named for the agent`);
+      assert.match(at.impressum, /<h2>UID-Nummer<\/h2>\s*<p>\{\{site\.owner\.vatId\}\}<\/p>/, name);
+      assert.match(at.impressum, /<h2>Firmenbuch<\/h2>/, name);
+      assert.doesNotMatch(at.impressum, /DDG|TMG|UStG|eRecht24/, `${name}: no German law`);
+    }
+    const de = make('berlin', '--lang', 'de');
+    assert.equal(de.facts.address.country, 'DE');
+    assert.match(de.impressum, /<h2>Angaben gemäß § 5 DDG<\/h2>/);
+    assert.match(de.impressum, /nach § 27a UStG/);
+    // an Austrian Impressum, filled: the owner's fields show under their Austrian names
+    const page = readFileSync(join(root, 'wien/impressum.html'), 'utf8');
+    const built = render(page, { name: 'Wien', type: 'CafeOrCoffeeShop', email: 'hallo@wien.example', owner: { name: 'Anna Gruber', vatId: 'ATU12345678', register: 'FN 123456 a, Handelsgericht Wien' }, address: { street: 'Gasse 1', postcode: '1010', city: 'Wien', country: 'AT' } });
+    assert.match(built, /<h2>UID-Nummer<\/h2>\s*<p>ATU12345678<\/p>/);
+    assert.match(built, /<h2>Firmenbuch<\/h2>\s*<p>FN 123456 a, Handelsgericht Wien<\/p>/);
+  } finally { rmSync(root, { recursive: true, force: true }); }
 });
 
 test('audit finds local, privacy and legal gaps', { skip, timeout: 240000 }, () => {
