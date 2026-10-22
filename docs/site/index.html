@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>one-shot-site: a website from a few easy questions</title>
-  <meta name="description" content="Answer a few multiple-choice questions. Your agent builds a finished website, checks it in a real browser at phone and desktop size, and puts it online.">
+  <meta name="description" content="Answer a few multiple-choice questions and your agent builds the website, checks it in a real browser on phone and desktop, then puts it online if you say yes.">
   <meta name="theme-color" content="#f8f6f5" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#131011" media="(prefers-color-scheme: dark)">
   <link rel="canonical" href="{{URL}}">
@@ -12,7 +12,7 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="{{URL}}">
   <meta property="og:title" content="one-shot-site: a few questions in, a finished, checked website out">
-  <meta property="og:description" content="Six example sites, six runs, made-up clients. Free and MIT. Install it in one line and say “make me a website”.">
+  <meta property="og:description" content="Six sites it built for made-up clients, one run each. It’s free and MIT-licensed. Install it with one command, then tell your agent “make me a website”.">
   <meta property="og:image" content="{{URL}}og.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -52,11 +52,11 @@
     <section class="hero" aria-labelledby="hero-h">
       <h1 id="hero-h" class="hero-line"><span>A few questions in.</span> <span>A finished, checked website out.</span></h1>
       <div class="hero-sub">
-        <p class="lead">Answer a few multiple-choice questions. Your agent builds a finished website, checks it in a real browser at phone and desktop size, and puts it online.</p>
+        <p class="lead">Answer a few multiple-choice questions and your agent builds the website. It opens the site in a real browser to check it at phone and desktop size, and puts it online when you say yes.</p>
         <div class="hero-actions">
           <a class="button button-big" href="#install" data-install data-magnetic>Install it</a>
           <a class="text-link" href="#examples">See the six sites it made</a>
-          <p class="small">One shot: you answer once, it does the rest. An agent skill, free and MIT.</p>
+          <p class="small">You answer once, hence the name. It’s a free agent skill, MIT-licensed.</p>
         </div>
       </div>
 
@@ -87,14 +87,14 @@
     <section id="why" class="why" aria-labelledby="why-h">
       <div class="section-head">
         <h2 id="why-h">What it takes care of.</h2>
-        <p class="intro">Before the launch, and after it:</p>
+        <p class="intro">It covers the work before the site goes live and the small changes after.</p>
       </div>
       <ol class="diffs">
         <li class="diff" data-reveal>
           <div class="diff-text">
             <span class="num" aria-hidden="true">1</span>
-            <h3>Made for people who aren’t designers, all the way to a live address.</h3>
-            <p>Multiple-choice questions anyone can answer, then ideas drawn on your own name to point at, one of them always the classic, done beautifully. Then it publishes the site and checks it live.</p>
+            <h3>For people who aren’t designers, from the first question to the live site.</h3>
+            <p>You don’t need design words for the questions. Once you’ve answered, it draws a few ideas using your own name, so you can point at one instead of describing it, and one of them is always a classic layout. At the end it publishes the site and checks the live copy.</p>
           </div>
           <figure class="diff-visual looks">
             <div class="looks-fan">
@@ -102,14 +102,14 @@
               <img src="media/look-bold.jpg" width="800" height="500" loading="lazy" alt="Bold: KLEINER KAFFEE in huge white letters on roast brown.">
               <img src="media/look-quiet.jpg" width="800" height="500" loading="lazy" alt="Quiet: a warm white page, a thin serif headline low down and a lot of space.">
             </div>
-            <figcaption>Not sure how it should feel? One café’s own name and line, drawn Warm, Bold and Quiet, each on a calm ground. You point at one.</figcaption>
+            <figcaption>Not sure how it should feel? Here one café’s name and line are drawn Warm, Bold and Quiet. You just point at one.</figcaption>
           </figure>
         </li>
         <li class="diff" data-reveal>
           <div class="diff-text">
             <span class="num" aria-hidden="true">2</span>
-            <h3>Ready to launch, not just good-looking.</h3>
-            <p>Before it hands over, it checks what going live needs: link previews, dead links, keyboard and screen-reader basics, speed, motion filmed over time, and the legal pages a German business needs. It fixes things until the audit says “Ready to ship”.</p>
+            <h3>Checked before it goes live.</h3>
+            <p>There’s an audit at the end, and the run doesn’t stop until it passes. The audit looks at the link previews, tries every link, runs axe-core’s accessibility rules and measures how much a first visit downloads. I also had it film the motion, because something that jumps only shows up over a few seconds. A German business gets an Impressum and a privacy page as well. Whatever fails gets fixed, and the audit runs again until it says “Ready to ship”.</p>
           </div>
           <div class="diff-visual check-audit">
             <p class="audit-head">The audit, before it hands over</p>
@@ -128,7 +128,7 @@
           <div class="diff-text">
             <span class="num" aria-hidden="true">3</span>
             <h3>Easy to keep up to date.</h3>
-            <p>Hours, prices and events live in one place. “We’re closed on the 24th” is one sentence to your agent, and every change is saved.</p>
+            <p>Opening hours, prices and events sit in one file. Say you’re closing on Christmas Eve: you tell your agent “We’re closed on the 24th” and it takes care of it. Each change is saved, so you can undo it later.</p>
           </div>
           <figure class="diff-visual change">
             <p class="change-say">We’re closed on the 24th.</p>
@@ -142,7 +142,7 @@
               </dl>
               <p class="closed-note">Closed on Thursday 24 December</p>
             </div>
-            <figcaption>One sentence becomes one line in one file. The page and the hours search engines read both follow, and the change is saved as “Closed on 24 December”.</figcaption>
+            <figcaption>Your agent turns that sentence into one new line in <code>site.json</code>. The page and the opening hours that search engines read both come from that file, and the change is saved with the note “Closed on 24 December”.</figcaption>
           </figure>
         </li>
       </ol>
@@ -151,13 +151,13 @@
     <section id="run" class="run-walk" aria-labelledby="run-h">
       <div class="section-head">
         <h2 id="run-h">One run, start to finish.</h2>
-        <p class="intro">Kleiner Kaffee, a made-up café with eight seats in Saarbrücken. Everything the run showed along the way, in order.</p>
+        <p class="intro">I made up Kleiner Kaffee for this run, a coffee bar in Saarbrücken with eight seats and a drum roaster. Here is what the run showed, in the order it happened.</p>
       </div>
       <ol class="steps">
         <li class="step" data-reveal>
           <div class="step-text">
             <h3>It asks.</h3>
-            <p>A few multiple-choice questions, then one message with whatever you have: a few lines, a menu, photos. No prompt to write.</p>
+            <p>The owner clicked through the multiple-choice questions and then sent one message with the address, the seats and the roasting day. That was the whole input, and nobody wrote a prompt.</p>
           </div>
           <div class="step-visual window">
             <div class="bar"><span class="lights" aria-hidden="true"></span><p class="address"><span class="visually-hidden">Answers: </span>A small business · Warm · Pick colours for me · Gentle motion · Goal: visit · No extras</p></div>
@@ -167,31 +167,31 @@
         <li class="step" data-reveal>
           <div class="step-text">
             <h3>It thinks of three ideas.</h3>
-            <p>Before any code it writes a brief: facts only the café has, the one job of the site, and three ideas from different facts, all three warm. It recommends the classic, done beautifully: the roaster drawn large beside the headline, with the hours and the address under it.</p>
+            <p>Before it wrote any code it wrote a brief, which is a plain text file about the café and what its site has to do. It took its ideas from there and drew them with the café’s own name and words, so the owner wasn’t looking at dummy text. For a Warm site like this it recommended the classic layout, with the roaster big beside the headline and the hours and address under it.</p>
           </div>
           <figure class="step-visual trio">
             <img src="media/run-idea-a.jpg" width="800" height="500" loading="lazy" alt="Idea A, the roaster on Röstergasse: the headline beside a large drawing of the drum roaster.">
             <img src="media/run-idea-b.jpg" width="800" height="500" loading="lazy" alt="Idea B, the board over the counter: the four lines of the menu and their prices, large.">
             <img src="media/run-idea-c.jpg" width="800" height="500" loading="lazy" alt="Idea C, eight seats: the headline beside a row of eight stools at the counter.">
-            <figcaption><span class="route-note">A</span> recommended. The run drew all three on the café’s own name and words.</figcaption>
+            <figcaption><span class="route-note">A</span> is the one it recommended.</figcaption>
           </figure>
         </li>
         <li class="step" data-reveal>
           <div class="step-text">
             <h3>It shows three first screens.</h3>
-            <p>Around the kept idea it builds the top of the page three ways, at phone and desktop size, one of them always the classic. The café took A, the classic split. Real pictures come first, the owner’s or free ones; this owner said no photos, so the roaster is drawn.</p>
+            <p>Next it built the top of the page a few different ways, each at phone and desktop size, so the owner could see every version on a phone as well as a laptop. One of them is always the classic, which here meant a simple split. Normally it would use photos, either the owner’s or free ones it finds, but the owner had said there were none, so the roaster stayed a drawing.</p>
           </div>
           <figure class="step-visual trio">
             <img src="media/run-screen-a.jpg" width="800" height="500" loading="lazy" alt="First screen A: the headline, the opening hours and the button on the left, the drum roaster drawn large on the right.">
             <img src="media/run-screen-b.jpg" width="800" height="500" loading="lazy" alt="First screen B: three columns, the headline, the roaster, and the hours with the address.">
             <img src="media/run-screen-c.jpg" width="800" height="500" loading="lazy" alt="First screen C: the headline in cream on a roast-brown field, the roaster beside it.">
-            <figcaption><span class="route-note">A</span> picked.</figcaption>
+            <figcaption>The owner picked <span class="route-note">A</span>, the classic split.</figcaption>
           </figure>
         </li>
         <li class="step" data-reveal>
           <div class="step-text">
             <h3>It looks, and a reviewer checks.</h3>
-            <p>It photographs every page at phone, tablet and desktop width, films how it moves, and fixes what’s wrong. Then a reviewer that didn’t build it names the three worst problems, and those get fixed too.</p>
+            <p>After that it photographed every page at phone, tablet and desktop width and filmed the scrolling, then fixed what was off. A second agent that hadn’t seen any of the work reviewed the site next and wrote down what bothered it most. Those fixes went in too.</p>
           </div>
           <figure class="step-visual">
             <img class="shot" src="media/numbers-desktop.jpg" width="1440" height="900" loading="lazy" alt="The café’s first screen with pink number tags on its parts: 1, 1a, 2, 2a, 2b and 2c.">
@@ -200,7 +200,7 @@
         <li class="step" data-reveal>
           <div class="step-text">
             <h3>It audits, then you point.</h3>
-            <p>The run only ends on “Ready to ship”. This is the café’s. Then you see the screenshots numbered, so “make 2c bigger” is enough.</p>
+            <p>The run can’t finish until the audit says “Ready to ship”, and you can see the café’s audit here. Then the screenshots come back with small pink numbers on every part, and the owner can write something like “make 2c bigger” instead of describing which bit they mean.</p>
           </div>
           <div class="step-visual report">
             <p class="report-head"># Audit: Ready to ship.</p>
@@ -214,7 +214,7 @@
         <li class="step" data-reveal>
           <div class="step-text">
             <h3>It goes online.</h3>
-            <p>It publishes where you say, after you say yes, and checks the live address. It leaves a short guide to changing things later.</p>
+            <p>You decide where the site lives, and nothing goes up until you say yes. Once it’s online it opens the real address to check it, and it leaves an <code>EDITING.md</code> file that explains how to change things later.</p>
             <p class="step-actions"><button class="button" type="button" data-show-run="kleiner-kaffee" hidden>Show it running</button><a class="text-link" href="kleiner-kaffee/">Open it on its own</a></p>
           </div>
           <figure class="step-visual window">
