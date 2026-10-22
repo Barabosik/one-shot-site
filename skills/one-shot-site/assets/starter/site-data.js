@@ -322,7 +322,13 @@ export function jsonld(site, today = buildDay()) {
     offers: e.price !== undefined ? { '@type': 'Offer', price: amount(e.price), priceCurrency: site.currency || 'EUR', url: e.tickets || site.url, availability: `https://schema.org/${e.soldOut ? 'SoldOut' : 'InStock'}` } : undefined,
   });
 
-  if (site.type === 'Event') return clean({ '@context': 'https://schema.org', ...event({ ...(site.events?.[0] || {}), name: site.events?.[0]?.name || site.name }) });
+  // a site about one event is that Event, with its date; before the date is in site.json, or once it is over, an
+  // Event without one is an error to search engines, so the site stands as the organiser until the next one
+  if (site.type === 'Event') {
+    const next = upcoming(site.events, 'end', today)[0];
+    if (next) return clean({ '@context': 'https://schema.org', ...event({ ...next, name: next.name || site.name }) });
+    return clean({ '@context': 'https://schema.org', '@type': 'Organization', name: site.name, url: site.url, description: site.description, email: site.email, sameAs: social });
+  }
 
   const main = {
     '@context': 'https://schema.org', '@type': site.type, name: site.name, url: site.url, description: site.description,

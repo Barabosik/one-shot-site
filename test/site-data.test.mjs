@@ -207,6 +207,21 @@ test('an event or software price in the search data is a number with a dot, and 
   assert.equal(jsonld({ name: 'Tool', type: 'SoftwareApplication', price: '4,99' }, today).offers.price, '4.99');
 });
 
+// A site about one event built an Event with a name and no startDate once the event was over (or before its date
+// was in), which search engines reject.
+test('a site about one event: the Event with its date, and the organiser when no date is coming', () => {
+  const night = { name: 'Patch Night', type: 'Event', url: 'https://pn.example/', description: 'A night of synths.', currency: 'EUR', events: [{ name: 'Patch Night 3', start: '2026-11-14T20:00', end: '2026-11-15T01:00', place: 'Halle 4', city: 'Leipzig', price: '12' }] };
+  const on = jsonld(night, '2026-11-15');
+  assert.deepEqual([on['@type'], on.name, on.startDate], ['Event', 'Patch Night 3', '2026-11-14T20:00']);
+  for (const site of [night, { ...night, events: [] }]) {
+    const off = jsonld(site, '2026-11-16');
+    assert.equal(off['@type'], 'Organization');
+    assert.equal(off.name, 'Patch Night');
+    assert.equal(off.startDate, undefined);
+  }
+  assert.match(render('<!-- site:jsonld -->', night, { today: '2026-12-01' }), /"@type":"Organization","name":"Patch Night"/);
+});
+
 test('SITE_TODAY pins the day the build counts from', () => {
   const was = process.env.SITE_TODAY;
   try {
