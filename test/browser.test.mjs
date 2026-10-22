@@ -123,7 +123,13 @@ test('film records motion: slow headline, endless loop, layout shift, a canvas d
       setTimeout(() => document.querySelector('.slide').classList.add('in'), 300);
       const x = document.querySelector('canvas').getContext('2d');
       (function draw() { x.clearRect(0, 0, 60, 60); x.fillRect(0, 0, Math.random() * 60, 20); requestAnimationFrame(draw); })();
-      setTimeout(() => { const d = document.createElement('div'); d.style.height = '700px'; document.body.prepend(d); }, 600);
+      // the jump comes after the first paint: a move before anything is on screen is no layout shift, and a slow
+      // machine (macOS on CI) painted later than a fixed 600 ms
+      new PerformanceObserver((l, o) => {
+        if (!l.getEntries().some((e) => e.name === 'first-contentful-paint')) return;
+        o.disconnect();
+        setTimeout(() => { const d = document.createElement('div'); d.style.height = '700px'; document.body.prepend(d); }, 300);
+      }).observe({ type: 'paint', buffered: true });
     </script></body></html>`);
   const film = (...extra) => node([join(SCRIPTS, 'film.mjs'), dir, '--seconds', '3', '--steps', '2', '--width', '800', ...extra]);
   const r = film('--video', '--out', join(dir, 'film'));
