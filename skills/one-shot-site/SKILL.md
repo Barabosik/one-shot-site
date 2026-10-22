@@ -419,8 +419,11 @@ When the folder has `site.json` and `EDITING.md`, or the person asks to change t
 1. Read `site.json`, `EDITING.md`, git log, and the brief if it's there (`.one-shot/` isn't committed, so a fresh
    copy of the repository has none). Ask only what's unclear about the change.
 2. Facts go in `site.json`; text, photos and design in the pages. Keep the design; change what was asked.
-3. `npm run build`, then `look.mjs dist --pages <changed pages> --numbers` and `audit.mjs dist`. Show the changed
-   screens. When the person answers with numbers, look them up in `numbers.md`.
+3. `npm run build` (`npm ci` first when there is no `node_modules`, as in a fresh copy), then
+   `look.mjs dist --pages <changed pages> --numbers` and `audit.mjs dist`. Show the changed screens. When the
+   person answers with numbers, look them up in `numbers.md`. A new page: run `set-url.mjs` again with the
+   site's address, so the sitemap lists it and its `{{URL}}` is filled. A changed fact the link preview shows
+   (a date, a price): `images.mjs og dist` again, then build.
 4. Say what changed in one line and ask "Publish this?". On a yes, commit with a plain message ("Opening hours
    from 1 November"), publish the way `EDITING.md` (or the brief's "Published" section) says, and check the live
    page. With neither, read `.github/workflows/` and `git remote -v`, and ask before pushing.
