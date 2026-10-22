@@ -83,6 +83,16 @@ test('structured data matches the page', () => {
   assert.throws(() => jsonld({ name: 'x' }), /"type" is empty/);
 });
 
+// redesign keeps an old site's wa.me link as links.whatsapp, and it went into sameAs as "the same business"
+test('sameAs: a WhatsApp chat, a review form, a newsletter or a mail link is not a profile', () => {
+  const links = {
+    instagram: 'https://insta.example/kk', whatsapp: 'https://wa.me/4968112345', review: 'https://review.example/kk',
+    newsletter: 'https://news.example/kk', calendar: 'https://cal.example/kk', chat: 'https://api.whatsapp.com/send?phone=4968112345',
+    mail: 'mailto:hi@kk.example', mastodon: 'https://social.example/@kk',
+  };
+  assert.deepEqual(jsonld({ ...site, links }, today)[0].sameAs, ['https://insta.example/kk', 'https://social.example/@kk']);
+});
+
 test('software: version, download, licence and maker; download and docs links are not profiles', () => {
   const tool = {
     name: 'schemadrift', type: 'SoftwareApplication', version: '0.9.2', license: 'MIT', price: 0, currency: 'EUR',

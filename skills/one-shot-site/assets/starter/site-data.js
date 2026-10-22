@@ -308,7 +308,11 @@ export function jsonld(site, today = buildDay()) {
   const postal = (a) => (typeof a === 'string' ? a : { '@type': 'PostalAddress', streetAddress: a.street, postalCode: a.postcode, addressLocality: a.city, addressRegion: a.region, addressCountry: a.country });
   // a price as search engines read it: a number with a dot ("12,50" is 12.50); words like "free" are left out
   const amount = (p) => (p === undefined || p === '' || Number.isNaN(num(p)) ? undefined : String(p).trim().replace(',', '.'));
-  const social = Object.entries(site.links || {}).filter(([k, v]) => v && !['booking', 'payment', 'menu', 'tickets', 'join', 'donate', 'order', 'map', 'download', 'docs'].includes(k)).map(([, v]) => v);
+  // profiles of the same business (sameAs), not things to do or ways to get in touch: a booking page, a newsletter, a
+  // review form, a WhatsApp chat (redesign keeps a wa.me link as links.whatsapp), a mail or phone link
+  const ACTIONS = ['booking', 'payment', 'menu', 'tickets', 'join', 'donate', 'order', 'map', 'download', 'docs', 'whatsapp', 'review', 'newsletter', 'waitlist', 'signup', 'calendar', 'contact', 'form', 'email', 'phone'];
+  const chat = (v) => !/^https?:\/\//i.test(v) || /^https?:\/\/([\w-]+\.)*(wa\.me|whatsapp\.com)([/?#]|$)/i.test(v);
+  const social = Object.entries(site.links || {}).filter(([k, v]) => v && typeof v === 'string' && !ACTIONS.includes(k) && !chat(v)).map(([, v]) => v);
   const event = (e) => ({
     '@type': 'Event', name: e.name, description: e.description, startDate: e.start, endDate: e.end,
     eventStatus: 'https://schema.org/EventScheduled', eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
