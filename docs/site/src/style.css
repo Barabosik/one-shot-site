@@ -65,8 +65,7 @@ p code.long { white-space: normal; overflow-wrap: anywhere; }
   font-size: var(--step--1); font-weight: 600;
   transition: border-color var(--t-hover) ease;
 }
-.theme-dot { width: 0.85em; height: 0.85em; border-radius: 50%; border: 1.5px solid currentColor; background: linear-gradient(90deg, currentColor 50%, transparent 50%); }
-.theme-toggle[aria-pressed="true"] .theme-dot { background: currentColor; }
+.theme-icon { width: 0.9em; height: 0.9em; flex: none; }
 @media (hover: hover) and (pointer: fine) { .theme-toggle:hover { border-color: var(--ink); } }
 @media (max-width: 900px) { .top-nav { display: none; } }
 @media (max-width: 420px) { .theme-toggle { padding: 0 0.6rem; } }

@@ -167,7 +167,8 @@ Go through the sheets with these questions, phone first:
    and fill (refuse.md, "Remove, then fill"); if no idea is left, go back to the brief.
 11. **Brief check:** does the idea sentence show? Would a visitor describe one specific thing afterwards? Does the
    feel they chose show at a glance (a Warm brief in warm colours, the liked site's light or dark)?
-12. **States:** hover, pressed, focus on every link and button; the sound or theme toggle shows its state.
+12. **States:** hover, pressed, focus on every link and button; the sound toggle shows its state;
+   the theme toggle names the theme it switches to, right after load and after each click, in light and dark.
 
 ## Score each round
 

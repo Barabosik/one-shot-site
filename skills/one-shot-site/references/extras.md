@@ -44,6 +44,13 @@ transition. Make a second palette with `palette.mjs --mode dark`, then add it to
 of `src/addons/theme.js` shows where). new-site puts the small head script against a flash of the wrong theme into
 `index.html` and the legal pages; a page you add later needs it too (copy it from `index.html`).
 
+- Markup, in the header: `<button class="theme-toggle" type="button" data-light="Light" data-dark="Dark"><span
+  class="visually-hidden">Switch to </span><span class="theme-word">Dark</span></button>`. The word names the theme
+  a click switches to, and the addon keeps it right on load, on each click and when the system changes. Write both
+  words and "Switch to" in the site's language. No `aria-pressed`: the word already says the state.
+- The addon draws the icon, a ring with its left half filled, as an SVG at the start of the button. Size it with
+  `.theme-icon`. Don't draw a dot from a border and a half gradient: at 150 % zoom the fill no longer meets the ring.
+
 ## Motion library (`--addons motion`)
 
 `src/addons/motion.js`: GSAP with ScrollTrigger for Lively and Showpiece sites. See [motion.md](motion.md).

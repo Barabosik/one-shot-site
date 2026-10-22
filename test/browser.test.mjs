@@ -531,6 +531,74 @@ test('settle waits for what moves on the screen: transitions, effects marked is-
   rmSync(dir, { recursive: true, force: true });
 });
 
+test('theme addon: the button names the theme a click switches to, on light and dark systems, with and without a saved pick', { skip, timeout: 120000 }, async () => {
+  const dir = mkdtempSync(join(tmpdir(), 'oss-theme-'));
+  cpSync(resolve('skills/one-shot-site/assets/addons/theme.js'), join(dir, 'theme.js'));
+  const page = (button) => `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Theme</title><link rel="icon" href="data:,">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#111111" media="(prefers-color-scheme: dark)">
+    <script>try{var t=localStorage.getItem('site-theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+    <style>:root { --ground: #ffffff; } @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --ground: #111111; } }
+      :root[data-theme="dark"] { --ground: #111111; } .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }</style>
+    <script type="module">import { initTheme } from './theme.js'; initTheme(document.querySelector('.theme-toggle'));</script>
+    </head><body>${button}</body></html>`;
+  writeFileSync(join(dir, 'index.html'), page('<button class="theme-toggle" type="button" data-light="Hell" data-dark="Dunkel"><span class="visually-hidden">Wechseln zu </span><span class="theme-word">Dunkel</span></button>'));
+  // the markup sites were built with before: a bare word and aria-pressed
+  writeFileSync(join(dir, 'old.html'), page('<button class="theme-toggle" type="button" aria-pressed="false">Dark</button>'));
+  const server = createServer((req, res) => {
+    const f = join(dir, req.url.split('?')[0].slice(1) || 'index.html');
+    if (!existsSync(f)) { res.statusCode = 404; return res.end(); }
+    res.setHeader('content-type', f.endsWith('.js') ? 'text/javascript' : 'text/html');
+    res.end(readFileSync(f));
+  });
+  await new Promise((r) => server.listen(0, '127.0.0.1', r));
+  const base = `http://127.0.0.1:${server.address().port}/`;
+  const state = `(() => { const b = document.querySelector('.theme-toggle'), ground = getComputedStyle(document.documentElement).getPropertyValue('--ground').trim();
+    return { dark: ground === '#111111', word: b.querySelector('.theme-word')?.textContent, name: b.textContent.replace(/\\s+/g, ' ').trim(), pressed: b.getAttribute('aria-pressed'),
+      icons: b.querySelectorAll('svg.theme-icon').length, metas: [...document.querySelectorAll('meta[name="theme-color"]')].every((m) => m.content === ground), saved: localStorage.getItem('site-theme') }; })()`;
+  // a click, then the cross-fade's frames
+  const click = (times = 1) => `(async () => { for (let i = 0; i < ${times}; i++) document.querySelector('.theme-toggle').click(); await new Promise((r) => setTimeout(r, 400)); return ${state}; })()`;
+  const browser = await launch();
+  try {
+    for (const scheme of ['light', 'dark']) {
+      for (const saved of [null, 'light', 'dark']) {
+        const p = await browser.newPage({ width: 800, height: 600, colorScheme: scheme });
+        await p.goto(base);
+        await p.eval(saved ? `localStorage.setItem('site-theme', '${saved}')` : `localStorage.clear()`);
+        await p.goto(base);
+        const at = `${scheme} system, saved ${saved}`;
+        const dark = saved ? saved === 'dark' : scheme === 'dark';
+        const word = (d) => (d ? 'Hell' : 'Dunkel');
+        const loaded = await p.eval(state);
+        assert.deepEqual(loaded, { dark, word: word(dark), name: `Wechseln zu ${word(dark)}`, pressed: null, icons: 1, metas: true, saved }, `${at}: on load`);
+        const once = await p.eval(click());
+        assert.deepEqual([once.dark, once.word, once.saved, once.metas], [!dark, word(!dark), dark ? 'light' : 'dark', true], `${at}: one click`);
+        const twice = await p.eval(click());
+        assert.deepEqual([twice.dark, twice.word, twice.saved], [dark, word(dark), dark ? 'dark' : 'light'], `${at}: a second click goes back`);
+        // two clicks before the cross-fade has run end where they started
+        const quick = await p.eval(click(2));
+        assert.deepEqual([quick.dark, quick.word], [dark, word(dark)], `${at}: a quick double click`);
+        await p.close();
+      }
+    }
+    // no pick yet: the word follows the system when it changes
+    const p = await browser.newPage({ width: 800, height: 600, colorScheme: 'light' });
+    await p.goto(base);
+    await p.eval('localStorage.clear()');
+    await p.goto(base);
+    await p.send('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-color-scheme', value: 'dark' }] });
+    assert.equal((await p.eval(`new Promise((r) => setTimeout(r, 200)).then(() => ${state})`)).word, 'Hell', 'the system turned dark');
+    // the old markup: the bare word is wrapped, the icon added, aria-pressed dropped
+    await p.send('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-color-scheme', value: 'light' }] });
+    await p.goto(base + 'old.html');
+    assert.deepEqual(await p.eval(state), { dark: false, word: 'Dark', name: 'Dark', pressed: null, icons: 1, metas: true, saved: null }, 'old markup on load');
+    assert.equal((await p.eval(click())).word, 'Light', 'old markup after a click');
+    assert.deepEqual(p.problems, []);
+    await p.close();
+  } finally { await browser.close(); server.close(); }
+  rmSync(dir, { recursive: true, force: true });
+});
+
 test('look --compare tells variants apart by layout, not only by type and colour', { skip, timeout: 240000 }, () => {
   const dir = mkdtempSync(join(tmpdir(), 'oss-variants-'));
   const page = (body) => `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
