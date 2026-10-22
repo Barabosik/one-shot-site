@@ -86,10 +86,11 @@ then the DNS records it shows.
 ## Cloudflare
 
 `node SKILL_DIR/scripts/publish.mjs cloudflare --name SITE-NAME` runs `wrangler deploy` with `dist` as static
-assets. The first time, run `npx --yes wrangler@latest login` before it: it opens the browser and waits until the
-person has logged in. Without it the deploy stops ("In a non-interactive environment … CLOUDFLARE_API_TOKEN"): run
-the login instead, never ask for a token. Domains: add the domain to Cloudflare, then Workers → the site →
-Domains.
+assets, through a config it writes to `.one-shot/wrangler.json` that serves the site's `404.html` for a missing page
+(without it Cloudflare answers with an empty 404). The first time, run `npx --yes wrangler@latest login` before it:
+it opens the browser and waits until the person has logged in. Without it the deploy stops ("In a non-interactive
+environment … CLOUDFLARE_API_TOKEN"): run the login instead, never ask for a token. Domains: add the domain to
+Cloudflare, then Workers → the site → Domains.
 
 ## Their own domain
 

@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { execFileSync, spawnSync } from 'node:child_process';
-import { existsSync, mkdirSync, mkdtempSync, realpathSync, rmSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, realpathSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 
@@ -42,7 +42,12 @@ test('publish --dry prints each host\'s command and runs nothing', () => {
 
     const cf = t.run('cloudflare', '--name', 'kleiner-kaffee', '--dry');
     assert.equal(cf.status, 0, cf.stderr);
-    assert.match(cf.stdout, /\$ npx --yes wrangler@latest deploy --assets .+ --name kleiner-kaffee --compatibility-date \d{4}-\d\d-\d\d/);
+    assert.ok(cf.stdout.includes(`$ npx --yes wrangler@latest deploy --config ${join(t.site, '.one-shot', 'wrangler.json')} --name kleiner-kaffee`), cf.stdout);
+    // without a config Cloudflare answers a missing page with an empty 404: this one serves the site's own 404.html
+    const conf = JSON.parse(readFileSync(join(t.site, '.one-shot', 'wrangler.json'), 'utf8'));
+    assert.deepEqual(conf.assets, { directory: t.dist, not_found_handling: '404-page' });
+    assert.equal(conf.name, 'kleiner-kaffee');
+    assert.match(conf.compatibility_date, /^\d{4}-\d\d-\d\d$/);
 
     const pages = t.run('branch', '--repo', 'https://github.com/OWNER/REPO.git', '--dry');
     assert.equal(pages.status, 0, pages.stderr);

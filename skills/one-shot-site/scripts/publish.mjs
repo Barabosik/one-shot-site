@@ -11,9 +11,9 @@
 // GitHub Pages through Actions needs no script: copy assets/deploy/github-pages.yml to
 // .github/workflows/deploy.yml and push (see references/deploy.md).
 import { execFileSync, spawn } from 'node:child_process';
-import { cpSync, existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { join, resolve } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
 import { args, stopOnError, usage } from './lib/cli.mjs';
 
 // Windows: cmd.exe (npx goes through it) runs an npx.cmd or git.exe in the site's own folder before the real one,
@@ -147,8 +147,15 @@ if (how === 'branch') {
   try { const j = JSON.parse(out.slice(out.indexOf('{'))); console.log(`\nLive: ${j.url || j.deploy_url}`); } catch { live(out); }
 } else if (how === 'cloudflare') {
   if (!a.name) { console.error('Pass --name my-site (becomes my-site.<account>.workers.dev)'); process.exit(2); }
-  const date = new Date().toISOString().slice(0, 10);
-  live(await run(npx, ['--yes', 'wrangler@latest', 'deploy', '--assets', dist, '--name', a.name, '--compatibility-date', date]));
+  // Without a config Cloudflare answers a missing page with an empty 404 ("not_found_handling" is "none" by default),
+  // so the site's own 404.html never showed. The config says to serve it. It goes in .one-shot/ (not committed): a
+  // wrangler config of their own in the site folder is left as it is.
+  const conf = resolve('.one-shot/wrangler.json');
+  if (/["$`%!^&|<>;\n]/.test(conf)) { console.error(`The site path ${conf} has characters a shell would act on. Move or rename the folder.`); process.exit(2); }
+  mkdirSync(dirname(conf), { recursive: true });
+  const config = { name: a.name, compatibility_date: new Date().toISOString().slice(0, 10), assets: { directory: dist, not_found_handling: '404-page' } };
+  writeFileSync(conf, JSON.stringify(config, null, 2) + '\n');
+  live(await run(npx, ['--yes', 'wrangler@latest', 'deploy', '--config', conf, '--name', a.name]));
 } else {
   usage(import.meta.url);
   process.exit(2);
