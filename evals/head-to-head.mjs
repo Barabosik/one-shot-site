@@ -82,7 +82,7 @@ ${helper ? `- One browser at a time on this machine. Anything that opens a brows
   Playwright, a screenshot tool, a skill's own browser checks) runs through the lock helper, one Bash call each, with
   the Bash tool's timeout set to 600000: \`node "${fwd(helper)}" ${name} <your command>\`. Exit code 75 means it was
   busy and nothing ran: run the same command again. Close any preview server you start.
-` : ''}- Keep your scratch files (screenshots, notes, helper scripts) in \`${fwd(join(dirname(work), 'scratch'))}\`, not in a
+` : ''}- Keep your scratch files (screenshots, notes, helper scripts) in \`${fwd(work).replace(/\/+[^/]*\/*$/, '')}/scratch\`, not in a
   scratchpad or temp folder: other builds run on this machine at the same time.
 - Take the time you need (up to about two hours).
 - End with a short report: the site folder, how to build it, what you made, and anything you skipped.
