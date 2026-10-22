@@ -5,6 +5,31 @@ What changed in each version, newest first. Versions follow `version` in `.claud
 repository went public and have neither. A line for a merged pull request ends with its number and who made it:
 "(#12, thanks @someone)".
 
+## Unreleased
+
+Fixes. The skill:
+
+- **Events that run for days** stay on the page, in `{{site.events.…}}` and in the search data until their `end`
+  day is over. Before, a festival dropped out on its second day.
+- **Printing and PDFs.** Entrances (`data-reveal`, the effects addon, the motion addon) start hidden on a screen
+  only, so a printed menu or a saved PDF shows every section, and a count-up prints its real number.
+- **The 404 page** links home and to its icon by the full address, so it works on a GitHub project page
+  (`user.github.io/NAME/`). The audit doesn't count its requests to the live address.
+- **Cloudflare** shows the site's own 404 page: `publish.mjs cloudflare` deploys through `.one-shot/wrangler.json`
+  with `not_found_handling: "404-page"`. Cloudflare's default answered with an empty 404.
+- **Austria.** `--legal de` for a business in Austria (`--country AT`, a +43 phone or a `de-AT` page) writes the
+  Impressum under § 5 ECG, with UID-Nummer and Firmenbuch, and names the § 25 MedienG disclosure. It cited German
+  law before, and a `de-AT` page with `--legal de` was set in Germany.
+- **Where it lives.** The host question has four fixed choices. A business is pointed to Cloudflare or Netlify,
+  whose free plans allow commercial use; Vercel only when asked, for a personal site.
+- **Search data.** Event and app prices go in with a dot ("12,50" is 12.50). A WhatsApp chat, a review form, a
+  newsletter or a mail link is no longer a `sameAs` profile. A site about one event shows its organiser while no
+  date is coming, instead of an Event with no date.
+- **A site under a path.** `set-url` says that robots.txt goes unread there and the sitemap has to be submitted
+  in Search Console.
+- **Changing a site later:** `npm ci` in a fresh copy, `set-url` again after a new page, `images.mjs og` again
+  when the preview shows a fact that changed.
+
 ## 0.5.0 (2026-10-22)
 
 Calmer sites by default. The skill:
