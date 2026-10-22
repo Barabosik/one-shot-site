@@ -23,7 +23,8 @@
 //   <!-- site:events h3 -->      upcoming events
 //   <!-- site:address -->        the postal address
 // A token whose value is missing stops the build and says which one, so nothing ships half-filled.
-// Events and closures that are over drop out at every build; SITE_TODAY=2026-11-01 builds the site as of that day.
+// Events and closures that are over drop out at every build (an event after its end day, or its start day without
+// an end); SITE_TODAY=2026-11-01 builds the site as of that day.
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
@@ -163,7 +164,9 @@ export function buildDay() {
   if (t && !/^\d{4}-\d{2}-\d{2}$/.test(t)) throw new Error(`SITE_TODAY: "${t}" is not a date like 2026-11-01`);
   return t || new Date().toISOString().slice(0, 10);
 }
-const upcoming = (list, key, today) => (list || []).filter((x) => (x[key] || x.from || x.start || '').slice(0, 10) >= today);
+// a closure counts until its last day (to, else from), an event until its end (a festival, a week-long show), else its
+// start: the first of them that is a date
+const upcoming = (list, key, today) => (list || []).filter((x) => ([x[key], x.from, x.start].find((v) => DATE.test(String(v || '').slice(0, 10))) || '').slice(0, 10) >= today);
 
 const num = (p) => Number(String(p).replace(',', '.'));
 // cents shown for every price in a list as soon as one price has cents, so the column lines up
@@ -264,7 +267,7 @@ export function block(site, name, arg, { lang = 'en', today = buildDay() } = {})
       `<div><dt>${esc(it.name)}</dt>${it.price !== undefined && it.price !== '' ? `<dd class="price">${it.from ? `${esc(word(site, 'from', FROM, lang))} ` : ''}${price(site, lang, it.price, cents)}</dd>` : ''}${it.note ? `<dd class="note">${esc(it.note)}</dd>` : ''}</div>`).join('')}</dl></section>`).join('')}</div>`;
   }
   if (name === 'events') {
-    const list = upcoming(site.events, 'start', today);
+    const list = upcoming(site.events, 'end', today);
     if (!list.length) return '';
     // Thu, 12 November 2026, 20:00 · The Lantern Rooms, Norwich · £14, doors and sold out when given
     const row = (e) => [
@@ -333,7 +336,7 @@ export function jsonld(site, today = buildDay()) {
     } : {}),
     hasMenu: FOOD.test(site.type) && site.menu?.length ?{ '@type': 'Menu', hasMenuSection: site.menu.map((s) => ({ '@type': 'MenuSection', name: s.section, hasMenuItem: (s.items || []).map((it) => ({ '@type': 'MenuItem', name: it.name, description: it.note, offers: it.price !== undefined && !Number.isNaN(Number(String(it.price).replace(',', '.'))) ? { '@type': 'Offer', price: String(it.price).replace(',', '.'), priceCurrency: site.currency || 'EUR' } : undefined })) })) } : undefined,
   };
-  const events = upcoming(site.events, 'start', today).map(event);
+  const events = upcoming(site.events, 'end', today).map(event);
   return events.length ? [clean(main), ...events.map((e) => clean({ '@context': 'https://schema.org', ...e }))] : clean(main);
 }
 
@@ -355,7 +358,7 @@ export function render(html, site, opts = {}) {
   // past events and closures are gone for tokens and site:if too, not only for the blocks: a "Next course"
   // wrapped in <!-- site:if events.0 --> goes when the course is over
   const today = () => opts.today || buildDay();
-  if (Array.isArray(local.events)) local.events = upcoming(local.events, 'start', today());
+  if (Array.isArray(local.events)) local.events = upcoming(local.events, 'end', today());
   if (Array.isArray(local.closed)) local.closed = upcoming(local.closed, 'to', today());
   const filled = (path) => { const v = value(local, path); return v != null && v !== '' && !(Array.isArray(v) && !v.length); };
   return html

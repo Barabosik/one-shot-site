@@ -172,6 +172,21 @@ test('past events and closures are gone for tokens and site:if, as for the block
   assert.throws(() => render('<p>Next: {{site.events.0.name}}</p>', site, { today: '2026-12-01' }), /no event at events\.0 any more: .* <!-- site:if events\.0 -->/, 'outside site:if the build says why');
 });
 
+// A three-day festival dropped out on its second day: it was counted as over from its start, not its end.
+test('an event with an end stays on the page, in the tokens and in the search data until that day is over', () => {
+  const fest = { ...site, closed: [], events: [{ name: 'Harbour Days', start: '2026-11-13T10:00', end: '2026-11-15T18:00' }, { name: 'One night', start: '2026-11-13T20:00', end: '22:00' }] };
+  const page = '<html lang="en"><!-- site:if events.0 -->Next: {{site.events.0.name}}<!-- site:end --> <!-- site:events h3 -->';
+  for (const day of ['2026-11-13', '2026-11-14', '2026-11-15']) {
+    const out = text(render(page, fest, { today: day }));
+    assert.match(out, /^Next: Harbour Days Harbour Days /, day);
+    assert.ok(jsonld(fest, day).some((j) => j.name === 'Harbour Days'), `in the search data on ${day}`);
+  }
+  assert.doesNotMatch(text(render(page, fest, { today: '2026-11-16' })), /Harbour Days/, 'gone the day after it ends');
+  // an end that is only a time ("22:00") is no day: the start counts
+  assert.match(text(render(page, fest, { today: '2026-11-13' })), /One night/);
+  assert.doesNotMatch(text(render(page, fest, { today: '2026-11-14' })), /One night/);
+});
+
 test('SITE_TODAY pins the day the build counts from', () => {
   const was = process.env.SITE_TODAY;
   try {
