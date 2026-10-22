@@ -35,6 +35,8 @@ from tablet width up it is no longer capped at 15 characters and splits into two
 
 **Fixed after the run:** the privacy page names GitHub Pages as the host, where the project page puts the example.
 With 0.5, the name keeps `translate="no"` in the header and the footer, so a translated page leaves it alone.
+The light and dark button now names the theme it switches to (it always said Dark, even on a dark page), and its
+half circle is drawn in SVG, so it stays whole when the page is zoomed.
 
 Source: [site/](site). Run `npm install && npm run dev` inside it. The facts (apps, numbers, booking) live in
 [site/site.json](site/site.json), and [site/EDITING.md](site/EDITING.md) is the owner's guide. Its `lint`, `look`

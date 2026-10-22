@@ -20,8 +20,7 @@
   font-size: var(--step--1); font-weight: 600;
   transition: background-color var(--t-hover) ease, color var(--t-hover) ease, transform var(--t-press) var(--ease-out);
 }
-.theme-toggle::before { content: ''; width: 0.9em; height: 0.9em; border: 2px solid currentColor; border-radius: 50%; background: linear-gradient(90deg, currentColor 50%, transparent 50%); }
-.theme-toggle[aria-pressed="true"] { background: var(--ink); color: var(--ground); }
+.theme-icon { width: 1em; height: 1em; flex: none; }
 .theme-toggle:active { transform: scale(0.97); }
 
 .button {
