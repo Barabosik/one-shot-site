@@ -5,6 +5,10 @@
 # Until then each run only builds the page, as a check, and says that Pages is off.
 # Once it is on, every push to main that changes docs/ or examples/ publishes the page again,
 # and Actions → Pages → Run workflow does it by hand.
+#
+# After a deploy that changed the page, it tells IndexNow (Bing, Yandex, Seznam, Naver, Yep) the page's address,
+# so they come and read it again; Google doesn't take part. The key is docs/site/public/<key>.txt, served beside the
+# page, so it covers this folder's addresses only. No account; a ping that fails never fails the deploy.
 name: Pages
 
 on:
@@ -28,6 +32,9 @@ jobs:
       pages: write
     outputs:
       publish: ${{ steps.check.outputs.publish }}
+      changed: ${{ steps.changed.outputs.changed }}
+      url: ${{ steps.changed.outputs.url }}
+      key: ${{ steps.changed.outputs.key }}
     steps:
       - name: Is Pages turned on?
         id: check
@@ -51,6 +58,20 @@ jobs:
         uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
       - name: Build the page and the example sites
         run: node docs/build.mjs _site ${{ steps.pages.outputs.base_url && format('--url {0}/', steps.pages.outputs.base_url) || '' }}
+      # the built page against the one online now, before this deploy replaces it
+      - name: Has the page changed?
+        id: changed
+        if: steps.check.outputs.publish == 'true'
+        continue-on-error: true
+        run: |
+          url=$(grep -o '<link rel="canonical" href="https://[^"]*"' _site/index.html | cut -d'"' -f4)
+          key=$(ls _site | grep -xE '[0-9a-f]{32}\.txt' | head -n 1 | cut -c1-32)
+          live=$(curl -fsSL --max-time 30 "$url" | sha256sum | cut -c1-64)
+          built=$(sha256sum < _site/index.html | cut -c1-64)
+          changed=false
+          if [ -n "$url" ] && [ -n "$key" ] && [ "$live" != "$built" ]; then changed=true; fi
+          { echo "url=$url"; echo "key=$key"; echo "changed=$changed"; } >> "$GITHUB_OUTPUT"
+          echo "page: ${url:-none (a draft)}, key file: ${key:-none}, changed: $changed"
       - if: steps.check.outputs.publish == 'true'
         uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
@@ -69,3 +90,15 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
+      # only the page's own address, only from this repository (a fork's deploy is its own business)
+      - name: Tell IndexNow the page changed
+        if: needs.build.outputs.changed == 'true' && github.repository == 'Barabosik/one-shot-site'
+        continue-on-error: true
+        timeout-minutes: 2
+        env:
+          URL: ${{ needs.build.outputs.url }}
+          KEY: ${{ needs.build.outputs.key }}
+        run: |
+          host=$(echo "$URL" | cut -d/ -f3)
+          body=$(printf '{"host":"%s","key":"%s","keyLocation":"%s%s.txt","urlList":["%s"]}' "$host" "$KEY" "$URL" "$KEY" "$URL")
+          curl -fsS --max-time 60 -X POST https://api.indexnow.org/indexnow -H 'Content-Type: application/json; charset=utf-8' -d "$body" -o /dev/null -w "IndexNow answered %{http_code} for $URL\n"
