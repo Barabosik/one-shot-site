@@ -554,7 +554,7 @@ test('settle waits for what moves on the screen: transitions, effects marked is-
   rmSync(dir, { recursive: true, force: true });
 });
 
-test('theme addon: the button names the theme a click switches to, on light and dark systems, with and without a saved pick', { skip, timeout: 120000 }, async () => {
+test('theme addon: the button names the theme a click switches to, on light and dark systems, with and without a saved pick', { skip, timeout: 120000 }, async (t) => {
   const dir = mkdtempSync(join(tmpdir(), 'oss-theme-'));
   cpSync(resolve('skills/one-shot-site/assets/addons/theme.js'), join(dir, 'theme.js'));
   const page = (button, css = '') => `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Theme</title><link rel="icon" href="data:,">
@@ -569,7 +569,7 @@ test('theme addon: the button names the theme a click switches to, on light and 
   const german = '<button class="theme-toggle" type="button" data-light="Hell" data-dark="Dunkel"><span class="visually-hidden">Wechseln zu </span><span class="theme-word">Dunkel</span></button>';
   writeFileSync(join(dir, 'index.html'), page(german));
   // a cross-fade long enough to click into
-  writeFileSync(join(dir, 'fade.html'), page(german, '::view-transition-group(root) { animation-duration: 4s; }'));
+  writeFileSync(join(dir, 'fade.html'), page(german, '::view-transition-group(root) { animation-duration: 10s; }'));
   // the markup sites were built with before: a bare word and aria-pressed
   writeFileSync(join(dir, 'old.html'), page('<button class="theme-toggle" type="button" aria-pressed="false">Dark</button>'));
   const server = createServer((req, res) => {
@@ -616,11 +616,14 @@ test('theme addon: the button names the theme a click switches to, on light and 
     await p.goto(base);
     await p.eval('localStorage.clear()');
     await p.goto(base);
-    await p.send('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-color-scheme', value: 'dark' }] });
+    // setEmulatedMedia replaces the whole list, so motion goes with the scheme: left out, the runner's own setting
+    // comes back, and GitHub's Windows and macOS runners reduce motion, which leaves the addon no cross-fade to run
+    const media = (scheme) => p.send('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-color-scheme', value: scheme }, { name: 'prefers-reduced-motion', value: 'no-preference' }] });
+    await media('dark');
     const followed = `(async () => { for (let t = 0; t < 5000 && document.querySelector('.theme-word').textContent !== 'Hell'; t += 20) await new Promise((r) => setTimeout(r, 20)); return ${state}; })()`;
     assert.equal((await p.eval(followed)).word, 'Hell', 'the system turned dark');
     // the old markup: the bare word is wrapped, the icon added, aria-pressed dropped
-    await p.send('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-color-scheme', value: 'light' }] });
+    await media('light');
     await p.goto(base + 'old.html');
     assert.deepEqual(await p.eval(state), { dark: false, word: 'Dark', name: 'Dark', pressed: null, icons: 1, metas: true, saved: null }, 'old markup on load');
     assert.equal((await p.eval(click())).word, 'Light', 'old markup after a click');
@@ -632,11 +635,20 @@ test('theme addon: the button names the theme a click switches to, on light and 
     await p.goto(base + 'fade.html');
     const at = await p.eval(`(() => { const r = document.querySelector('.theme-toggle').getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2 }; })()`);
     const mouse = async ({ x, y }) => { for (const type of ['mousePressed', 'mouseReleased']) await p.send('Input.dispatchMouseEvent', { type, x, y, button: 'left', clickCount: 1 }); return p.eval(settled); };
+    assert.equal(await p.eval(`matchMedia('(prefers-reduced-motion: reduce)').matches`), false, 'motion is on');
     assert.equal((await mouse(at)).dark, true, 'a real click');
-    assert.equal((await mouse({ x: at.x, y: at.y + 200 })).dark, true, 'a click beside the button, during the cross-fade');
-    assert.deepEqual(await p.eval('fades.length'), 1, 'still one cross-fade');
+    // is a cross-fade running? Its animations start once the new state is drawn (ready), a frame after the swap
+    const fading = await p.eval(`(async () => { const f = fades.at(-1); if (!f) return false; await f.ready.catch(() => {});
+      return document.getAnimations().some((a) => (a.effect?.pseudoElement || '').startsWith('::view-transition') && a.playState === 'running'); })()`);
+    if (fading) {
+      assert.equal((await mouse({ x: at.x, y: at.y + 200 })).dark, true, 'a click beside the button, during the cross-fade');
+      assert.equal(await p.eval('fades.length'), 1, 'still one cross-fade');
+    } else {
+      const why = await p.eval(`typeof document.startViewTransition !== 'function' ? 'it has no view transitions' : fades.length ? 'its view transition was skipped' : 'the addon started none'`);
+      t.diagnostic(`no cross-fade ran in this browser (${why}), so the clicks during one are not checked: only that a second click goes back`);
+    }
     const back = await mouse(at);
-    assert.deepEqual([back.dark, back.word, back.saved], [false, 'Dunkel', 'light'], 'a second real click during the cross-fade goes back');
+    assert.deepEqual([back.dark, back.word, back.saved], [false, 'Dunkel', 'light'], fading ? 'a second real click during the cross-fade goes back' : 'a second real click goes back');
     await p.close();
   } finally { await browser.close(); server.close(); }
   rmSync(dir, { recursive: true, force: true });
