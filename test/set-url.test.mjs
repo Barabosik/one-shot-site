@@ -123,3 +123,24 @@ test('set-url stops on a canonical that is not an address, and on a linked publi
     assert.equal(readFileSync(join(site, 'index.html'), 'utf8'), fresh);
   } finally { rmSync(dir, { recursive: true, force: true }); }
 });
+
+// The starter's 404 page linked home with href="/" and its icon with "/favicon.svg": on a GitHub project page
+// (user.github.io/NAME/) both pointed at user.github.io/, outside the site. Hosts serve it at any depth, so it
+// links by the full address, which set-url fills in, and moves with it.
+test('the starter 404 page links home and to its icon by the address set-url gives, also under a path', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'oss-url-404-'));
+  try {
+    mkdirSync(join(dir, 'public'));
+    writeFileSync(join(dir, 'index.html'), '<link rel="canonical" href="{{URL}}">');
+    const page = resolve('skills/one-shot-site/assets/starter/public/404.html');
+    writeFileSync(join(dir, 'public/404.html'), readFileSync(page, 'utf8'));
+    assert.doesNotMatch(readFileSync(page, 'utf8'), /href="\/(?!\/)/, 'no root-relative link in the starter 404');
+    assert.equal(run(dir, 'https://owner.github.io/kleiner-kaffee/').status, 0);
+    const out = readFileSync(join(dir, 'public/404.html'), 'utf8');
+    assert.match(out, /<link rel="icon" href="https:\/\/owner\.github\.io\/kleiner-kaffee\/favicon\.svg"/);
+    assert.match(out, /<a href="https:\/\/owner\.github\.io\/kleiner-kaffee\/">/);
+    assert.doesNotMatch(out, /\{\{URL\}\}/);
+    assert.equal(run(dir, 'https://kleiner-kaffee.example/').status, 0);
+    assert.match(readFileSync(join(dir, 'public/404.html'), 'utf8'), /<a href="https:\/\/kleiner-kaffee\.example\/">/, 'and moves with the address');
+  } finally { rmSync(dir, { recursive: true, force: true }); }
+});

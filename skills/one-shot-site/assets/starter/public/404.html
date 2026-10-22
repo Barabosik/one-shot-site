@@ -5,8 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex">
   <title>Page not found · {{NAME}}</title>
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <!-- Self-contained on purpose: hosts serve this file as-is for any missing path. Match the site's colours. -->
+  <link rel="icon" href="{{URL}}favicon.svg" type="image/svg+xml">
+  <!-- Self-contained on purpose: hosts serve this file as-is for any missing path, at any depth. Match the site's
+       colours. It links home by the full address, so it works under a GitHub project page's /NAME/ too
+       (new-site.mjs --url or set-url.mjs fills in the address). -->
   <style>
     :root { --ground: oklch(98.5% 0.008 41.9); --ink: oklch(20% 0.015 41.9); --accent: oklch(54.2% 0.137 41.9); color-scheme: light; }
     body { margin: 0; min-height: 100svh; display: grid; place-content: center; padding: 1.5rem; background: var(--ground); color: var(--ink); font: 1.1rem/1.5 system-ui, sans-serif; }
@@ -18,7 +20,7 @@
 <body>
   <main>
     <h1>Nothing here.</h1>
-    <p>The page may have moved. <a href="/">Go to the home page</a>.</p>
+    <p>The page may have moved. <a href="{{URL}}">Go to the home page</a>.</p>
   </main>
 </body>
 </html>

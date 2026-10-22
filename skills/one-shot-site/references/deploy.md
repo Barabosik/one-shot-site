@@ -47,7 +47,8 @@ same step on github.com for someone without `gh`.
    `href="%BASE_URL%page.html"` (home: `href="%BASE_URL%"`), never `href="/page.html"`. The footer links to
    `impressum.html` and `datenschutz.html` that `--legal de` adds are written that way already. #anchors on the
    same page need nothing.
-   `public/404.html` is copied as it is, so its root-relative links need the prefix written in (`/NAME/`).
+   `public/404.html` is copied as it is: it links home and to its icon by the full address (`{{URL}}`, which
+   set-url.mjs fills in), so it needs no prefix. A link added to it by hand needs the full address too.
 5. Commit and push. Watch the run in the repo's Actions tab (or `gh run watch`). Live in about a minute.
 
 **Without Actions (built locally, pushed to a branch):** build with the base first, `BASE=/NAME/ npm run build`

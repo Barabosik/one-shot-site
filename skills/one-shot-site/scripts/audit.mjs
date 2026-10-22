@@ -143,7 +143,9 @@ try {
     firstLoad.set(path, { bytes, js, css, fonts });
     // other servers the page talks to before anyone clicks (fonts, maps, video, trackers)
     f.thirdParty = [...new Set([...page.bytes.keys()].filter((u) => /^https?:/.test(u) && !u.startsWith(site.url)).map((u) => new URL(u).host))];
-    for (const p of page.problems) if (!(path.endsWith('404.html') && p.kind === 'http')) findings.push(problem(p, path));
+    // the 404 page answers with 404 by design, and it links home and to its icon by the live address (hosts serve it
+    // at any depth), which this local copy can't reach before the first publish: its requests are not judged here
+    for (const p of page.problems) if (!(path.endsWith('404.html') && (p.kind === 'http' || p.kind === 'network'))) findings.push(problem(p, path));
 
     // keyboard: the first few Tab presses must land somewhere visible, with a visible ring
     if (!path.endsWith('404.html')) {

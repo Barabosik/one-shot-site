@@ -353,6 +353,10 @@ test('a fresh starter site, filled in, passes its own audit', { skip, timeout: 6
   const built = readFileSync(join(site, 'dist/index.html'), 'utf8');
   assert.match(built, /class="wordmark" href="\/test-bakery\/"/);
   assert.match(built, /src="\/test-bakery\/assets\//);
+  // the 404 page is copied as it is: it links home and to its icon by the full address, not by "/"
+  const lost = readFileSync(join(site, 'dist/404.html'), 'utf8');
+  assert.match(lost, /<link rel="icon" href="https:\/\/test-bakery\.example\/favicon\.svg"/);
+  assert.match(lost, /<a href="https:\/\/test-bakery\.example\/">/);
   rmSync(root, { recursive: true, force: true });
 });
 
