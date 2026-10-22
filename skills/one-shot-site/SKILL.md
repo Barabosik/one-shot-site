@@ -384,11 +384,14 @@ to step 11, which asks where it lives; there's no "Publish this?" and no `EDITIN
 
 ### 11. Ship
 
-Read [references/deploy.md](references/deploy.md). Ask where it should live, with these choices: GitHub Pages
-(free, recommended when they have GitHub) · Vercel · Netlify · Cloudflare · their own domain on one of these ·
-"just give me the folder". Once the address is known, `node SKILL_DIR/scripts/set-url.mjs . https://…/` (an http
-or https address, nothing else) puts it in every page, robots.txt and sitemap.xml (it writes no sitemap when the
-folder has no `public/`); rebuild and run the audit without `--draft`. Ask before anything that pushes, publishes
+Read [references/deploy.md](references/deploy.md). Ask where it should live, in one question with four choices:
+"Cloudflare or Netlify" (free, and their free plans allow a business) · GitHub Pages (free) · their own domain ·
+"just give me the folder". Mark one recommended and put it first: Cloudflare or Netlify for a business, GitHub
+Pages for a person, a project or a club with GitHub. "Cloudflare or Netlify" and "their own domain" get one
+follow-up: which of the two, or which host the domain goes on. Vercel only when they ask, and only for a personal
+site: its free plan is non-commercial. Once the address is known, `node SKILL_DIR/scripts/set-url.mjs . https://…/`
+(an http or https address, nothing else) puts it in every page, robots.txt and sitemap.xml (it writes no sitemap
+when the folder has no `public/`); rebuild and run the audit without `--draft`. Ask before anything that pushes, publishes
 or needs their login. They log in themselves; never handle passwords or tokens for them. Before the first push to
 a public repository, check that every commit carries the email agreed in step 3 (`git log --format=%ae` lists
 them). If an earlier one has another, set the right one and rewrite them before pushing:

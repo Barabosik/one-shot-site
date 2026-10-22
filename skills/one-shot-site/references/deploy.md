@@ -1,17 +1,18 @@
 # Putting it online
 
-Ask where it should live (multiple choice), explain the choice in one line each, and ask before anything that
-pushes code, publishes or needs their account. The person logs in themselves. Never ask for or type passwords or
-tokens. Run any `publish.mjs` command with `--dry` first and show the person where it will publish (the repository
+Ask where it should live (one question, four choices: SKILL.md step 11), explain the choice in one line each, and
+match it to the site: a business goes on Cloudflare or Netlify, whose free plans allow commercial use. Ask before
+anything that pushes code, publishes or needs their account. The person logs in themselves. Never ask for or type
+passwords or tokens. Run any `publish.mjs` command with `--dry` first and show the person where it will publish (the repository
 and branch, or the host). For a GitHub branch the dry run ends with "Dry run: nothing was pushed." and "It would be
 live at: <url>". Run it for real only after they say yes.
 
 | Choice | Address | Cost | Needs |
 |---|---|---|---|
-| GitHub Pages (recommended if they have GitHub) | `name.github.io` or `name.github.io/site` | free | a GitHub account, `gh` CLI helps |
-| Vercel | `site.vercel.app` | free for personal sites | a Vercel account (browser login once) |
-| Netlify | `site.netlify.app` | free tier | a Netlify account (browser login once) |
-| Cloudflare | `site.<account>.workers.dev` | free tier | a Cloudflare account (browser login once) |
+| Cloudflare (recommended for a business) | `site.<account>.workers.dev` | free plan; a business may use it | a Cloudflare account (browser login once) |
+| Netlify (the same) | `site.netlify.app` | free plan; a business may use it | a Netlify account (browser login once) |
+| GitHub Pages (recommended for a person, a project or a club with GitHub) | `name.github.io` or `name.github.io/site` | free; GitHub's terms rule out running an online business, a shop or payments on it | a GitHub account, `gh` CLI helps |
+| Vercel (only when they ask, for a personal site) | `site.vercel.app` | free for personal, non-commercial sites only; a business needs the paid plan | a Vercel account (browser login once) |
 | Their own domain | `rosasbakery.de` | the domain's yearly fee | one of the above + access to the domain's DNS |
 | Just the folder | — | — | nothing: hand over `dist/` and the repo |
 
