@@ -37,12 +37,21 @@ Calmer sites by default. The skill:
   `translate="no"` (`translate-name`), so a translated page doesn't turn "Kleiner Kaffee" into "Small coffee", and
   that email, phone, name and postcode fields have their type, autocomplete, inputmode, spellcheck and a label
   (`form-field`). The starter and the legal pages do both.
+- **The theme button says where it goes.** The theme addon's button names the theme a click switches to ("Dark"
+  on a light page, "Light" on a dark one) and draws its half circle as an SVG that stays whole at any zoom. A
+  click that lands while the cross-fade runs still counts; before, a second click during the fade was lost.
+  `references/extras.md` and `checks.md` say how to write the button.
+- **Fewer false alarms and stalls.** `look` and `audit` no longer report a collide for the hidden text of a closed
+  `<details>`. The browser gets 45 s to start, then one more try with a fresh profile
+  (`ONE_SHOT_BROWSER_START` sets a longer wait for a slow machine). Waits for the screen to settle, a scroll step
+  and pictures to decode no longer hang when frames come seconds apart.
 
 The examples:
 
 - Kleiner Kaffee is made with 0.5, from the same answers: the drum roaster drawn beside the headline, on cream,
   in roast brown.
-- The other five keep the version that made them; their names now carry `translate="no"`.
+- The other five keep the version that made them; their names now carry `translate="no"`. Jonas Weber's theme
+  button got the fix above after its run.
 
 ## 0.4.0 (not released on its own; it ships in 0.5.0)
 
