@@ -103,6 +103,22 @@ export async function launch({ headed = false } = {}) {
       try { if (d.startsWith('oss-chrome-') && Date.now() - statSync(old).mtimeMs > 3 * 36e5) rmSync(old, { recursive: true, force: true }); } catch {}
     }
   } catch {}
+  // A start that hangs (a first start after boot, a virus scanner reading Chrome's files, a busy CI machine) gets one
+  // more try with a fresh profile; one that fails outright does not.
+  let b;
+  for (let tries = 1; !b; tries++) {
+    try { b = await start(exe, { headed, ask, tries }); } catch (err) { if (!err.slow || tries === 2) throw err; }
+  }
+  // a link that sends a file (an old site's download.php) must not drop it in the person's Downloads folder
+  await b.send('Browser.setDownloadBehavior', { behavior: 'deny' }).catch(() => {});
+  return b;
+}
+
+// How long one start may take: 45 s, which a slow laptop's first start can need. ONE_SHOT_BROWSER_START (seconds)
+// gives a slower machine longer.
+const startMs = () => (Number(env.ONE_SHOT_BROWSER_START) > 0 ? Number(env.ONE_SHOT_BROWSER_START) * 1000 : 45000);
+
+async function start(exe, { headed, ask, tries }) {
   const profile = mkdtempSync(join(tmpdir(), 'oss-chrome-'));
   appLinkPrefs(profile);
   const args = [
@@ -127,7 +143,8 @@ export async function launch({ headed = false } = {}) {
     let buf = '';
     // the last lines Chrome printed ("No usable sandbox", "error while loading shared libraries"…) say why
     const said = () => { const l = buf.trim().split(/\r?\n/).slice(-3).join(' | ').slice(0, 300); return l ? ` It printed: ${l}` : ''; };
-    const t = setTimeout(() => reject(new Error(`The browser did not start within 20 s.${said()}`)), 20000);
+    const ms = startMs();
+    const t = setTimeout(() => reject(Object.assign(new Error(`The browser did not start within ${ms / 1000} s${tries > 1 ? ', twice' : ''}.${said()} On a slow machine, give it longer: ONE_SHOT_BROWSER_START=120 (seconds).`), { slow: true })), ms);
     proc.stderr.on('data', (d) => {
       buf += d;
       const m = buf.match(/DevTools listening on (ws:\/\/\S+)/);
@@ -143,8 +160,6 @@ export async function launch({ headed = false } = {}) {
   });
   const b = new Browser(proc, profile, entry);
   await b.connect(wsUrl);
-  // a link that sends a file (an old site's download.php) must not drop it in the person's Downloads folder
-  await b.send('Browser.setDownloadBehavior', { behavior: 'deny' }).catch(() => {});
   return b;
 }
 

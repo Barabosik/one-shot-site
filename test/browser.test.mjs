@@ -51,6 +51,8 @@ test('look honours .one-shot/allow.json, as audit does', { skip, timeout: 240000
         <h1>Pale words</h1><p style="color:#c8c8c8">Pale grey text that nobody can read on white.</p></main></body></html>`);
     const look = () => {
       const r = node([join(SCRIPTS, 'look.mjs'), dir, '--widths', '390', '--frames', '1', '--out', join(dir, 'out')]);
+      // a run that stopped (the browser did not start) says why, not "ENOENT report.json"
+      assert.ok(existsSync(join(dir, 'out/report.json')), r.stdout + r.stderr);
       return { r, out: r.stdout + r.stderr, report: JSON.parse(readFileSync(join(dir, 'out/report.json'), 'utf8')) };
     };
     const before = look();
@@ -85,6 +87,21 @@ test('look --numbers labels blocks and their parts, and the labels cause no faul
   const md = readFileSync(join(dir, 'out/numbers.md'), 'utf8');
   for (const want of ['**1** header.site-header', '**2** section.hero: Bread at seven', '**2a** h1', '**2b** a.button: Find us', '**3** section#visit: Visit', '**4** footer']) assert.ok(md.includes(want), `missing ${want} in\n${md}`);
   rmSync(dir, { recursive: true, force: true });
+});
+
+// Windows on CI once took over 20 s to start the browser, and every check after it stopped. A start that hangs gets
+// one more try with a fresh profile; then the message says how long it waited and how to give a slow machine longer.
+test('a browser that does not start in time is tried twice, then named with the way to give it longer', { skip, timeout: 120000 }, () => {
+  const dir = mkdtempSync(join(tmpdir(), 'oss-start-'));
+  const tmp = join(dir, 'tmp'); // the killed starts' profiles land here, not in the real temp folder
+  mkdirSync(tmp);
+  try {
+    writeFileSync(join(dir, 'index.html'), '<!doctype html><html lang="en"><meta charset="utf-8"><title>Start</title><p>x</p></html>');
+    const r = spawnSync(process.execPath, [join(SCRIPTS, 'look.mjs'), dir, '--widths', '390', '--out', join(dir, 'out')],
+      { encoding: 'utf8', timeout: 100000, env: { ...process.env, ONE_SHOT_BROWSER_START: '0.01', TEMP: tmp, TMP: tmp, TMPDIR: tmp } });
+    assert.equal(r.status, 2, r.stdout + r.stderr);
+    assert.match(r.stderr, /The browser did not start within 0\.01 s, twice\..* On a slow machine, give it longer: ONE_SHOT_BROWSER_START=120 \(seconds\)\./);
+  } finally { rmSync(dir, { recursive: true, force: true, maxRetries: 10, retryDelay: 300 }); }
 });
 
 test('film records motion: slow headline, endless loop, layout shift, a canvas drawing off screen, and moves left on with reduced motion', { skip, timeout: 240000 }, () => {
